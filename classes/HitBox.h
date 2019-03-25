@@ -5,12 +5,14 @@
 class HitBox
 {
 private:
+	//hitbox种类[square/circle]
+	enum category_list{square, circle};
+
 	//Hitbox 中心坐标
 	int center_x;
 	int center_y;
 
-	//hitbox种类[square/circle]
-	std::string hitbox_category;
+	category_list category;
 
 public:
 	HitBox();
@@ -20,7 +22,7 @@ public:
 	 * 选择对应的判定方法
 	 * 击中返回true,否则返回false
 	 * */
-	bool hit(std::string weapon_category);
+	bool hit();
 
     bool square_hitbox_hit_by_bullet();
 

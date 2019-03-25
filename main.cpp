@@ -1,21 +1,23 @@
 #include <iostream>
+#include "classes/Window.h"
 #include "SDL2/SDL.h"
 
 int main(int argc, char *args[])
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
-	{
-		std::cout << SDL_GetError() << std::endl;
-	}
+    if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+    {
+        std::cout << SDL_GetError() << std::endl;
+    }
 
-	SDL_Window* main_window = SDL_CreateWindow("Plane Battle", 
-		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-		1280, 720,
-		SDL_WINDOW_SHOWN);
+    Window main_window(1280, 720);
+    main_window.create_window("Plane Battle");
+    main_window.create_renderer();
+    SDL_Texture* back = main_window.load_picture("background.png");
+    main_window.show_image(back, 0, 0);
+    SDL_RenderPresent(main_window.get_renderer());
 
-	SDL_Delay(5000);
-	SDL_DestroyWindow(main_window);
+    SDL_Delay(2000);
 
-	SDL_Quit();
-	return 0;
+    SDL_Quit();
+    return 0;
 }
