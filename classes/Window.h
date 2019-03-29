@@ -37,6 +37,7 @@ public:
 
     //œ‘ æÕº∆¨
     void show_image(SDL_Texture *texture, int x, int y);
+    void show_image(SDL_Texture *texture, int x, int y, int w, int h);
 
     SDL_Window *get_window()
     {
@@ -52,6 +53,8 @@ public:
     {
         return textures[index];
     }
+
+    ~Window();
 };
 
 

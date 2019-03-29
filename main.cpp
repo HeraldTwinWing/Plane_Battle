@@ -1,6 +1,4 @@
-#include <iostream>
 #include "classes/Window.h"
-#include "SDL2/SDL.h"
 
 int main(int argc, char *args[])
 {
@@ -13,10 +11,21 @@ int main(int argc, char *args[])
     main_window.create_window("Plane Battle");
     main_window.create_renderer();
     SDL_Texture* back = main_window.load_picture("background.png");
-    main_window.show_image(back, 0, 0);
+    main_window.show_image(back, 0, 0, 1920, 720);
     SDL_RenderPresent(main_window.get_renderer());
 
-    SDL_Delay(2000);
+    bool quit = false;
+    SDL_Event event;
+    while (!quit)
+    {
+        while(SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+            {
+                quit = true;
+            }
+        }
+    }
 
     SDL_Quit();
     return 0;

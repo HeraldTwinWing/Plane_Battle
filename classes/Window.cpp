@@ -67,6 +67,29 @@ void Window::show_image(SDL_Texture *texture, int x, int y)
     SDL_RenderCopy(renderer, texture, nullptr, &position);
 }
 
+void Window::show_image(SDL_Texture *texture, int x, int y, int w, int h)
+{
+    SDL_Rect position;
+    position.x = x;
+    position.y = y;
+    position.w = w;
+    position.h = h;
+
+    SDL_RenderCopy(renderer, texture, nullptr, &position);
+}
+
+Window::~Window()
+{
+    SDL_DestroyRenderer(renderer);
+    for (SDL_Texture *texture: textures)
+    {
+        SDL_DestroyTexture(texture);
+    }
+    SDL_DestroyWindow(window);
+}
+
+
+
 
 
 
