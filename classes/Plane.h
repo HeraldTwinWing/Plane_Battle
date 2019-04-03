@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include "HitBox.h"
+#include "Weapon.h"
 
 class Plane
 {
@@ -13,7 +14,7 @@ private:
 	int speed;
 
 	//武器种类
-	std::string weapon_category;
+	Weapon weapon;
 
 	//击中判定点
 	HitBox hitboxs;
