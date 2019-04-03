@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
+#include "SDL2/SDL.h"
 #include "HitBox.h"
+#include "Weapon.h"
 
 class Plane
 {
@@ -13,7 +15,7 @@ private:
 	int speed;
 
 	//武器种类
-	std::string weapon_category;
+	Weapon weapon;
 
 	//击中判定点
 	HitBox hitboxs;
@@ -22,8 +24,12 @@ private:
 	int coordinate_x;
 	int coordinate_y;
 
+	std::string texture_name;
 public:
-	Plane();
+	Plane(int max_health, int speed, HitBox hitbox, int coordinate_x, int coordinate_y, std::string texture_name);
+	Plane(int max_health, int speed, HitBox hitbox, std::string texture_name);
+	Plane(Plane &plane);
+
 	//生成单位
 	void spawn();
 
@@ -31,7 +37,7 @@ public:
 	 * 该方法输入移动方向(按键)
 	 * 根据速度控制飞船坐标向该方向改变
 	 * */
-	void move(int direction);
+	void move(SDL_Event &key);
 
 	/*受到伤害
 	 * 输入伤害量，扣除相应量的生命值

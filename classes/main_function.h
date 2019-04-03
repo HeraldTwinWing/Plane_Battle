@@ -6,12 +6,5 @@
 #define PLANE_BATTLE_MAIN_FUNCTION_H
 
 
-class main_function
-{
-
-};
-
-
-
 
 #endif //PLANE_BATTLE_MAIN_FUNCTION_H
