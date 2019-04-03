@@ -22,7 +22,7 @@ public:
 	 * 选择对应的判定方法
 	 * 击中返回true,否则返回false
 	 * */
-	bool hit();
+	bool hit(std::string weapon_category);
 
     bool square_hitbox_hit_by_bullet();
 

@@ -16,7 +16,7 @@ SDL_Window *Window::create_window(const std::string &title)
     window = SDL_CreateWindow(title.c_str(),
                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               window_width, window_height, SDL_WINDOW_SHOWN);
-    if (window == nullptr)
+    if ( window == nullptr )
     {
         std::cout << SDL_GetError() << std::endl;
         return nullptr;
@@ -28,7 +28,7 @@ SDL_Window *Window::create_window(const std::string &title)
 SDL_Renderer *Window::create_renderer()
 {
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == nullptr)
+    if ( renderer == nullptr )
     {
         std::cout << SDL_GetError() << std::endl;
         return nullptr;
@@ -44,7 +44,7 @@ SDL_Texture *Window::load_picture(const std::string &filename)
     SDL_Texture *texture = nullptr;
 
     loaded_image = IMG_Load(path.c_str());
-    if (loaded_image == nullptr)
+    if ( loaded_image == nullptr )
     {
         std::cout << SDL_GetError() << std::endl;
         return nullptr;
@@ -55,6 +55,11 @@ SDL_Texture *Window::load_picture(const std::string &filename)
     SDL_FreeSurface(loaded_image);
 
     return texture;
+}
+
+void Window::show_image(SDL_Texture *texture, SDL_Rect pos)
+{
+    SDL_RenderCopy(renderer, texture, nullptr, &pos);
 }
 
 void Window::show_image(SDL_Texture *texture, int x, int y)
@@ -81,7 +86,7 @@ void Window::show_image(SDL_Texture *texture, int x, int y, int w, int h)
 Window::~Window()
 {
     SDL_DestroyRenderer(renderer);
-    for (SDL_Texture *texture: textures)
+    for ( SDL_Texture *texture: textures )
     {
         SDL_DestroyTexture(texture);
     }
@@ -95,7 +100,7 @@ SDL_Texture *load_picture(const std::string &filename, SDL_Renderer *target_rend
     SDL_Texture *texture = nullptr;
 
     loaded_image = IMG_Load(path.c_str());
-    if (loaded_image == nullptr)
+    if ( loaded_image == nullptr )
     {
         std::cout << SDL_GetError() << std::endl;
         return nullptr;

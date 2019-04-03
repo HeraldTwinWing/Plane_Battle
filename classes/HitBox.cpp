@@ -6,10 +6,7 @@ HitBox::HitBox()
 {
 }
 
-bool HitBox::hit()
-{
-	return false;
-}
+
 
 
 HitBox::~HitBox()
