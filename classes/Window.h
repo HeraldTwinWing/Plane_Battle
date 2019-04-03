@@ -57,5 +57,7 @@ public:
     ~Window();
 };
 
+SDL_Texture *load_picture(const std::string &filename, SDL_Renderer *target_renderer);
+
 
 #endif //PLANE_BATTLE_SCREEN_H

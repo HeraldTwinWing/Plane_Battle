@@ -88,7 +88,24 @@ Window::~Window()
     SDL_DestroyWindow(window);
 }
 
+SDL_Texture *load_picture(const std::string &filename, SDL_Renderer *target_renderer)
+{
+    std::string path = "../pictures/" + filename;
+    SDL_Surface *loaded_image = nullptr;
+    SDL_Texture *texture = nullptr;
 
+    loaded_image = IMG_Load(path.c_str());
+    if (loaded_image == nullptr)
+    {
+        std::cout << SDL_GetError() << std::endl;
+        return nullptr;
+    }
+    texture = SDL_CreateTextureFromSurface(target_renderer, loaded_image);
+
+    SDL_FreeSurface(loaded_image);
+
+    return texture;
+}
 
 
 

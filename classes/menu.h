@@ -15,7 +15,6 @@ private:
     SDL_Renderer *target_renderer = nullptr;
 
 
-
 public:
     menu(Window &target_window)
     {
