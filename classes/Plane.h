@@ -16,7 +16,8 @@ private:
 
     //移动速度
     int speed;
-    bool moving = false;
+    //上下左右的移动状态
+    bool moving[4] = {false, false, false, false};
 
     //武器种类
     Weapon weapon;
@@ -47,7 +48,7 @@ public:
      * 该方法输入移动方向(按键)
      * 根据速度控制飞船坐标向该方向改变
      * */
-    void move(SDL_Event &key);
+    void move();
 
     /*受到伤害
      * 输入伤害量，扣除相应量的生命值
@@ -69,8 +70,5 @@ public:
     //包括贴图位置与hitbox位置
     void refresh();
 
-    void set_moving(bool move)
-    {
-        this->moving = move;
-    }
+    void set_moving(SDL_Event event);
 };

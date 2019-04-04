@@ -46,27 +46,25 @@ void Plane::spawn()
     SDL_RenderCopy(target_renderer, texture, nullptr, &position);
 }
 
-void Plane::move(SDL_Event &key)
+void Plane::move()
 {
-    if (moving == true)
+    if ( moving[0] && position.y >= 0 )
     {
-        if (key.key.keysym.sym == SDLK_UP)
-        {
-            position.y -= speed;
-        }
-        if (key.key.keysym.sym == SDLK_DOWN)
-        {
-            position.y += speed;
-        }
-        if (key.key.keysym.sym == SDLK_RIGHT)
-        {
-            position.x += speed;
-        }
-        if (key.key.keysym.sym == SDLK_LEFT)
-        {
-            position.x -= speed;
-        }
+        position.y -= speed;
     }
+    if ( moving[1] && position.y <= 520 )
+    {
+        position.y += speed;
+    }
+    if ( moving[2] && position.x >= 0 )
+    {
+        position.x -= speed;
+    }
+    if ( moving[3] && position.x <= 1080 )
+    {
+        position.x += speed;
+    }
+
     refresh();
 }
 
@@ -84,6 +82,52 @@ void Plane::refresh()
     hitbox->set_y(position.y);
 
     SDL_RenderCopy(target_renderer, texture, nullptr, &position);
+}
+
+void Plane::set_moving(SDL_Event event)
+{
+    if ( event.type == SDL_KEYDOWN )
+    {
+        switch (event.key.keysym.sym)
+        {
+            case SDLK_UP:
+                moving[0] = true;
+                moving[1] = false;
+                break;
+            case SDLK_DOWN:
+                moving[1] = true;
+                moving[0] = false;
+                break;
+            case SDLK_LEFT:
+                moving[2] = true;
+                moving[3] = false;
+                break;
+            case SDLK_RIGHT:
+                moving[3] = true;
+                moving[2] = false;
+                break;
+            default:break;
+        }
+    }
+    else if (event.type == SDL_KEYUP)
+    {
+        switch (event.key.keysym.sym)
+        {
+            case SDLK_UP:
+                moving[0] = false;
+                break;
+            case SDLK_DOWN:
+                moving[1] = false;
+                break;
+            case SDLK_LEFT:
+                moving[2] = false;
+                break;
+            case SDLK_RIGHT:
+                moving[3] = false;
+                break;
+            default:break;
+        }
+    }
 }
 
 

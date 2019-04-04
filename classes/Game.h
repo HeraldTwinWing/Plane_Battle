@@ -46,8 +46,7 @@ private:
     //己方飞机
     Plane *my_plane;
 
-    //用于遍历渲染器
-    std::vector<SDL_Renderer *> renderers;
+//    std::vector<Enemy> enemys;
 };
 
 
