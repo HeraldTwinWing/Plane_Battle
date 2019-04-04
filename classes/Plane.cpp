@@ -43,30 +43,30 @@ bool Plane::damage(int damage_amount)
 
 void Plane::spawn()
 {
-    SDL_RenderClear(target_renderer);
     SDL_RenderCopy(target_renderer, texture, nullptr, &position);
-    SDL_RenderPresent(target_renderer);
 }
 
 void Plane::move(SDL_Event &key)
 {
-    if (key.key.keysym.sym == SDLK_UP)
+    if (moving == true)
     {
-        position.y -= speed;
+        if (key.key.keysym.sym == SDLK_UP)
+        {
+            position.y -= speed;
+        }
+        if (key.key.keysym.sym == SDLK_DOWN)
+        {
+            position.y += speed;
+        }
+        if (key.key.keysym.sym == SDLK_RIGHT)
+        {
+            position.x += speed;
+        }
+        if (key.key.keysym.sym == SDLK_LEFT)
+        {
+            position.x -= speed;
+        }
     }
-    if (key.key.keysym.sym == SDLK_DOWN)
-    {
-        position.y += speed;
-    }
-    if (key.key.keysym.sym == SDLK_RIGHT)
-    {
-        position.x += speed;
-    }
-    if (key.key.keysym.sym == SDLK_LEFT)
-    {
-        position.x -= speed;
-    }
-
     refresh();
 }
 

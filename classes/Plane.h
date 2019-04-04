@@ -16,6 +16,7 @@ private:
 
     //移动速度
     int speed;
+    bool moving = false;
 
     //武器种类
     Weapon weapon;
@@ -68,5 +69,8 @@ public:
     //包括贴图位置与hitbox位置
     void refresh();
 
-
+    void set_moving(bool move)
+    {
+        this->moving = move;
+    }
 };

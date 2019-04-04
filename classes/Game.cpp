@@ -25,13 +25,14 @@ Game::Game()
 
 //    SDL_Renderer *my_plane_renderer = main_window->create_renderer(false);
 //    renderers.push_back(my_plane_renderer);
-    my_plane = new Plane(1000, 10, new HitBox("square"), 200, SDL_WINDOWPOS_CENTERED,
+    my_plane = new Plane(1000, 5, new HitBox("square"), 200, 360,
                          "default_ship.png", main_window->get_renderer());
     my_plane->spawn();
 }
 
 Game::~Game()
 {
+    delete main_window;
     SDL_Quit();
 }
 
@@ -52,9 +53,24 @@ void Game::OnThink()
     {
         if (event.type == SDL_QUIT)
             running = false;
-        if (event.type == SDL_KEYDOWN)
-            my_plane->move(event);
 
+        if (event.type == SDL_KEYDOWN)
+        {
+            if (event.key.keysym.sym == SDLK_UP ||
+                event.key.keysym.sym == SDLK_DOWN ||
+                event.key.keysym.sym == SDLK_LEFT ||
+                event.key.keysym.sym == SDLK_RIGHT)
+                my_plane->set_moving(true);
+        }
+
+        if (event.type == SDL_KEYUP)
+        {
+            if (event.key.keysym.sym == SDLK_UP ||
+                event.key.keysym.sym == SDLK_DOWN ||
+                event.key.keysym.sym == SDLK_LEFT ||
+                event.key.keysym.sym == SDLK_RIGHT)
+                my_plane->set_moving(false);
+        }
         if (SDL_GetTicks() - frame_time > 0.016)
         {
             break;
@@ -67,6 +83,8 @@ void Game::OnUpdate()
     lastTime = thisTime;
     thisTime = SDL_GetTicks();
     deltaTime = (thisTime - lastTime) / 1000.0;
+
+    my_plane->move(event);
 
     SDL_RenderClear(main_window->get_renderer());
     main_window->background_move(thisTime);

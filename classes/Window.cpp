@@ -114,7 +114,9 @@ Window::~Window()
     for (SDL_Texture *texture: textures)
     {
         SDL_DestroyTexture(texture);
+        SDL_DestroyTexture(background);
     }
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 }
 
