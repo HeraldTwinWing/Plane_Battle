@@ -21,21 +21,21 @@ private:
     Weapon weapon;
 
     //击中判定点
-    HitBox hitboxs;
+    HitBox *hitbox;
 
-    //坐标
-    int coordinate_x;
-    int coordinate_y;
+    //坐标与大小
+    SDL_Rect position;
 
     SDL_Texture *texture = nullptr;
 
-    Window *target_window = nullptr;
+    //飞机所在的渲染器[图层]
+    SDL_Renderer *target_renderer = nullptr;
 public:
-    Plane(int max_health, int speed, HitBox &hitbox, int coordinate_x, int coordinate_y,
-          const std::string &texture_name, Window &target_window);
+    Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
+          const std::string &texture_name, SDL_Renderer *target_renderer);
 
-    Plane(int max_health, int speed, HitBox &hitbox,
-          const std::string &texture_name, Window &target_window);
+    Plane(int max_health, int speed, HitBox *hitbox,
+           const std::string &texture_name, SDL_Renderer *target_renderer);
 
     Plane(Plane &plane);
 
@@ -57,12 +57,16 @@ public:
     /*切换武器
      * 拾取武器后改变当前武器种类
      * */
-    void change_weapon(std::string weapon_category);
+    void change_weapon(Weapon weapon);
 
     /*射击
      * 根据武器种类创建相应的子弹对象
      * */
     void shoot();
+
+    //刷新该对象状态
+    //包括贴图位置与hitbox位置
+    void refresh();
 
 
 };

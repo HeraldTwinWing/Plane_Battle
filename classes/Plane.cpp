@@ -1,31 +1,33 @@
 #include "Plane.h"
 
 
-
-Plane::Plane(int max_health, int speed, HitBox& hitbox, int coordinate_x, int coordinate_y,
-             const std::string &texture_name, Window& target_window)
+Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
+             const std::string &texture_name, SDL_Renderer *target_renderer)
 {
-    this->max_health    = max_health;
-    this->health        = max_health;
-    this->speed         = speed;
-    this->hitboxs       = hitbox;
-    this->coordinate_x  = coordinate_x;
-    this->coordinate_y  = coordinate_y;
-    this->texture       = load_picture(texture_name, target_window.get_renderer());
-    this->target_window = &target_window;
+    this->max_health = max_health;
+    this->health = max_health;
+    this->speed = speed;
+    this->hitbox = hitbox;
+    this->position.x = coordinate_x;
+    this->position.y = coordinate_y;
+    this->texture = load_picture(texture_name, target_renderer);
+    this->target_renderer = target_renderer;
+
+    SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
 }
 
-Plane::Plane(int max_health, int speed, HitBox& hitbox,
-        const std::string &texture_name, Window& target_window)
+Plane::Plane(int max_health, int speed, HitBox *hitbox,
+             const std::string &texture_name, SDL_Renderer *target_renderer)
 {
-    this->max_health    = max_health;
-    this->health        = max_health;
-    this->speed         = speed;
-    this->hitboxs       = hitbox;
-    this->coordinate_y  = -100;
-    this->coordinate_x  = SDL_WINDOWPOS_CENTERED;
-    this->texture  = load_picture(texture_name, target_window.get_renderer());
-    this->target_window = &target_window;
+    this->max_health = max_health;
+    this->health = max_health;
+    this->speed = speed;
+    this->hitbox = hitbox;
+    this->position.x = SDL_WINDOWPOS_CENTERED;
+    this->position.y = SDL_WINDOWPOS_CENTERED;
+    this->texture = load_picture(texture_name, target_renderer);
+    this->target_renderer = target_renderer;
+    SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
 }
 
 Plane::Plane(Plane &plane)
@@ -41,44 +43,47 @@ bool Plane::damage(int damage_amount)
 
 void Plane::spawn()
 {
-    SDL_Rect pos;
-    //SDL_QueryTexture(texture, nullptr, nullptr, &pos.w, &pos.h);
-    pos.w = 50;
-    pos.h = 50;
-    pos.x = coordinate_x;
-    pos.y = coordinate_y;
-
-    target_window->show_image(texture, pos);
+    SDL_RenderClear(target_renderer);
+    SDL_RenderCopy(target_renderer, texture, nullptr, &position);
+    SDL_RenderPresent(target_renderer);
 }
 
 void Plane::move(SDL_Event &key)
 {
     if (key.key.keysym.sym == SDLK_UP)
     {
-        coordinate_y -= speed;
+        position.y -= speed;
     }
     if (key.key.keysym.sym == SDLK_DOWN)
     {
-        coordinate_y += speed;
+        position.y += speed;
     }
     if (key.key.keysym.sym == SDLK_RIGHT)
     {
-        coordinate_x += speed;
+        position.x += speed;
     }
     if (key.key.keysym.sym == SDLK_LEFT)
     {
-        coordinate_x -= speed;
+        position.x -= speed;
     }
 
-    spawn();
+    refresh();
 }
 
-void Plane::change_weapon(std::string weapon_category)
+void Plane::change_weapon(Weapon weapon)
 {
 }
 
 void Plane::shoot()
 {
+}
+
+void Plane::refresh()
+{
+    hitbox->set_x(position.x);
+    hitbox->set_y(position.y);
+
+    SDL_RenderCopy(target_renderer, texture, nullptr, &position);
 }
 
 
