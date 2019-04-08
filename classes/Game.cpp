@@ -12,7 +12,7 @@ Game::Game()
 
     running = true;
 
-    if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+    if ( SDL_Init(SDL_INIT_EVERYTHING) == -1 )
     {
         std::cout << SDL_GetError() << std::endl;
     }
@@ -25,21 +25,21 @@ Game::Game()
 
 //    SDL_Renderer *my_plane_renderer = main_window->create_renderer(false);
 //    renderers.push_back(my_plane_renderer);
-    my_plane = new Plane(1000, 10, new HitBox("square"), 200, 360,
-                         "default_ship.png", main_window->get_renderer());
-    my_plane->spawn();
+    player = new Plane(1000, 10, new HitBox("square"), 200, 360,
+                       "default_ship.png", main_window);
+    player->spawn();
 }
 
 Game::~Game()
 {
     delete main_window;
-    delete my_plane;
+    delete player;
     SDL_Quit();
 }
 
 void Game::OnExecute()
 {
-    while (running)
+    while ( running )
     {
         OnThink();
         OnUpdate();
@@ -50,19 +50,26 @@ void Game::OnExecute()
 void Game::OnThink()
 {
     double frame_time = SDL_GetTicks();
-    while (SDL_PollEvent(&event))
+    while ( SDL_PollEvent(&event))
     {
-        if (event.type == SDL_QUIT)
+        if ( event.type == SDL_QUIT )
             running = false;
 
-        if (event.type == SDL_KEYDOWN)
-        {}
-        if (event.type == SDL_KEYUP)
+        if ( event.type == SDL_KEYDOWN )
+        {
+            switch (event.key.keysym.scancode)
+            {
+                case SDLK_SPACE:
+                    player_bullets.push_back(player->shoot());
+                    break;
+            }
+        }
+        if ( event.type == SDL_KEYUP )
         {}
 
-        my_plane->set_moving(event);
+        player->set_moving(event);
 
-        if (SDL_GetTicks() - frame_time > 0.016)
+        if ( SDL_GetTicks() - frame_time > 0.016 )
         {
             break;
         }
@@ -75,11 +82,19 @@ void Game::OnUpdate()
     thisTime = SDL_GetTicks();
     deltaTime = (thisTime - lastTime) / 1000.0;
 
-    my_plane->move();
+    player->move();
+    for ( auto &i : player_bullets )
+    {
+        i.move();
+    }
 
     SDL_RenderClear(main_window->get_renderer());
     main_window->background_move(thisTime);
-    my_plane->refresh();
+    for ( auto &i: player_bullets )
+    {
+        i.show_image();
+    }
+    player->refresh();
 }
 
 void Game::OnRender()

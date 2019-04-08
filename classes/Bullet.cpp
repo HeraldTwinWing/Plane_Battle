@@ -5,7 +5,6 @@
 
 #include "Bullet.h"
 
-SDL_Texture *Bullet::texture = nullptr;
 
 void Bullet::move()
 {

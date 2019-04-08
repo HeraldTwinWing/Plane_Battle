@@ -7,7 +7,6 @@
 
 #include <SDL2/SDL.h>
 #include <cmath>
-#include "Weapon.h"
 #include "Window.h"
 
 class Bullet
@@ -24,7 +23,7 @@ private:
 public:
 
 	Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Rect position,
-	       SDL_Texture *texture) : atk, speed, direction_theta, window, position, texture;
+	       SDL_Texture *texture);
 
 	int get_atk()
 	{

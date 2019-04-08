@@ -44,8 +44,10 @@ private:
 
     Window *main_window;
     //¼º·½·É»ú
-    Plane *my_plane;
+    Plane *player;
 
+    std::vector<Bullet> player_bullets;
+    std::vector<Bullet> enemy_bullets;
 //    std::vector<Enemy> enemys;
 };
 

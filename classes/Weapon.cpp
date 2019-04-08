@@ -16,11 +16,11 @@ Bullet Weapon::fire(Window* target_window,SDL_Texture* texture, SDL_Rect *positi
 	switch (category)
 	{
 		case bullet:
-			return {15, 8, 0, target_window, &position, texture};
+			return {15, 8, 0, target_window, *position, texture};
 	}
 }
 
-Weapon::Weapon(weapon_category_list weapon_category, Window *window, SDL_Rect position)
+Weapon::Weapon(weapon_category_list weapon_category)
 {
 	this->category = weapon_category;
 

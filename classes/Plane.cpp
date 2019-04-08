@@ -2,7 +2,7 @@
 
 
 Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
-             const std::string &texture_name, SDL_Renderer *target_renderer)
+             const std::string &texture_name, Window *window)
 {
     this->max_health = max_health;
     this->health = max_health;
@@ -10,14 +10,15 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
     this->hitbox = hitbox;
     this->position.x = coordinate_x;
     this->position.y = coordinate_y;
-    this->texture = load_picture(texture_name, target_renderer);
-    this->target_renderer = target_renderer;
+    this->texture = window->load_picture(texture_name);
+    this->window = window;
+    this->weapon = new Weapon(bullet);
 
     SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
 }
 
 Plane::Plane(int max_health, int speed, HitBox *hitbox,
-             const std::string &texture_name, SDL_Renderer *target_renderer)
+             const std::string &texture_name, Window *window)
 {
     this->max_health = max_health;
     this->health = max_health;
@@ -25,8 +26,8 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox,
     this->hitbox = hitbox;
     this->position.x = SDL_WINDOWPOS_CENTERED;
     this->position.y = SDL_WINDOWPOS_CENTERED;
-    this->texture = load_picture(texture_name, target_renderer);
-    this->target_renderer = target_renderer;
+    this->texture = window->load_picture(texture_name);
+    this->window = window;
     SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
 }
 
@@ -43,7 +44,7 @@ bool Plane::damage(int damage_amount)
 
 void Plane::spawn()
 {
-    SDL_RenderCopy(target_renderer, texture, nullptr, &position);
+    SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
 }
 
 void Plane::move()
@@ -72,12 +73,9 @@ void Plane::change_weapon(Weapon weapon)
 {
 }
 
-void Plane::shoot()
+Bullet Plane::shoot()
 {
-    switch (weapon.get_weapon_category())
-    {
-
-    }
+    return weapon->fire(window, texture, &position);
 }
 
 void Plane::refresh()
@@ -85,7 +83,7 @@ void Plane::refresh()
     hitbox->set_x(position.x);
     hitbox->set_y(position.y);
 
-    SDL_RenderCopy(target_renderer, texture, nullptr, &position);
+    SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
 }
 
 void Plane::set_moving(SDL_Event event)
@@ -110,10 +108,11 @@ void Plane::set_moving(SDL_Event event)
                 moving[3] = true;
                 moving[2] = false;
                 break;
-            default:break;
+            default:
+                break;
         }
     }
-    else if (event.type == SDL_KEYUP)
+    else if ( event.type == SDL_KEYUP )
     {
         switch (event.key.keysym.sym)
         {
@@ -129,7 +128,8 @@ void Plane::set_moving(SDL_Event event)
             case SDLK_RIGHT:
                 moving[3] = false;
                 break;
-            default:break;
+            default:
+                break;
         }
     }
 }
