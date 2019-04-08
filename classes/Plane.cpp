@@ -74,6 +74,10 @@ void Plane::change_weapon(Weapon weapon)
 
 void Plane::shoot()
 {
+    switch (weapon.get_weapon_category())
+    {
+
+    }
 }
 
 void Plane::refresh()
@@ -127,6 +131,15 @@ void Plane::set_moving(SDL_Event event)
                 break;
             default:break;
         }
+    }
+}
+
+void Plane::handle_event(SDL_Event event)
+{
+    switch (event.key.keysym.sym)
+    {
+        case SDLK_SPACE:
+            shoot();
     }
 }
 

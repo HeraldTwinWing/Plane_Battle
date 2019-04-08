@@ -50,6 +50,9 @@ public:
      * */
     void move();
 
+    //处理与飞机相关的按键事件
+    void handle_event(SDL_Event event);
+
     /*受到伤害
      * 输入伤害量，扣除相应量的生命值
      * 扣除后生命值大于0返回true，否则返回false

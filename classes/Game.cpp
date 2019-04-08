@@ -33,6 +33,7 @@ Game::Game()
 Game::~Game()
 {
     delete main_window;
+    delete my_plane;
     SDL_Quit();
 }
 

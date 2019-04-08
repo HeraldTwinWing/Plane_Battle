@@ -1,11 +1,34 @@
 #pragma once
+
+#include <SDL2/SDL.h>
+#include <cmath>
+#include "Window.h"
+#include "Bullet.h"
+
+enum weapon_category_list
+{
+    pellet, bullet, beam
+};
+
 class Weapon
 {
 private:
-    enum category_list{bullet, beam};
-    category_list category;
+	double fire_interval;
+	weapon_category_list category;
 public:
-	Weapon();
+    Weapon();
+    Weapon(weapon_category_list weapon_category);
 
-	~Weapon();
+	weapon_category_list get_weapon_category()
+    {
+        return category;
+    }
+
+    Bullet fire(SDL_Window *target_window);
+
+	double get_fire_interval()
+    {
+        return fire_interval;
+    }
+    ~Weapon();
 };
