@@ -9,9 +9,8 @@
 #include <cmath>
 #include "Window.h"
 
-class Bullet
+struct Bullet
 {
-private:
 	int atk;
 	int speed;
 	const double pi = std::acos(-1);
@@ -34,6 +33,5 @@ public:
 
 	void show_image();
 };
-
 
 #endif //PLANE_BATTLE_BULLET_H

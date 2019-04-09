@@ -17,6 +17,11 @@ Bullet Weapon::fire(Window* target_window,SDL_Texture* texture, SDL_Rect *positi
 	{
 		case bullet:
 			return {15, 8, 0, target_window, *position, texture};
+			break;
+		case pellet:
+			break;
+		case beam:
+			break;
 	}
 }
 
