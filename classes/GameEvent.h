@@ -5,7 +5,8 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include "Game.h"
+
+class Game;
 
 
 class GameEvent
@@ -17,7 +18,7 @@ public:
 
     virtual ~GameEvent();
 
-    virtual void OnEvent(SDL_Event *Event);
+    virtual void OnEvent(SDL_Event &Event);
 
     virtual void OnInputFocus();
 

@@ -1,13 +1,13 @@
 #pragma once
 #include "Plane.h"
 
+enum MoveMode{LINE, SNAKE_SKIN, CIRCLE, };
 
 class Enemy :
 	public Plane
 {
-private:
-
 public:
+
 	Enemy();
 
     void move();

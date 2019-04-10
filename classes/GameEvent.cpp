@@ -3,6 +3,7 @@
 //
 
 #include "GameEvent.h"
+#include "Game.h"
 
 GameEvent::GameEvent()
 = default;
@@ -10,48 +11,48 @@ GameEvent::GameEvent()
 GameEvent::~GameEvent()
 = default;
 
-void GameEvent::OnEvent(SDL_Event *Event)
+void GameEvent::OnEvent(SDL_Event &Event)
 {
-    switch (Event->type)
+    switch (Event.type)
     {
         case SDL_KEYDOWN:
         {
-            OnKeyDown(Event->key.keysym.sym, Event->key.keysym.mod);
+            OnKeyDown(Event.key.keysym.sym, Event.key.keysym.mod);
             break;
         }
 
         case SDL_KEYUP:
         {
-            OnKeyUp(Event->key.keysym.sym, Event->key.keysym.mod);
+            OnKeyUp(Event.key.keysym.sym, Event.key.keysym.mod);
             break;
         }
 
         case SDL_MOUSEMOTION:
         {
-            OnMouseMove(Event->motion.x, Event->motion.y, Event->motion.xrel, Event->motion.yrel,
-                        (Event->motion.state & SDL_BUTTON(SDL_BUTTON_LEFT)) != 0,
-                        (Event->motion.state & SDL_BUTTON(SDL_BUTTON_RIGHT)) != 0,
-                        (Event->motion.state & SDL_BUTTON(SDL_BUTTON_MIDDLE)) != 0);
+            OnMouseMove(Event.motion.x, Event.motion.y, Event.motion.xrel, Event.motion.yrel,
+                        (Event.motion.state & SDL_BUTTON(SDL_BUTTON_LEFT)) != 0,
+                        (Event.motion.state & SDL_BUTTON(SDL_BUTTON_RIGHT)) != 0,
+                        (Event.motion.state & SDL_BUTTON(SDL_BUTTON_MIDDLE)) != 0);
             break;
         }
 
         case SDL_MOUSEBUTTONDOWN:
         {
-            switch (Event->button.button)
+            switch (Event.button.button)
             {
                 case SDL_BUTTON_LEFT:
                 {
-                    OnLButtonDown(Event->button.x, Event->button.y);
+                    OnLButtonDown(Event.button.x, Event.button.y);
                     break;
                 }
                 case SDL_BUTTON_RIGHT:
                 {
-                    OnRButtonDown(Event->button.x, Event->button.y);
+                    OnRButtonDown(Event.button.x, Event.button.y);
                     break;
                 }
                 case SDL_BUTTON_MIDDLE:
                 {
-                    OnMButtonDown(Event->button.x, Event->button.y);
+                    OnMButtonDown(Event.button.x, Event.button.y);
                     break;
                 }
                 default:
@@ -62,21 +63,21 @@ void GameEvent::OnEvent(SDL_Event *Event)
 
         case SDL_MOUSEBUTTONUP:
         {
-            switch (Event->button.button)
+            switch (Event.button.button)
             {
                 case SDL_BUTTON_LEFT:
                 {
-                    OnLButtonUp(Event->button.x, Event->button.y);
+                    OnLButtonUp(Event.button.x, Event.button.y);
                     break;
                 }
                 case SDL_BUTTON_RIGHT:
                 {
-                    OnRButtonUp(Event->button.x, Event->button.y);
+                    OnRButtonUp(Event.button.x, Event.button.y);
                     break;
                 }
                 case SDL_BUTTON_MIDDLE:
                 {
-                    OnMButtonUp(Event->button.x, Event->button.y);
+                    OnMButtonUp(Event.button.x, Event.button.y);
                     break;
                 }
                 default:
@@ -87,30 +88,30 @@ void GameEvent::OnEvent(SDL_Event *Event)
 
         case SDL_JOYAXISMOTION:
         {
-            OnJoyAxis(Event->jaxis.which, Event->jaxis.axis, Event->jaxis.value);
+            OnJoyAxis(Event.jaxis.which, Event.jaxis.axis, Event.jaxis.value);
             break;
         }
 
         case SDL_JOYBALLMOTION:
         {
-            OnJoyBall(Event->jball.which, Event->jball.ball, Event->jball.xrel, Event->jball.yrel);
+            OnJoyBall(Event.jball.which, Event.jball.ball, Event.jball.xrel, Event.jball.yrel);
             break;
         }
 
         case SDL_JOYHATMOTION:
         {
-            OnJoyHat(Event->jhat.which, Event->jhat.hat, Event->jhat.value);
+            OnJoyHat(Event.jhat.which, Event.jhat.hat, Event.jhat.value);
             break;
         }
         case SDL_JOYBUTTONDOWN:
         {
-            OnJoyButtonDown(Event->jbutton.which, Event->jbutton.button);
+            OnJoyButtonDown(Event.jbutton.which, Event.jbutton.button);
             break;
         }
 
         case SDL_JOYBUTTONUP:
         {
-            OnJoyButtonUp(Event->jbutton.which, Event->jbutton.button);
+            OnJoyButtonUp(Event.jbutton.which, Event.jbutton.button);
             break;
         }
 
@@ -128,7 +129,7 @@ void GameEvent::OnEvent(SDL_Event *Event)
 
         default:
         {
-            OnUser(Event->user.type, Event->user.code, Event->user.data1, Event->user.data2);
+            OnUser(Event.user.type, Event.user.code, Event.user.data1, Event.user.data2);
             break;
         }
     }

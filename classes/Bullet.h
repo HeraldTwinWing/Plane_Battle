@@ -9,20 +9,22 @@
 #include <cmath>
 #include "Window.h"
 
-struct Bullet
+class Bullet
 {
+public:
 	int atk;
 	int speed;
-	const double pi = std::acos(-1);
+	double pi = std::acos(-1);
 	//子弹飞行方向,以极坐标角度标记,右为正方向,单位为pi*rad
 	double direction_theta;
 	Window *window;
 	SDL_Rect position{};
 	SDL_Texture *texture;
-public:
+
 
 	Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Rect position,
 	       SDL_Texture *texture);
+	~Bullet();
 
 	int get_atk()
 	{

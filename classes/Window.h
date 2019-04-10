@@ -9,7 +9,8 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "iostream"
-#include "vector"
+#include <map>
+#include <utility>
 
 class Window
 {
@@ -31,7 +32,7 @@ private:
     SDL_Texture *background = nullptr;
 
     //储存已加载材质
-    std::vector<SDL_Texture *> textures;
+    std::map<std::string, SDL_Texture *> textures;
 
     //记录背景移动的时刻
     double background_last_move;
@@ -75,10 +76,6 @@ public:
         return renderer;
     }
 
-    std::vector<SDL_Texture*>& get_texture()
-    {
-        return textures;
-    }
 
     ~Window();
 };

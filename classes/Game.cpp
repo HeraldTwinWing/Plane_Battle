@@ -17,6 +17,7 @@ Game::Game()
 		std::cout << SDL_GetError() << std::endl;
 	}
 
+
 	//创建主窗口并加载背景
 	main_window = new Window(ScreenWidth, ScreenHeight);
 	main_window->create_window("Plane Battle");
@@ -31,6 +32,7 @@ Game::Game()
 //    renderers.push_back(my_plane_renderer);
 	player = new Plane(1000, 1, new HitBox("square"), 200, 360,
 	                   "default_ship.png", main_window);
+	player->game = this;
 	player->spawn();
 
 }
@@ -60,13 +62,7 @@ void Game::OnThink()
 		if (event.type == SDL_QUIT)
 			running = false;
 
-		event_handle->OnEvent(&event);
-//		player->handle_event(event);
-		if (player->if_firing() && player->if_not_in_fire_CD())
-		{
-			player_bullets.push_back(player->fire());
-		}
-
+		event_handle->OnEvent(event);
 
 		if (SDL_GetTicks() - frame_time > 0.016)
 		{
@@ -90,17 +86,22 @@ void Game::OnUpdate()
 
 	SDL_RenderClear(main_window->get_renderer());
 	main_window->background_move(thisTime);
-	for (auto &i: player_bullets)
+
+	int last_need_delete_bullet = 0;
+	for ( int j = 0; j < player_bullets.size(); ++j )
 	{
-		i.show_image();
-		if (i.position.x < -30 || i.position.x > 1300 ||
-		    i.position.y < -30 || i.position.y > 750)
+
+		player_bullets[j].show_image();
+		if (player_bullets[j].position.x < -30 || player_bullets[j].position.x > 1300 ||
+				player_bullets[j].position.y < -30 || player_bullets[j].position.y > 750)
 		{
-			//超出屏幕范围子弹的删除
-//			player_bullets.erase(i);
-//			delete i;
+			last_need_delete_bullet = j;
 		}
 	}
+	player_bullets.erase(player_bullets.begin(), player_bullets.begin()+last_need_delete_bullet);
+	player_bullets.shrink_to_fit();
+	//std::cout << player_bullets.size() << std::endl;
+
 	player->refresh();
 }
 

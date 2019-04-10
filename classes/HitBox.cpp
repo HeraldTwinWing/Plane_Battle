@@ -14,7 +14,7 @@ HitBox::~HitBox()
 {
 }
 
-bool HitBox::hit(std::string weapon_category)
+bool HitBox::hit(weapon_category_list weapon_category)
 {
     return false;
 }
@@ -31,6 +31,7 @@ bool HitBox::square_hitbox_hit_by_beam()
 
 bool HitBox::circle_hitbox_hit_by_bullet()
 {
+
     return false;
 }
 

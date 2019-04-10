@@ -4,7 +4,7 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-#include <vector>
+#include <deque>
 #include "Window.h"
 #include "Plane.h"
 #include "GameEvent.h"
@@ -45,8 +45,8 @@ public:
     //¼º·½·É»ú
     Plane *player;
 
-    std::vector<Bullet> player_bullets;
-    std::vector<Bullet> enemy_bullets;
+    std::deque<Bullet> player_bullets;
+    std::deque<Bullet> enemy_bullets;
 //    std::vector<Enemy> enemys;
 };
 

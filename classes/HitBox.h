@@ -1,10 +1,11 @@
 #pragma once
 
 #include <string>
+#include "Weapon.h"
 
 class HitBox
 {
-private:
+public:
     //hitbox种类[square/circle]
     enum category_list
     {
@@ -17,8 +18,7 @@ private:
 
     category_list category;
 
-public:
-    explicit HitBox(std::string category);
+    explicit HitBox(weapon_category_list category);
 
     /*击中判定
      * 根据hitbox种类与武器种类的不同

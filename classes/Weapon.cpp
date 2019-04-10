@@ -35,7 +35,7 @@ Weapon::Weapon(weapon_category_list weapon_category)
 			this->fire_interval = 0.1;
 			break;
 		case bullet:
-			this->fire_interval = 0.3;
+			this->fire_interval = 0.1;
 			break;
 		case pellet:
 			std::cout << "Called the wrong method" << std::endl;

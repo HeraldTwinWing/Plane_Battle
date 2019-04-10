@@ -7,6 +7,8 @@
 #include "Weapon.h"
 #include "Window.h"
 
+class Game;
+
 class Plane
 {
 public:
@@ -34,6 +36,7 @@ public:
 
 	//飞机所在的渲染器[图层]
 	Window *window = nullptr;
+	Game *game;
 
 	Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
 	      const std::string &texture_name, Window *window);
