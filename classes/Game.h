@@ -1,14 +1,13 @@
 //
 // Created by Avalanche_Exia on 2019/4/3.
 //
-
-#ifndef PLANE_BATTLE_GAME_H
-#define PLANE_BATTLE_GAME_H
+#pragma once
 
 #include <SDL2/SDL.h>
 #include <vector>
 #include "Window.h"
 #include "Plane.h"
+#include "GameEvent.h"
 
 
 class Game
@@ -27,7 +26,6 @@ public:
 
     void OnRender();
 
-private:
     int ScreenWidth;
     int ScreenHeight;
     int ScreenBPP;
@@ -42,6 +40,7 @@ private:
     SDL_Window *window;
     SDL_Event event;
 
+    GameEvent *event_handle;
     Window *main_window;
     //¼º·½·É»ú
     Plane *player;
@@ -51,5 +50,3 @@ private:
 //    std::vector<Enemy> enemys;
 };
 
-
-#endif //PLANE_BATTLE_GAME_H

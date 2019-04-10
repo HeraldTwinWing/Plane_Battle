@@ -9,7 +9,7 @@
 
 class Plane
 {
-private:
+public:
 	//生命值
 	int max_health;
 	int health;
@@ -34,7 +34,7 @@ private:
 
 	//飞机所在的渲染器[图层]
 	Window *window = nullptr;
-public:
+
 	Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
 	      const std::string &texture_name, Window *window);
 
@@ -52,8 +52,6 @@ public:
 	 * */
 	void move();
 
-	//处理与飞机相关的按键事件
-	void handle_event(SDL_Event event);
 
 	/*受到伤害
 	 * 输入伤害量，扣除相应量的生命值
@@ -75,7 +73,9 @@ public:
 	//包括贴图位置与hitbox位置
 	void refresh();
 
-	void set_moving(SDL_Event event);
+	//处理与玩家飞机相关的事件
+	void keyDownEvent(SDL_Keycode sym);
+	void keyUpEvent(SDL_Keycode sym);
 
 	bool if_firing()
 	{

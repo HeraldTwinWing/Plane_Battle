@@ -17,17 +17,22 @@ Game::Game()
 		std::cout << SDL_GetError() << std::endl;
 	}
 
+	//创建主窗口并加载背景
 	main_window = new Window(ScreenWidth, ScreenHeight);
 	main_window->create_window("Plane Battle");
 	main_window->create_renderer();
 	main_window->load_background();
 	main_window->show_background();
 
+	event_handle = new GameEvent();
+	event_handle->game = this;
+
 //    SDL_Renderer *my_plane_renderer = main_window->create_renderer(false);
 //    renderers.push_back(my_plane_renderer);
 	player = new Plane(1000, 1, new HitBox("square"), 200, 360,
 	                   "default_ship.png", main_window);
 	player->spawn();
+
 }
 
 Game::~Game()
@@ -55,8 +60,9 @@ void Game::OnThink()
 		if (event.type == SDL_QUIT)
 			running = false;
 
-		player->handle_event(event);
-		if (player->if_firing() /*&& player->if_not_in_fire_CD()*/)
+		event_handle->OnEvent(&event);
+//		player->handle_event(event);
+		if (player->if_firing() && player->if_not_in_fire_CD())
 		{
 			player_bullets.push_back(player->fire());
 		}
@@ -91,8 +97,8 @@ void Game::OnUpdate()
 		    i.position.y < -30 || i.position.y > 750)
 		{
 			//超出屏幕范围子弹的删除
-			player_bullets.erase(i);
-			delete i;
+//			player_bullets.erase(i);
+//			delete i;
 		}
 	}
 	player->refresh();
