@@ -1,12 +1,12 @@
+#include <utility>
+
 #include "HitBox.h"
+#include <cmath>
 
 
 HitBox::HitBox(std::string category)
 {
-    if (category == "square")
-        this->category = square;
-    else
-        this->category = circle;
+    this->category = std::move(category);
 }
 
 
@@ -14,9 +14,19 @@ HitBox::~HitBox()
 {
 }
 
-bool HitBox::hit(weapon_category_list weapon_category)
+bool HitBox::ifBulletHit(Bullet *bullet)
 {
-    return false;
+    if ( category == "square" )
+    {
+        return bullet->position.x < center_x + radius && bullet->position.x > center_x - radius
+               && bullet->position.y < center_y + radius && bullet->position.y > center_y - radius;
+
+    }
+    else if ( category == "circle" )
+    {
+        return std::pow(bullet->position.x - center_x, 2) + std::pow(bullet->position.x - center_y, 2)
+               < std::pow(radius, 2);
+    }
 }
 
 bool HitBox::square_hitbox_hit_by_bullet()

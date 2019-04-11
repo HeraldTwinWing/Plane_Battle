@@ -35,6 +35,10 @@ Game::Game()
 	player->game = this;
 	player->spawn();
 
+	enemys.push_back(new Enemy(1000, 1, new HitBox("square"), 700, 360,
+                           "default_ship.png", main_window));
+	enemys[0]->game = this;
+	enemys[0]->spawn();
 }
 
 Game::~Game()
@@ -81,8 +85,17 @@ void Game::OnUpdate()
 	for (auto &i : player_bullets)
 	{
 		i.move();
-
+        for (auto &j: enemys)
+        {
+            if (j->hitbox->ifBulletHit(&i))
+            {
+                j->damage(i.atk);
+            }
+        }
 	}
+
+	std::cout << "LP: " <<enemys[0]->health << std::endl;
+	enemys[0]->move();
 
 	SDL_RenderClear(main_window->get_renderer());
 	main_window->background_move(thisTime);
@@ -90,7 +103,6 @@ void Game::OnUpdate()
 	int last_need_delete_bullet = 0;
 	for ( int j = 0; j < player_bullets.size(); ++j )
 	{
-
 		player_bullets[j].show_image();
 		if (player_bullets[j].position.x < -30 || player_bullets[j].position.x > 1300 ||
 				player_bullets[j].position.y < -30 || player_bullets[j].position.y > 750)

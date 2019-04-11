@@ -46,6 +46,8 @@ public:
 
 	Plane(Plane &plane);
 
+	Plane();
+
 	//生成单位
 	void spawn();
 

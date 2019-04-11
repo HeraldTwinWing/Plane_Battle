@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "Plane.h"
 #include "GameEvent.h"
+#include "Enemy.h"
 
 
 class Game
@@ -47,6 +48,7 @@ public:
 
     std::deque<Bullet> player_bullets;
     std::deque<Bullet> enemy_bullets;
+    std::deque<Enemy*> enemys;
 //    std::vector<Enemy> enemys;
 };
 

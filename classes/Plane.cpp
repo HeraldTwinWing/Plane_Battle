@@ -142,3 +142,4 @@ void Plane::keyUpEvent(SDL_Keycode sym)
             break;
     }
 }
+
