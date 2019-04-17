@@ -7,10 +7,8 @@
 #include <deque>
 #include "Window.h"
 #include "GameData.h"
+#include "GameEvent.h"
 
-
-class GameEvent;
-class Enemy;
 
 class Game
 {

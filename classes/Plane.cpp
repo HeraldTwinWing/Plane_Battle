@@ -31,10 +31,6 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox,
     SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
 }
 
-Plane::Plane(Plane &plane)
-{
-}
-
 bool Plane::damage(int damage_amount)
 {
     health -= damage_amount;
@@ -140,6 +136,3 @@ void Plane::keyUpEvent(SDL_Keycode sym)
             break;
     }
 }
-
-Plane::Plane()=default;
-

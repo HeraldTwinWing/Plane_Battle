@@ -7,7 +7,6 @@
 
 #include <SDL2/SDL.h>
 #include <deque>
-#include "Plane.h"
 #include "Enemy.h"
 #include "Bullet.h"
 
@@ -33,6 +32,7 @@ public:
 	std::deque<Bullet> enemy_bullets;
 	std::deque<Enemy> enemys;
 
+	//判断是否开火并添加子弹到容器
 	void addPlayerBullet();
 	void addEnemyBullet(Enemy& enemy);
 	void addEnemy(Enemy& enemy);

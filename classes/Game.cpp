@@ -3,8 +3,6 @@
 //
 
 #include "Game.h"
-#include "GameEvent.h"
-#include "Enemy.h"
 
 Game::Game(GameData *game_data)
 {
@@ -91,7 +89,7 @@ void Game::OnUpdate()
 	}
 
 	std::cout << "LP: " <<game_data->enemys[0].health << std::endl;
-	game_data->enemys[0].move();
+	//game_data->enemys[0].move();
 
 	SDL_RenderClear(game_data->main_window->get_renderer());
 	game_data->main_window->background_move(game_data->thisTime);
@@ -113,7 +111,7 @@ void Game::OnUpdate()
 	game_data->player->refresh();
 	game_data->addPlayerBullet();
 
-	for (auto i: game_data->enemys)
+	for (auto &i: game_data->enemys)
 	{
 		i.refresh();
 	}

@@ -39,7 +39,6 @@ public:
 	Plane(int max_health, int speed, HitBox *hitbox,
 	      const std::string &texture_name, Window *window);
 
-	Plane(Plane &plane);
 
 	Plane();
 

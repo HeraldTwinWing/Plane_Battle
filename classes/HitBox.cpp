@@ -16,7 +16,7 @@ HitBox::~HitBox()
 
 bool HitBox::hit(weapon_category_list weapon_category, Bullet *bullet)
 {
-
+    return false;
 }
 
 bool HitBox::ifBulletHit(Bullet *bullet)
@@ -32,6 +32,7 @@ bool HitBox::ifBulletHit(Bullet *bullet)
         return std::pow(bullet->position.x - center_x, 2) + std::pow(bullet->position.x - center_y, 2)
                < std::pow(radius, 2);
     }
+    return false;
 }
 
 bool HitBox::ifBeamHit()
