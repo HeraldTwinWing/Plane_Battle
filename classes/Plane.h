@@ -43,7 +43,7 @@ public:
 	Plane();
 
 	//生成单位
-	void spawn();
+	virtual void spawn();
 
 	/*控制飞船移动
 	 * 该方法输入移动方向(按键)
@@ -52,11 +52,11 @@ public:
 	virtual void move();
 
 
-	/*受到伤害
+	/*受到伤害k
 	 * 输入伤害量，扣除相应量的生命值
-	 * 扣除后生命值大于0返回true，否则返回false
+	 * 扣除后生命值大于0返回false，否则返回true
 	 * */
-	bool damage(int damage_amount);
+	virtual bool damage(int damage_amount);
 
 	/*切换武器
 	 * 拾取武器后改变当前武器种类
@@ -66,11 +66,11 @@ public:
 	/*射击
 	 * 根据武器种类创建相应的子弹对象
 	 * */
-	Bullet fire();
+	virtual Bullet fire();
 
 	//刷新该对象状态
 	//包括贴图位置与hitbox位置
-	void refresh();
+	virtual void refresh();
 
 	//处理与玩家飞机相关的事件
 	void keyDownEvent(SDL_Keycode sym);

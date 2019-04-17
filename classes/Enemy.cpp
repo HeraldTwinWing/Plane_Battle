@@ -20,5 +20,12 @@ void Enemy::move()
 void Enemy::refresh()
 {
     move();
+    hitbox->center_x = position.x;
+    hitbox->center_y = position.y;
     SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
+}
+
+void Enemy::spawn()
+{
+    SDL_RenderCopy(window->get_renderer(),texture, nullptr,&position);
 }

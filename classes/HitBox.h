@@ -16,7 +16,7 @@ public:
     hitbox_category category;
     int radius;
 
-    explicit HitBox(hitbox_category category);
+    HitBox(hitbox_category category, int radius);
 
     /*击中判定
      * 根据hitbox种类与武器种类的不同

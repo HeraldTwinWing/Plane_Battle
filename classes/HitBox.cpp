@@ -4,9 +4,10 @@
 #include <cmath>
 
 
-HitBox::HitBox(hitbox_category  category)
+HitBox::HitBox(hitbox_category  category, int radius)
 {
     this->category = category;
+    this->radius = radius;
 }
 
 

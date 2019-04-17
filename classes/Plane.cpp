@@ -35,7 +35,7 @@ bool Plane::damage(int damage_amount)
 {
     health -= damage_amount;
 
-    return health > 0;
+    return health < 0;
 }
 
 void Plane::spawn()
