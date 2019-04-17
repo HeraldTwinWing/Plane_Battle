@@ -4,10 +4,6 @@
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "HitBox.h"
-#include "Weapon.h"
-#include "Window.h"
-
-class Game;
 
 class Plane
 {
@@ -36,7 +32,6 @@ public:
 
 	//飞机所在的渲染器[图层]
 	Window *window = nullptr;
-	Game *game;
 
 	Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
 	      const std::string &texture_name, Window *window);
@@ -55,7 +50,7 @@ public:
 	 * 该方法输入移动方向(按键)
 	 * 根据速度控制飞船坐标向该方向改变
 	 * */
-	void move();
+	virtual void move();
 
 
 	/*受到伤害

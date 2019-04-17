@@ -6,16 +6,17 @@
 #include <SDL2/SDL.h>
 #include <deque>
 #include "Window.h"
-#include "Plane.h"
-#include "GameEvent.h"
-#include "Enemy.h"
+#include "GameData.h"
 
+
+class GameEvent;
+class Enemy;
 
 class Game
 {
 
 public:
-    Game();
+    explicit Game(GameData *game_data);
 
     ~Game();
 
@@ -27,28 +28,11 @@ public:
 
     void OnRender();
 
-    int ScreenWidth;
-    int ScreenHeight;
-    int ScreenBPP;
-    Uint32 ScreenFlags;
-
-    bool running;
-
-    double thisTime;
-    double lastTime;
-    double deltaTime;
-
     SDL_Window *window;
     SDL_Event event;
 
     GameEvent *event_handle;
-    Window *main_window;
-    //¼º·½·É»ú
-    Plane *player;
+    GameData *game_data;
 
-    std::deque<Bullet> player_bullets;
-    std::deque<Bullet> enemy_bullets;
-    std::deque<Enemy*> enemys;
-//    std::vector<Enemy> enemys;
 };
 

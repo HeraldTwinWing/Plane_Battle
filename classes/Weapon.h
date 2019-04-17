@@ -2,7 +2,6 @@
 
 #include <SDL2/SDL.h>
 #include <cmath>
-#include "Window.h"
 #include "Bullet.h"
 
 enum weapon_category_list

@@ -21,3 +21,13 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 Enemy::~Enemy()
 {
 }
+
+void Enemy::move()
+{
+
+}
+void Enemy::refresh()
+{
+	move();
+	SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
+}

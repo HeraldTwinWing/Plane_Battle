@@ -3,13 +3,7 @@
 //
 
 #include "GameEvent.h"
-#include "Game.h"
 
-GameEvent::GameEvent()
-= default;
-
-GameEvent::~GameEvent()
-= default;
 
 void GameEvent::OnEvent(SDL_Event &Event)
 {
@@ -147,12 +141,12 @@ void GameEvent::OnInputBlur()
 
 void GameEvent::OnKeyDown(SDL_Keycode sym, Uint16 mod)
 {
-    game->player->keyDownEvent(sym);
+	game_data->player->keyDownEvent(sym);
 }
 
 void GameEvent::OnKeyUp(SDL_Keycode sym, Uint16 mod)
 {
-    game->player->keyUpEvent(sym);
+	game_data->player->keyUpEvent(sym);
 }
 
 void GameEvent::OnMouseFocus()
@@ -244,3 +238,10 @@ void GameEvent::OnUser(Uint32 type, int code, void *data1, void *data2)
 {
     //Pure virtual, do nothing
 }
+
+GameEvent::GameEvent(GameData* game_data)
+{
+	this->game_data = game_data;
+}
+
+GameEvent::~GameEvent()=default;

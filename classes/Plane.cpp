@@ -1,5 +1,4 @@
 #include "Plane.h"
-#include "Game.h"
 
 
 Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
@@ -87,7 +86,6 @@ void Plane::refresh()
     if (firing && SDL_GetTicks() - last_fire > weapon->get_fire_interval() * 1000)
     {
         std::cout << "fire at" << SDL_GetTicks() << std::endl;
-        game->player_bullets.push_back(this->fire());
     }
 
     SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
@@ -142,4 +140,6 @@ void Plane::keyUpEvent(SDL_Keycode sym)
             break;
     }
 }
+
+Plane::Plane()=default;
 

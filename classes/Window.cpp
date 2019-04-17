@@ -79,6 +79,7 @@ SDL_Texture *Window::load_picture(const std::string &filename)
 
 void Window::show_background()
 {
+
     if ( background1_pos.x >= -1920 && background1_pos.x <= 1280 )
     {
         SDL_RenderCopy(renderer, background, nullptr, &background1_pos);

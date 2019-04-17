@@ -5,62 +5,63 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-
-class Game;
+#include "GameData.h"
 
 
 class GameEvent
 {
 public:
-    Game* game;
+    GameData *game_data = nullptr;
 
-    GameEvent();
+    GameEvent()= default;
 
-    virtual ~GameEvent();
+    explicit GameEvent(GameData* game_data);
 
-    virtual void OnEvent(SDL_Event &Event);
+	virtual ~GameEvent();
 
-    virtual void OnInputFocus();
+	virtual void OnEvent(SDL_Event &Event);
 
-    virtual void OnInputBlur();
+	virtual void OnInputFocus();
 
-    virtual void OnKeyDown(SDL_Keycode sym, Uint16 mod);
+	virtual void OnInputBlur();
 
-    virtual void OnKeyUp(SDL_Keycode sym, Uint16 mod);
+	virtual void OnKeyDown(SDL_Keycode sym, Uint16 mod);
 
-    virtual void OnMouseFocus();
+	virtual void OnKeyUp(SDL_Keycode sym, Uint16 mod);
 
-    virtual void OnMouseBlur();
+	virtual void OnMouseFocus();
 
-    virtual void OnMouseMove(int mX, int mY, int relX, int relY, bool Left, bool Right, bool Middle);
+	virtual void OnMouseBlur();
 
-    virtual void OnMouseWheel(bool Up, bool Down);    //Not implemented
+	virtual void OnMouseMove(int mX, int mY, int relX, int relY, bool Left, bool Right, bool Middle);
 
-    virtual void OnLButtonDown(int mX, int mY);
+	virtual void OnMouseWheel(bool Up, bool Down);    //Not implemented
 
-    virtual void OnLButtonUp(int mX, int mY);
+	virtual void OnLButtonDown(int mX, int mY);
 
-    virtual void OnRButtonDown(int mX, int mY);
+	virtual void OnLButtonUp(int mX, int mY);
 
-    virtual void OnRButtonUp(int mX, int mY);
+	virtual void OnRButtonDown(int mX, int mY);
 
-    virtual void OnMButtonDown(int mX, int mY);
+	virtual void OnRButtonUp(int mX, int mY);
 
-    virtual void OnMButtonUp(int mX, int mY);
+	virtual void OnMButtonDown(int mX, int mY);
 
-    virtual void OnJoyAxis(SDL_JoystickID which, Uint8 axis, Sint16 value);
+	virtual void OnMButtonUp(int mX, int mY);
 
-    virtual void OnJoyButtonDown(SDL_JoystickID which, Uint8 button);
+	virtual void OnJoyAxis(SDL_JoystickID which, Uint8 axis, Sint16 value);
 
-    virtual void OnJoyButtonUp(SDL_JoystickID which, Uint8 button);
+	virtual void OnJoyButtonDown(SDL_JoystickID which, Uint8 button);
 
-    virtual void OnJoyHat(SDL_JoystickID which, Uint8 hat, Uint8 value);
+	virtual void OnJoyButtonUp(SDL_JoystickID which, Uint8 button);
 
-    virtual void OnJoyBall(SDL_JoystickID which, Uint8 ball, Sint16 xrel, Sint16 yrel);
+	virtual void OnJoyHat(SDL_JoystickID which, Uint8 hat, Uint8 value);
 
-    virtual void OnExpose();
+	virtual void OnJoyBall(SDL_JoystickID which, Uint8 ball, Sint16 xrel, Sint16 yrel);
 
-    virtual void OnExit();
+	virtual void OnExpose();
+
+	virtual void OnExit();
 
     virtual void OnUser(Uint32 type, int code, void *data1, void *data2);
 };

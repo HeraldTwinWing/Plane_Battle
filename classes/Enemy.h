@@ -1,7 +1,6 @@
 #pragma once
 #include "Plane.h"
 
-enum MoveMode{LINE, SNAKE_SKIN, CIRCLE, };
 
 class Enemy :
 	public Plane
@@ -12,6 +11,7 @@ public:
 		  const std::string &texture_name, Window *window);
 
     void move();
+    void refresh();
 	void move_as_sin(int direction);
 	void move_as_parabola(int direction);
 	void move_as_circle(int direction);
