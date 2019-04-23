@@ -5,6 +5,7 @@
 
 #include <SDL2/SDL.h>
 #include <deque>
+#include <memory>
 #include "Window.h"
 #include "GameData.h"
 #include "GameEvent.h"
@@ -26,11 +27,10 @@ public:
 
     void OnRender();
 
-    SDL_Window *window;
+    std::unique_ptr<SDL_Window> window;
     SDL_Event event;
 
-    GameEvent *event_handle;
-    GameData *game_data;
-
+    std::unique_ptr<GameEvent> event_handle;
+    std::unique_ptr<GameData> game_data;
 };
 
