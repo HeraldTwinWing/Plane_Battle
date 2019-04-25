@@ -65,11 +65,6 @@ void Game::OnThink()
 
         event_handle->OnEvent(event);
 
-        //Ëø60FPS
-        if ( SDL_GetTicks() - frame_time > 0.016 )
-        {
-            break;
-        }
     }
 }
 

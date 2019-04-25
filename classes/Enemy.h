@@ -13,7 +13,7 @@ public:
 	void spawn() override;
     void move() override;
     void refresh() override;
-	void move_as_sin(int direction);
+	void move_as_sin();
 	void move_as_parabola(int direction);
 	void move_as_circle(int direction);
     void move_as_line(int direction);
