@@ -136,3 +136,9 @@ void Plane::keyUpEvent(SDL_Keycode sym)
             break;
     }
 }
+
+Plane::~Plane()
+{
+    delete weapon;
+    delete hitbox;
+}

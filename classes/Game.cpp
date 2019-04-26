@@ -64,8 +64,8 @@ void Game::OnThink()
             game_data->running = false;
 
         event_handle->OnEvent(event);
-
     }
+    //while (SDL_GetTicks() - frame_time > ){}
 }
 
 void Game::OnUpdate()

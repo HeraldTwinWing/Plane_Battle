@@ -27,10 +27,15 @@ public:
 
     void OnRender();
 
-    std::unique_ptr<SDL_Window> window;
+    double lastMove;
+    double parameter;
+    double temp;
+
+
+    SDL_Window *window;
     SDL_Event event;
 
-    std::unique_ptr<GameEvent> event_handle;
-    std::unique_ptr<GameData> game_data;
+    GameEvent *event_handle;
+    GameData *game_data;
 };
 

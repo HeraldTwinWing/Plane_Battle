@@ -39,6 +39,8 @@ public:
 	Plane(int max_health, int speed, HitBox *hitbox,
 	      const std::string &texture_name, Window *window);
 
+	~Plane();
+
 
 	Plane();
 
@@ -85,4 +87,5 @@ public:
 	{
 		return SDL_GetTicks() - last_fire > weapon->get_fire_interval() * 1000;
 	}
+
 };
