@@ -27,10 +27,6 @@ public:
 
     void OnRender();
 
-    double lastMove;
-    double parameter;
-    double temp;
-
 
     SDL_Window *window;
     SDL_Event event;
