@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <utility>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "HitBox.h"
@@ -16,6 +17,8 @@ public:
 	int speed;
 	//上下左右的移动状态
 	bool moving[4] = {false, false, false, false};
+	double lastMove;
+	std::pair<double,double> moveTemp;
 
 	//武器种类
 	Weapon *weapon;
@@ -24,9 +27,11 @@ public:
 
 	//击中判定点
 	HitBox *hitbox;
+	std::pair<int,int> hitboxRelativePosition;
 
 	//坐标与大小
 	SDL_Rect position;
+	SDL_Rect centerRelativePosition;
 
 	SDL_Texture *texture = nullptr;
 
@@ -41,8 +46,6 @@ public:
 
 	~Plane();
 
-
-	Plane();
 
 	//生成单位
 	virtual void spawn();

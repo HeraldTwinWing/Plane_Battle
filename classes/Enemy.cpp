@@ -8,7 +8,8 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
     double lastMove = 0;
     double parameter = 0;
     double temp = 0;
-    originPostion = position;
+    originPosition = position;
+    lastMove = SDL_GetTicks();
 }
 
 
@@ -18,16 +19,18 @@ Enemy::~Enemy()
 
 void Enemy::move()
 {
-
+    lastMove = SDL_GetTicks();
 }
 
 void Enemy::refresh()
 {
-    //move();
-    move_as_sin();
+    move();
 
     hitbox->center_x = position.x;
     hitbox->center_y = position.y;
+
+    //std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
+
     SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
 }
 
@@ -36,34 +39,58 @@ void Enemy::spawn()
     SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
 }
 
-void Enemy::move_as_sin()
+void Enemy::MoveAsSin(int amplitude, double period)
 {
-    double timeLength = (SDL_GetTicks() - lastMove) / 1000;
+    double timeLength = SDL_GetTicks() - lastMove;
 
-//    if (timeLength > 1)
-//    {
-//        timeLength = 0;
-//    }
+    double angularVelocity = 2 * 3.14 / period;
 
-    temp = 200 * std::sin(2*  0.001 *  SDL_GetTicks());
-    std::cout << "temp:" << temp << std::endl;
+    sinMoveTemp = amplitude * std::sin(angularVelocity * 0.001 * SDL_GetTicks());
+    //std::cout << "sinMoveTemp:" << sinMoveTemp << std::endl;
 
-    if ( temp > 0 )
+    if ( sinMoveTemp > 0 )
     {
-        position.y = std::floor(originPostion.y + temp);
+        position.y = std::floor(originPosition.y + sinMoveTemp);
     }
     else
     {
-        position.y = std::ceil(originPostion.y + temp);
+        position.y = std::ceil(originPosition.y + sinMoveTemp);
     }
 
-    std::cout << "time:" << timeLength << std::endl;
+    //²âÊÔ´úÂë
+    //std::cout << "time:" << timeLength << std::endl;
 
     parameter += timeLength;
-//    if ( parameter > 3.14 * 2 )
-//    {
-//        parameter = 0;
-//    }
 
-    std::cout << "t:" << parameter << std::endl;
+    //²âÊÔ´úÂë
+    //std::cout << "t:" << parameter << std::endl;
+}
+
+void Enemy::MoveAsSin()
+{
+    MoveAsSin(200, 5);
+}
+
+void Enemy::MoveAsLine(double direction)
+{
+    double timeLength = 0.001 * (SDL_GetTicks() - lastMove);
+
+    std::cout << "TL:" << timeLength << std::endl;
+
+    lineMoveTemp.first += speed * timeLength * std::cos(direction * 3.14);
+    lineMoveTemp.second += speed * timeLength * std::sin(direction * 3.14);
+
+    if ( std::abs(lineMoveTemp.first) > 1 )
+    {
+        position.x += (int) std::trunc(lineMoveTemp.first);
+        originPosition.x += (int) std::trunc(lineMoveTemp.first);
+        lineMoveTemp.first -= std::trunc(lineMoveTemp.first);
+    }
+
+    if ( std::abs(lineMoveTemp.second) > 1 )
+    {
+        position.y += (int) std::trunc(lineMoveTemp.second);
+        originPosition.y += (int) std::trunc(lineMoveTemp.second);
+        lineMoveTemp.second -= std::trunc(lineMoveTemp.second);
+    }
 }

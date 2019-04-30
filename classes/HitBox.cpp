@@ -4,7 +4,7 @@
 #include <cmath>
 
 
-HitBox::HitBox(hitbox_category  category, int radius)
+HitBox::HitBox(hitbox_category category, int radius)
 {
     this->category = category;
     this->radius = radius;
@@ -24,13 +24,12 @@ bool HitBox::ifBulletHit(Bullet *bullet)
 {
     if ( category == SQUARE_HITBOX )
     {
-        return bullet->position.x < center_x + radius && bullet->position.x > center_x - radius
-               && bullet->position.y < center_y + radius && bullet->position.y > center_y - radius;
+        return std::abs(bullet->position.x - center_x) < radius && std::abs(bullet->position.y - center_y) < radius;
 
     }
     else if ( category == CIRCLE_HITBOX )
     {
-        return std::pow(bullet->position.x - center_x, 2) + std::pow(bullet->position.x - center_y, 2)
+        return std::pow(bullet->position.x - center_x, 2) + std::pow(bullet->position.y - center_y, 2)
                < std::pow(radius, 2);
     }
     return false;
@@ -38,7 +37,7 @@ bool HitBox::ifBulletHit(Bullet *bullet)
 
 bool HitBox::ifBeamHit()
 {
-	return false;
+    return false;
 }
 
 
