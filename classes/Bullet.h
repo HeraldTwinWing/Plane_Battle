@@ -12,28 +12,29 @@
 class Bullet
 {
 public:
-	int atk;
-	int speed;
-	double pi = std::acos(-1);
-	//子弹飞行方向,以极坐标角度标记,右为正方向,单位为pi*rad
-	double direction_theta;
-	Window *window;
-	SDL_Rect position{};
-	SDL_Texture *texture;
+    int atk;
+    int speed;
+    double pi = std::acos(-1);
+    //子弹飞行方向,以极坐标角度标记,右为正方向,单位为pi*rad
+    double direction_theta;
+    Window *window;
+    SDL_Rect position{};
+    SDL_Texture *texture;
 
 
-	Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Rect position,
-	       SDL_Texture *texture);
-	~Bullet();
+    Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Rect position,
+           SDL_Texture *texture);
 
-	int get_atk()
-	{
-		return atk;
-	}
+    ~Bullet();
 
-	void move();
+    int getAtk()
+    {
+        return atk;
+    }
 
-	void show_image();
+    void move();
+
+    void show_image();
 };
 
 #endif //PLANE_BATTLE_BULLET_H

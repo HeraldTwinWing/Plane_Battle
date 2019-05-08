@@ -12,7 +12,7 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
     this->position.y = coordinate_y;
     this->texture = window->load_picture(texture_name);
     this->window = window;
-    this->weapon = new Weapon(bullet);
+    this->weapon = new Weapon(BULLET);
     this->lastMove = SDL_GetTicks();
 
     SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
@@ -42,18 +42,18 @@ bool Plane::damage(int damage_amount)
 
 void Plane::spawn()
 {
-    SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
+    SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
 void Plane::move()
 {
     double timeLength = 0.001 * (SDL_GetTicks() - lastMove);
 
-    if ( moving[0] && position.y >= 0 )
+    if ( moving[0] && position.y >= 10 )
     {
         moveTemp.second -= speed * timeLength;
     }
-    if ( moving[1] && position.y <= 520 )
+    if ( moving[1] && position.y <= 720 )
     {
         moveTemp.second += speed * timeLength;
     }
@@ -61,7 +61,7 @@ void Plane::move()
     {
         moveTemp.first -= speed * timeLength;
     }
-    if ( moving[3] && position.x <= 1080 )
+    if ( moving[3] && position.x <= 1280 )
     {
         moveTemp.first += speed * timeLength;
     }
@@ -96,12 +96,12 @@ void Plane::refresh()
     move();
     hitbox->set_x(position.x);
     hitbox->set_y(position.y);
-    if ( firing && SDL_GetTicks() - last_fire > weapon->get_fire_interval() * 1000 )
+    /*if ( firing && SDL_GetTicks() - last_fire > weapon->get_fire_interval() * 1000 )
     {
         std::cout << "fire at" << SDL_GetTicks() << std::endl;
-    }
+    }*/
 
-    SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
+    SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
 void Plane::keyDownEvent(SDL_Keycode sym)

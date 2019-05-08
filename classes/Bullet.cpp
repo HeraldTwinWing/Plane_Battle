@@ -22,7 +22,7 @@ void Bullet::show_image()
 
     position.w = 11;
     position.h = 38;
-    SDL_RenderCopyEx(window->get_renderer(), texture, &clip, &position, 90, nullptr, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(window->getRenderer(), texture, &clip, &position, 90, nullptr, SDL_FLIP_NONE);
 }
 
 Bullet::Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Rect position,

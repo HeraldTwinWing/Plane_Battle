@@ -15,9 +15,13 @@ HitBox::~HitBox()
 {
 }
 
-bool HitBox::hit(weapon_category_list weapon_category, Bullet *bullet)
+bool HitBox::hit(WeaponCategoryEnum weapon_category, Bullet *bullet)
 {
-    return false;
+    switch (weapon_category)
+    {
+        case BULLET:
+            break;
+    }
 }
 
 bool HitBox::ifBulletHit(Bullet *bullet)

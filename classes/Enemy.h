@@ -39,6 +39,7 @@ public:
     //直线移动
     //参数为极坐标下θ,单位为Π
     void MoveAsLine(double direction);
+    void MoveAsLine();
 
     ~Enemy();
 };

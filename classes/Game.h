@@ -27,11 +27,12 @@ public:
 
     void OnRender();
 
+    void playerBulletMoveAndHitDeterminate();
 
     SDL_Window *window;
     SDL_Event event;
 
     GameEvent *event_handle;
-    GameData *game_data;
+    GameData *gameData;
 };
 

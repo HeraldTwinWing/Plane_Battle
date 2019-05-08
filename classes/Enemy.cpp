@@ -5,7 +5,7 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
              const std::string &texture_name, Window *window)
         : Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
 {
-    double lastMove = 0;
+    double lastMove = SDL_GetTicks();
     double parameter = 0;
     double temp = 0;
     originPosition = position;
@@ -13,12 +13,12 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 }
 
 
-Enemy::~Enemy()
-{
-}
+Enemy::~Enemy()=default;
 
 void Enemy::move()
 {
+    //MoveAsSin();
+    //MoveAsLine(0);
     lastMove = SDL_GetTicks();
 }
 
@@ -31,12 +31,12 @@ void Enemy::refresh()
 
     //std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
 
-    SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
+    SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
 void Enemy::spawn()
 {
-    SDL_RenderCopy(window->get_renderer(), texture, nullptr, &position);
+    SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
 void Enemy::MoveAsSin(int amplitude, double period)
@@ -75,7 +75,7 @@ void Enemy::MoveAsLine(double direction)
 {
     double timeLength = 0.001 * (SDL_GetTicks() - lastMove);
 
-    std::cout << "TL:" << timeLength << std::endl;
+    //std::cout << "TL:" << timeLength << std::endl;
 
     lineMoveTemp.first += speed * timeLength * std::cos(direction * 3.14);
     lineMoveTemp.second += speed * timeLength * std::sin(direction * 3.14);
@@ -93,4 +93,14 @@ void Enemy::MoveAsLine(double direction)
         originPosition.y += (int) std::trunc(lineMoveTemp.second);
         lineMoveTemp.second -= std::trunc(lineMoveTemp.second);
     }
+}
+
+void Enemy::MoveAsLine()
+{
+    MoveAsLine(0);
+}
+
+void Enemy::MoveAsParabola(double a, double v, double c)
+{
+
 }

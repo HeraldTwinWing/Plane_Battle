@@ -24,13 +24,13 @@ public:
 	double lastTime;
 	double deltaTime;
 
-	Window *main_window;
+	Window *mainWindow;
 	//己方飞机
 	Plane *player;
 
-	std::deque<Bullet> player_bullets;
+	std::deque<Bullet> playerBullets;
 	std::deque<Bullet> enemy_bullets;
-	std::deque<Enemy> enemys;
+	std::deque<Enemy> enemies;
 
 	//判断是否开火并添加子弹到容器
 	void addPlayerBullet();

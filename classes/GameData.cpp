@@ -8,7 +8,7 @@
 void GameData::addPlayerBullet()
 {
     if (player->if_firing() && player->if_not_in_fire_CD())
-	    player_bullets.push_back(player->fire());
+	    playerBullets.push_back(player->fire());
 }
 
 void GameData::addEnemyBullet(Enemy& enemy)
@@ -18,6 +18,6 @@ void GameData::addEnemyBullet(Enemy& enemy)
 
 void GameData::addEnemy(Enemy &enemy)
 {
-	enemys.push_back(enemy);
+	enemies.push_back(enemy);
 }
 

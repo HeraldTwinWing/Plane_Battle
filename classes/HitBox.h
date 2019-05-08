@@ -23,7 +23,7 @@ public:
      * 选择对应的判定方法
      * 击中返回true,否则返回false
      * */
-    bool hit(weapon_category_list weapon_category,Bullet *bullet = nullptr);
+    bool hit(WeaponCategoryEnum weapon_category, Bullet *bullet = nullptr);
 
 	bool ifBulletHit(Bullet *bullet);
 

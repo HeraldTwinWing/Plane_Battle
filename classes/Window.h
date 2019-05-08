@@ -71,7 +71,7 @@ public:
         return window;
     }
 
-    SDL_Renderer *get_renderer()
+    SDL_Renderer *getRenderer()
     {
         return renderer;
     }

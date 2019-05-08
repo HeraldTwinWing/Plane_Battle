@@ -4,21 +4,21 @@
 #include <cmath>
 #include "Bullet.h"
 
-enum weapon_category_list
+enum WeaponCategoryEnum
 {
-    pellet, bullet, beam
+    PELLET, BULLET, BEAM
 };
 
 class Weapon
 {
 private:
 	double fire_interval;
-	weapon_category_list category;
+	WeaponCategoryEnum category;
 public:
     Weapon();
-    Weapon(weapon_category_list weapon_category);
+    Weapon(WeaponCategoryEnum weapon_category);
 
-	weapon_category_list get_weapon_category()
+	WeaponCategoryEnum get_weapon_category()
     {
         return category;
     }
