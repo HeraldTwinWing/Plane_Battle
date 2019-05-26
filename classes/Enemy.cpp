@@ -3,101 +3,104 @@
 
 Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
              const std::string &texture_name, Window *window)
-        : Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
+		: Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
 {
-    double lastMove = SDL_GetTicks();
-    double parameter = 0;
-    double temp = 0;
-    originPosition = position;
-    lastMove = SDL_GetTicks();
+	lastMove = SDL_GetTicks();
+	parameter = 0;
+	originPosition = position;
+	lastMove = SDL_GetTicks();
+	sinMoveTemp = 0;
+
+	delete weapon;
+	weapon = new Weapon({1},0.5,false);
 }
 
 
-Enemy::~Enemy()=default;
+Enemy::~Enemy() = default;
 
 void Enemy::move()
 {
-    //MoveAsSin();
-    //MoveAsLine(0);
-    lastMove = SDL_GetTicks();
+	//MoveAsSin();
+	//MoveAsLine(0);
+	lastMove = SDL_GetTicks();
 }
 
 void Enemy::refresh()
 {
-    move();
+	move();
 
-    hitbox->center_x = position.x;
-    hitbox->center_y = position.y;
+	hitbox->center_x = position.x;
+	hitbox->center_y = position.y;
 
-    //std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
+	//std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
 
-    SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
+	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
 void Enemy::spawn()
 {
-    SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
+	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
 void Enemy::MoveAsSin(int amplitude, double period)
 {
-    double timeLength = SDL_GetTicks() - lastMove;
+	double timeLength = SDL_GetTicks() - lastMove;
 
-    double angularVelocity = 2 * 3.14 / period;
+	double angularVelocity = 2 * 3.14 / period;
 
-    sinMoveTemp = amplitude * std::sin(angularVelocity * 0.001 * SDL_GetTicks());
-    //std::cout << "sinMoveTemp:" << sinMoveTemp << std::endl;
+	sinMoveTemp = amplitude * std::sin(angularVelocity * 0.001 * SDL_GetTicks());
+	//std::cout << "sinMoveTemp:" << sinMoveTemp << std::endl;
 
-    if ( sinMoveTemp > 0 )
-    {
-        position.y = std::floor(originPosition.y + sinMoveTemp);
-    }
-    else
-    {
-        position.y = std::ceil(originPosition.y + sinMoveTemp);
-    }
+	if (sinMoveTemp > 0)
+	{
+		position.y = std::floor(originPosition.y + sinMoveTemp);
+	}
+	else
+	{
+		position.y = std::ceil(originPosition.y + sinMoveTemp);
+	}
 
-    //≤‚ ‘¥˙¬Î
-    //std::cout << "time:" << timeLength << std::endl;
+	//≤‚ ‘¥˙¬Î
+	//std::cout << "time:" << timeLength << std::endl;
 
-    parameter += timeLength;
+	parameter += timeLength;
 
-    //≤‚ ‘¥˙¬Î
-    //std::cout << "t:" << parameter << std::endl;
+	//≤‚ ‘¥˙¬Î
+	//std::cout << "t:" << parameter << std::endl;
 }
 
 void Enemy::MoveAsSin()
 {
-    MoveAsSin(200, 5);
+	MoveAsSin(200, 5);
 }
 
 void Enemy::MoveAsLine(double direction)
 {
-    double timeLength = 0.001 * (SDL_GetTicks() - lastMove);
+	double timeLength = 0.001 * (SDL_GetTicks() - lastMove);
 
-    //std::cout << "TL:" << timeLength << std::endl;
+	//std::cout << "TL:" << timeLength << std::endl;
 
-    lineMoveTemp.first += speed * timeLength * std::cos(direction * 3.14);
-    lineMoveTemp.second += speed * timeLength * std::sin(direction * 3.14);
+	lineMoveTemp.first += speed * timeLength * std::cos(direction * 3.14);
+	lineMoveTemp.second += speed * timeLength * std::sin(direction * 3.14);
 
-    if ( std::abs(lineMoveTemp.first) > 1 )
-    {
-        position.x += (int) std::trunc(lineMoveTemp.first);
-        originPosition.x += (int) std::trunc(lineMoveTemp.first);
-        lineMoveTemp.first -= std::trunc(lineMoveTemp.first);
-    }
+	if (std::abs(lineMoveTemp.first) > 1)
+	{
+		position.x += (int) std::trunc(lineMoveTemp.first);
+		originPosition.x += (int) std::trunc(lineMoveTemp.first);
+		lineMoveTemp.first -= std::trunc(lineMoveTemp.first);
+	}
 
-    if ( std::abs(lineMoveTemp.second) > 1 )
-    {
-        position.y += (int) std::trunc(lineMoveTemp.second);
-        originPosition.y += (int) std::trunc(lineMoveTemp.second);
-        lineMoveTemp.second -= std::trunc(lineMoveTemp.second);
-    }
+	if (std::abs(lineMoveTemp.second) > 1)
+	{
+		position.y += (int) std::trunc(lineMoveTemp.second);
+		originPosition.y += (int) std::trunc(lineMoveTemp.second);
+		lineMoveTemp.second -= std::trunc(lineMoveTemp.second);
+	}
 }
 
 void Enemy::MoveAsLine()
 {
-    MoveAsLine(0);
+	MoveAsLine(0);
 }
 
 void Enemy::MoveAsParabola(double a, double v, double c)

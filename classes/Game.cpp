@@ -64,7 +64,6 @@ void Game::OnThink()
             gameData->running = false;
 
         event_handle->OnEvent(event);
-
     }
 }
 

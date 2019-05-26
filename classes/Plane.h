@@ -2,6 +2,7 @@
 
 #include <string>
 #include <utility>
+#include <deque>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "HitBox.h"
@@ -69,9 +70,9 @@ public:
 	void change_weapon(Weapon weapon);
 
 	/*射击
-	 * 根据武器种类创建相应的子弹对象
+	 * 根据武器种类创建子弹对象并存入playerBullets
 	 * */
-	virtual Bullet fire();
+	virtual void fire(std::deque<Bullet>& playerBullets);
 
 	//刷新该对象状态
 	//包括贴图位置与hitbox位置

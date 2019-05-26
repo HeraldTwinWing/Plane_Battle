@@ -14,6 +14,7 @@ public:
     int center_y;
 
     hitbox_category category;
+    int size[2];
     int radius;
 
     HitBox(hitbox_category category, int radius);

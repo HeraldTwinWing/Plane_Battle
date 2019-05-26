@@ -1,6 +1,7 @@
 #include "Plane.h"
 
 
+
 Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
              const std::string &texture_name, Window *window) : firing(false), last_fire(0)
 {
@@ -85,10 +86,10 @@ void Plane::change_weapon(Weapon weapon)
 {
 }
 
-Bullet Plane::fire()
+void Plane::fire(std::deque<Bullet>& playerBullets)
 {
     last_fire = SDL_GetTicks();
-    return weapon->fire(window, window->load_picture("weapon.png"), &position);
+    playerBullets.push_back(weapon->fire(window, window->load_picture("weapon.png"), &position));
 }
 
 void Plane::refresh()

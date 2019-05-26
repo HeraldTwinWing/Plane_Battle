@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <cmath>
+#include <vector>
 #include "Bullet.h"
 
 enum WeaponCategoryEnum
@@ -13,10 +14,15 @@ class Weapon
 {
 private:
 	double fire_interval;
+
+	//开火时瞄准玩家
+	bool aim = false;
+	//敌方单位子弹的方向
+	std::vector<int> directions;
 	WeaponCategoryEnum category;
 public:
-    Weapon();
-    Weapon(WeaponCategoryEnum weapon_category);
+    Weapon(std::vector<int> directions, double fire_interval, bool aim);
+    explicit Weapon(WeaponCategoryEnum weapon_category);
 
 	WeaponCategoryEnum get_weapon_category()
     {
