@@ -1,8 +1,9 @@
 #include "Plane.h"
 
 
+
 Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
-             const std::string &texture_name, SDL_Renderer *target_renderer)
+             const std::string &texture_name, Window *window) : firing(false), last_fire(0)
 {
     this->max_health = max_health;
     this->health = max_health;
@@ -10,14 +11,16 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
     this->hitbox = hitbox;
     this->position.x = coordinate_x;
     this->position.y = coordinate_y;
-    this->texture = load_picture(texture_name, target_renderer);
-    this->target_renderer = target_renderer;
+    this->texture = window->load_picture(texture_name);
+    this->window = window;
+    this->weapon = new Weapon(BULLET);
+    this->lastMove = SDL_GetTicks();
 
     SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
 }
 
 Plane::Plane(int max_health, int speed, HitBox *hitbox,
-             const std::string &texture_name, SDL_Renderer *target_renderer)
+             const std::string &texture_name, Window *window)
 {
     this->max_health = max_health;
     this->health = max_health;
@@ -25,112 +28,135 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox,
     this->hitbox = hitbox;
     this->position.x = SDL_WINDOWPOS_CENTERED;
     this->position.y = SDL_WINDOWPOS_CENTERED;
-    this->texture = load_picture(texture_name, target_renderer);
-    this->target_renderer = target_renderer;
+    this->texture = window->load_picture(texture_name);
+    this->window = window;
+    this->lastMove = SDL_GetTicks();
     SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
-}
-
-Plane::Plane(Plane &plane)
-{
 }
 
 bool Plane::damage(int damage_amount)
 {
     health -= damage_amount;
 
-    return health > 0;
+    return health < 0;
 }
 
 void Plane::spawn()
 {
-    SDL_RenderCopy(target_renderer, texture, nullptr, &position);
+    SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
 void Plane::move()
 {
-    if ( moving[0] && position.y >= 0 )
+    double timeLength = 0.001 * (SDL_GetTicks() - lastMove);
+
+    if ( moving[0] && position.y >= 10 )
     {
-        position.y -= speed;
+        moveTemp.second -= speed * timeLength;
     }
-    if ( moving[1] && position.y <= 520 )
+    if ( moving[1] && position.y <= 720 )
     {
-        position.y += speed;
+        moveTemp.second += speed * timeLength;
     }
     if ( moving[2] && position.x >= 0 )
     {
-        position.x -= speed;
+        moveTemp.first -= speed * timeLength;
     }
-    if ( moving[3] && position.x <= 1080 )
+    if ( moving[3] && position.x <= 1280 )
     {
-        position.x += speed;
+        moveTemp.first += speed * timeLength;
     }
 
-    refresh();
+    if ( std::abs(moveTemp.first) > 1 )
+    {
+        position.x += (int) std::trunc(moveTemp.first);
+        moveTemp.first -= std::trunc(moveTemp.first);
+    }
+
+    if ( std::abs(moveTemp.second) > 1 )
+    {
+        position.y += (int) std::trunc(moveTemp.second);
+        moveTemp.second -= std::trunc(moveTemp.second);
+    }
+
+    lastMove = SDL_GetTicks();
 }
 
 void Plane::change_weapon(Weapon weapon)
 {
 }
 
-void Plane::shoot()
+void Plane::fire(std::deque<Bullet>& playerBullets)
 {
+    last_fire = SDL_GetTicks();
+    playerBullets.push_back(weapon->fire(window, window->load_picture("weapon.png"), &position));
 }
 
 void Plane::refresh()
 {
+    move();
     hitbox->set_x(position.x);
     hitbox->set_y(position.y);
+    /*if ( firing && SDL_GetTicks() - last_fire > weapon->get_fire_interval() * 1000 )
+    {
+        std::cout << "fire at" << SDL_GetTicks() << std::endl;
+    }*/
 
-    SDL_RenderCopy(target_renderer, texture, nullptr, &position);
+    SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
-void Plane::set_moving(SDL_Event event)
+void Plane::keyDownEvent(SDL_Keycode sym)
 {
-    if ( event.type == SDL_KEYDOWN )
+    switch (sym)
     {
-        switch (event.key.keysym.sym)
-        {
-            case SDLK_UP:
-                moving[0] = true;
-                moving[1] = false;
-                break;
-            case SDLK_DOWN:
-                moving[1] = true;
-                moving[0] = false;
-                break;
-            case SDLK_LEFT:
-                moving[2] = true;
-                moving[3] = false;
-                break;
-            case SDLK_RIGHT:
-                moving[3] = true;
-                moving[2] = false;
-                break;
-            default:break;
-        }
-    }
-    else if (event.type == SDL_KEYUP)
-    {
-        switch (event.key.keysym.sym)
-        {
-            case SDLK_UP:
-                moving[0] = false;
-                break;
-            case SDLK_DOWN:
-                moving[1] = false;
-                break;
-            case SDLK_LEFT:
-                moving[2] = false;
-                break;
-            case SDLK_RIGHT:
-                moving[3] = false;
-                break;
-            default:break;
-        }
+        case SDLK_UP:
+            moving[0] = true;
+            moving[1] = false;
+            break;
+        case SDLK_DOWN:
+            moving[1] = true;
+            moving[0] = false;
+            break;
+        case SDLK_LEFT:
+            moving[2] = true;
+            moving[3] = false;
+            break;
+        case SDLK_RIGHT:
+            moving[3] = true;
+            moving[2] = false;
+            break;
+        case SDLK_SPACE:
+            firing = true;
+        default:
+            break;
     }
 }
 
+void Plane::keyUpEvent(SDL_Keycode sym)
+{
+    switch (sym)
+    {
+        case SDLK_UP:
+            moving[0] = false;
+            break;
+        case SDLK_DOWN:
+            moving[1] = false;
+            break;
+        case SDLK_LEFT:
+            moving[2] = false;
+            break;
+        case SDLK_RIGHT:
+            moving[3] = false;
+            break;
+        case SDLK_SPACE:
+            firing = false;
+        default:
+            break;
+    }
+}
 
-
-
-
+Plane::~Plane()
+{
+    delete weapon;
+    delete hitbox;
+}

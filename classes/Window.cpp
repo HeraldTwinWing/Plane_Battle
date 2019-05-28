@@ -25,7 +25,7 @@ SDL_Window *Window::create_window(const std::string &title)
     window = SDL_CreateWindow(title.c_str(),
                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               window_width, window_height, SDL_WINDOW_SHOWN);
-    if (window == nullptr)
+    if ( window == nullptr )
     {
         std::cout << SDL_GetError() << std::endl;
         return nullptr;
@@ -37,12 +37,12 @@ SDL_Window *Window::create_window(const std::string &title)
 SDL_Renderer *Window::create_renderer(bool default_renderer)
 {
     SDL_Renderer *new_renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (new_renderer == nullptr)
+    if ( new_renderer == nullptr )
     {
         std::cout << SDL_GetError() << std::endl;
         return nullptr;
     }
-    if (default_renderer)
+    if ( default_renderer )
     {
         this->renderer = new_renderer;
     }
@@ -52,31 +52,39 @@ SDL_Renderer *Window::create_renderer(bool default_renderer)
 
 SDL_Texture *Window::load_picture(const std::string &filename)
 {
-    std::string path = "../pictures/" + filename;
-    SDL_Surface *loaded_image = nullptr;
-    SDL_Texture *texture = nullptr;
-
-    loaded_image = IMG_Load(path.c_str());
-    if (loaded_image == nullptr)
+    if (textures.find(filename) != textures.end())
     {
-        std::cout << SDL_GetError() << std::endl;
-        return nullptr;
+        return textures[filename];
     }
-    texture = SDL_CreateTextureFromSurface(renderer, loaded_image);
-    textures.push_back(texture);
+    else
+    {
+        std::string path = "../pictures/" + filename;
+        SDL_Surface *loaded_image = nullptr;
+        SDL_Texture *texture = nullptr;
 
-    SDL_FreeSurface(loaded_image);
+        loaded_image = IMG_Load(path.c_str());
+        if ( loaded_image == nullptr )
+        {
+            std::cout << SDL_GetError() << std::endl;
+            return nullptr;
+        }
+        texture = SDL_CreateTextureFromSurface(renderer, loaded_image);
+        textures[filename] = texture;
 
-    return texture;
+        SDL_FreeSurface(loaded_image);
+
+        return textures[filename];
+    }
 }
 
 void Window::show_background()
 {
-    if (background1_pos.x >= -1920 && background1_pos.x <= 1280)
+
+    if ( background1_pos.x >= -1920 && background1_pos.x <= 1280 )
     {
         SDL_RenderCopy(renderer, background, nullptr, &background1_pos);
     }
-    if (background2_pos.x >= -1920 && background2_pos.x <= 1280)
+    if ( background2_pos.x >= -1920 && background2_pos.x <= 1280 )
     {
         SDL_RenderCopy(renderer, background, nullptr, &background2_pos);
     }
@@ -111,11 +119,12 @@ void Window::show_image(SDL_Texture *texture, SDL_Renderer *target_renderer, int
 Window::~Window()
 {
     SDL_DestroyRenderer(renderer);
-    for (SDL_Texture *texture: textures)
+    for ( std::pair<std::string, SDL_Texture*> p: textures )
     {
-        SDL_DestroyTexture(texture);
-        SDL_DestroyTexture(background);
+        SDL_DestroyTexture(p.second);
     }
+    textures.clear();
+    SDL_DestroyTexture(background);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 }
@@ -123,16 +132,16 @@ Window::~Window()
 void Window::background_move(double this_time)
 {
     //左移背景
-    if (this_time - background_last_move > 10)
+    if ( this_time - background_last_move > 10 )
     {
         background1_pos.x -= 1;
         background2_pos.x -= 1;
     }
 
     //当一张背景移出屏幕后将其拼接到另一背景之后
-    if (background1_pos.x < -background1_pos.w)
+    if ( background1_pos.x < -background1_pos.w )
         background1_pos.x = background2_pos.x + background1_pos.w;
-    if (background2_pos.x < -background2_pos.w)
+    if ( background2_pos.x < -background2_pos.w )
         background2_pos.x = background1_pos.x + background2_pos.w;
     this->show_background();
 }
@@ -151,7 +160,7 @@ SDL_Texture *load_picture(const std::string &filename, SDL_Renderer *target_rend
     SDL_Texture *texture = nullptr;
 
     loaded_image = IMG_Load(path.c_str());
-    if (loaded_image == nullptr)
+    if ( loaded_image == nullptr )
     {
         std::cout << SDL_GetError() << std::endl;
         return nullptr;

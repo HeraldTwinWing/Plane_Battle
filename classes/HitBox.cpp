@@ -1,12 +1,13 @@
+#include <utility>
+
 #include "HitBox.h"
+#include <cmath>
 
 
-HitBox::HitBox(std::string category)
+HitBox::HitBox(hitbox_category category, int radius)
 {
-    if (category == "square")
-        this->category = square;
-    else
-        this->category = circle;
+    this->category = category;
+    this->radius = radius;
 }
 
 
@@ -14,30 +15,35 @@ HitBox::~HitBox()
 {
 }
 
-bool HitBox::hit(std::string weapon_category)
+bool HitBox::hit(WeaponCategoryEnum weapon_category, Bullet *bullet)
+{
+    switch (weapon_category)
+    {
+        case BULLET:
+            break;
+    }
+}
+
+bool HitBox::ifBulletHit(Bullet *bullet)
+{
+    if ( category == SQUARE_HITBOX )
+    {
+        return std::abs(bullet->position.x - center_x) < radius && std::abs(bullet->position.y - center_y) < radius;
+
+    }
+    else if ( category == CIRCLE_HITBOX )
+    {
+        return std::pow(bullet->position.x - center_x, 2) + std::pow(bullet->position.y - center_y, 2)
+               < std::pow(radius, 2);
+    }
+    return false;
+}
+
+bool HitBox::ifBeamHit()
 {
     return false;
 }
 
-bool HitBox::square_hitbox_hit_by_bullet()
-{
-    return false;
-}
-
-bool HitBox::square_hitbox_hit_by_beam()
-{
-    return false;
-}
-
-bool HitBox::circle_hitbox_hit_by_bullet()
-{
-    return false;
-}
-
-bool HitBox::circle_hitbox_hit_by_beam()
-{
-    return false;
-}
 
 void HitBox::set_x(int x)
 {
@@ -48,3 +54,4 @@ void HitBox::set_y(int y)
 {
     center_y = y;
 }
+

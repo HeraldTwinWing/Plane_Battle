@@ -4,41 +4,50 @@
 
 #include "Game.h"
 
-Game::Game()
+Game::Game(GameData* game_data)
 {
-    ScreenWidth = 1280;
-    ScreenHeight = 720;
-    ScreenBPP = 32;
+    this->gameData = game_data;
+    game_data->ScreenWidth = 1280;
+    game_data->ScreenHeight = 720;
+    game_data->ScreenBPP = 32;
 
-    running = true;
+    game_data->running = true;
 
-    if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
+    if ( SDL_Init(SDL_INIT_EVERYTHING) == -1 )
     {
         std::cout << SDL_GetError() << std::endl;
     }
 
-    main_window = new Window(ScreenWidth, ScreenHeight);
-    main_window->create_window("Plane Battle");
-    main_window->create_renderer();
-    main_window->load_background();
-    main_window->show_background();
+    //创建主窗口并加载背景
+    game_data->mainWindow = new Window(game_data->ScreenWidth, game_data->ScreenHeight);
+    game_data->mainWindow->create_window("Plane Battle");
+    game_data->mainWindow->create_renderer();
+    game_data->mainWindow->load_background();
+    game_data->mainWindow->show_background();
 
-//    SDL_Renderer *my_plane_renderer = main_window->create_renderer(false);
-//    renderers.push_back(my_plane_renderer);
-    my_plane = new Plane(1000, 10, new HitBox("square"), 200, 360,
-                         "default_ship.png", main_window->get_renderer());
-    my_plane->spawn();
+    event_handle = new GameEvent(game_data);
+
+
+    game_data->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 200, 360,
+                                  "default_ship.png", game_data->mainWindow);
+    game_data->player->spawn();
+
+    //测试用代码
+    game_data->enemies.push_back({1000, 200, new HitBox(SQUARE_HITBOX, 100), 500, 360,
+                                  "default_ship.png", game_data->mainWindow});
+    game_data->enemies[0].spawn();
 }
 
 Game::~Game()
 {
-    delete main_window;
+    delete gameData->mainWindow;
+    delete gameData->player;
     SDL_Quit();
 }
 
 void Game::OnExecute()
 {
-    while (running)
+    while ( gameData->running )
     {
         OnThink();
         OnUpdate();
@@ -49,39 +58,75 @@ void Game::OnExecute()
 void Game::OnThink()
 {
     double frame_time = SDL_GetTicks();
-    while (SDL_PollEvent(&event))
+    while ( SDL_PollEvent(&event))
     {
-        if (event.type == SDL_QUIT)
-            running = false;
+        if ( event.type == SDL_QUIT )
+            gameData->running = false;
 
-        if (event.type == SDL_KEYDOWN)
-        {}
-        if (event.type == SDL_KEYUP)
-        {}
-
-        my_plane->set_moving(event);
-
-        if (SDL_GetTicks() - frame_time > 0.016)
-        {
-            break;
-        }
+        event_handle->OnEvent(event);
     }
 }
 
 void Game::OnUpdate()
 {
-    lastTime = thisTime;
-    thisTime = SDL_GetTicks();
-    deltaTime = (thisTime - lastTime) / 1000.0;
+    gameData->lastTime = gameData->thisTime;
+    gameData->thisTime = SDL_GetTicks();
+    gameData->deltaTime = (gameData->thisTime - gameData->lastTime) / 1000.0;
+    SDL_RenderClear(gameData->mainWindow->getRenderer());
+    gameData->mainWindow->background_move(gameData->thisTime);
 
-    my_plane->move();
+    //玩家相关状态更新
+    gameData->addPlayerBullet();
+    gameData->player->move();
+    playerBulletMoveAndHitDeterminate();
+    gameData->player->refresh();
 
-    SDL_RenderClear(main_window->get_renderer());
-    main_window->background_move(thisTime);
-    my_plane->refresh();
+
+    //std::cout << playerBullets.size() << std::endl;
+
+
+    for ( auto& i: gameData->enemies )
+    {
+        i.refresh();
+    }
 }
 
 void Game::OnRender()
 {
-    SDL_RenderPresent(main_window->get_renderer());
+    SDL_RenderPresent(gameData->mainWindow->getRenderer());
+}
+
+void Game::playerBulletMoveAndHitDeterminate()
+{
+    int lastNeedDeleteBullet = 0;
+    for ( int j = 0; j < gameData->playerBullets.size(); ++j )
+    {
+        gameData->playerBullets[j].show_image();
+        if ( gameData->playerBullets[j].position.x < -30 || gameData->playerBullets[j].position.x > 1300 ||
+             gameData->playerBullets[j].position.y < -30 || gameData->playerBullets[j].position.y > 750 )
+        {
+            lastNeedDeleteBullet = j;
+        }
+    }
+    gameData->playerBullets.erase(gameData->playerBullets.begin(),
+                                  gameData->playerBullets.begin() + lastNeedDeleteBullet);
+
+    for ( auto playerBullet = gameData->playerBullets.begin();
+          playerBullet < gameData->playerBullets.end(); ++playerBullet )
+    {
+        playerBullet->move();
+        for ( auto enemy = gameData->enemies.begin(); enemy < gameData->enemies.end(); enemy++ )
+        {
+            if ( enemy->hitbox->ifBulletHit(&*playerBullet))
+            {
+                std::cout << "hit" << std::endl;
+                if ( enemy->damage(playerBullet->atk))
+                {
+                    enemy = gameData->enemies.erase(enemy);
+                }
+                playerBullet = gameData->playerBullets.erase(playerBullet);
+            }
+        }
+    }
+    gameData->playerBullets.shrink_to_fit();
 }

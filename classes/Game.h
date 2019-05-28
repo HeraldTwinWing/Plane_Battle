@@ -1,21 +1,21 @@
 //
 // Created by Avalanche_Exia on 2019/4/3.
 //
-
-#ifndef PLANE_BATTLE_GAME_H
-#define PLANE_BATTLE_GAME_H
+#pragma once
 
 #include <SDL2/SDL.h>
-#include <vector>
+#include <deque>
+#include <memory>
 #include "Window.h"
-#include "Plane.h"
+#include "GameData.h"
+#include "GameEvent.h"
 
 
 class Game
 {
 
 public:
-    Game();
+    explicit Game(GameData *game_data);
 
     ~Game();
 
@@ -27,27 +27,12 @@ public:
 
     void OnRender();
 
-private:
-    int ScreenWidth;
-    int ScreenHeight;
-    int ScreenBPP;
-    Uint32 ScreenFlags;
-
-    bool running;
-
-    double thisTime;
-    double lastTime;
-    double deltaTime;
+    void playerBulletMoveAndHitDeterminate();
 
     SDL_Window *window;
     SDL_Event event;
 
-    Window *main_window;
-    //¼º·½·É»ú
-    Plane *my_plane;
-
-//    std::vector<Enemy> enemys;
+    GameEvent *event_handle;
+    GameData *gameData;
 };
 
-
-#endif //PLANE_BATTLE_GAME_H

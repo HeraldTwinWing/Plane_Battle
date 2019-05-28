@@ -2,7 +2,8 @@
 
 int main(int argc, char *args[])
 {
-    Game game;
+	GameData game_data;
+    Game game(&game_data);
     game.OnExecute();
 
     return 0;
