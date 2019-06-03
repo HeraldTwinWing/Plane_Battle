@@ -9,6 +9,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include <map>
 #include "json.hpp"
 
 using json=nlohmann::json;
@@ -17,20 +18,12 @@ class save
 {
 private:
     std::string filename;
-    std::string nameOfClass;
-    std::string nameOfEntity;
 public:
-    save(std::string classname,std::string name);
-    int getxcoordinate();
-    int getycoordinate();
-    int getmaxhealth();
-    int getspeed();
-    std::string gettexturename();
-    void writexcoordinate();
-    void writexcoordinate();
-    void writemaxhealth();
-    void writespeed();
-    void writetexturename();
+    save();
+    void getinfo();
+    void getplaneinfo();
+    void getenemyinfo();
+    std::map<std::string,std::string> planeinfo;
 
 };
 

@@ -8,49 +8,59 @@
 
 #include "save.h"
 
-save::save(std::string classname,std::string name)
+save::save()
 {
     filename = "save.json";
-    nameOfClass = std::move(classname);
-    nameOfEntity = std::move(name);
 }
 
-int save::getxcoordinate()
+void save::getinfo()
 {
-    std::ifstream isave("save.json");
-    json jsave;
-    isave >> jsave;
-    return jsave.at(nameOfClass).at(nameOfEntity).at("x").get<int>();
+    getplaneinfo();
 }
 
-int save::getycoordinate()
+void save::getplaneinfo()
 {
-    std::ifstream isave("save.json");
+    std::ifstream isave(filename);
     json jsave;
     isave >> jsave;
-    return jsave.at(nameOfClass).at(nameOfEntity).at("y").get<int>();
+    std::string max_health = std::to_string(jsave.at("plane").at("max_health").get<int>());
+    std::string health = std::to_string(jsave.at("plane").at("health").get<int>());
+    std::string speed = std::to_string(jsave.at("plane").at("speed").get<int>());
+    std::string position_x = std::to_string(jsave.at("plane").at("position_x").get<int>());
+    std::string position_y = std::to_string(jsave.at("plane").at("position_y").get<int>());
+    std::string texture_name = jsave.at("plane").at("texture_name").get<std::string>();
+    std::string weapon_name = jsave.at("plane").at("weapon_name").get<std::string>();
+    std::string LastMove = std::to_string(jsave.at("plane").at("LastMove").get<int>());
+    planeinfo["max_health"] = max_health;
+    planeinfo["health"] = health;
+    planeinfo["speed"] = speed;
+    planeinfo["position_x"] = position_x;
+    planeinfo["position_y"] = position_y;
+    planeinfo["texture_name"] = texture_name;
+    planeinfo["weapon_name"] = weapon_name;
+    planeinfo["LastMove"] = LastMove;
 }
 
-int save::getmaxhealth()
+void save::getenemyinfo()
 {
-    std::ifstream isave("save.json");
+    std::ifstream isave(filename);
     json jsave;
     isave >> jsave;
-    return jsave.at(nameOfClass).at(nameOfEntity).at("max_health").get<int>();
+    std::string max_health = std::to_string(jsave.at("enemy").at("max_health").get<int>());
+    std::string health = std::to_string(jsave.at("enemy").at("health").get<int>());
+    std::string speed = std::to_string(jsave.at("enemy").at("speed").get<int>());
+    std::string position_x = std::to_string(jsave.at("enemy").at("position_x").get<int>());
+    std::string position_y = std::to_string(jsave.at("enemy").at("position_y").get<int>());
+    std::string texture_name = jsave.at("enemy").at("texture_name").get<std::string>();
+    std::string weapon_name = jsave.at("enemy").at("weapon_name").get<std::string>();
+    std::string LastMove = std::to_string(jsave.at("enemy").at("LastMove").get<int>());
+    planeinfo["max_health"] = max_health;
+    planeinfo["health"] = health;
+    planeinfo["speed"] = speed;
+    planeinfo["position_x"] = position_x;
+    planeinfo["position_y"] = position_y;
+    planeinfo["texture_name"] = texture_name;
+    planeinfo["weapon_name"] = weapon_name;
+    planeinfo["LastMove"] = LastMove;
 }
 
-int save::getspeed()
-{
-    std::ifstream isave("save.json");
-    json jsave;
-    isave >> jsave;
-    return jsave.at(nameOfClass).at(nameOfEntity).at("speed").get<int>();
-}
-
-std::string save::gettexturename()
-{
-    std::ifstream isave("save.json");
-    json jsave;
-    isave >> jsave;
-    return jsave.at(nameOfClass).at(nameOfEntity).at("texture_name").get<std::string>();
-}
