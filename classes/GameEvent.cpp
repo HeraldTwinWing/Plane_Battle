@@ -141,15 +141,15 @@ void GameEvent::OnInputBlur()
 
 void GameEvent::OnKeyDown(SDL_Keycode sym, Uint16 mod)
 {
-    if (game_data->player != nullptr)
-        game_data->player->keyDownEvent(sym);
+    if (gameData->player != nullptr)
+        gameData->player->keyDownEvent(sym);
 }
 
 void GameEvent::OnKeyUp(SDL_Keycode sym, Uint16 mod)
 {
-    if ( game_data->player != nullptr )
+    if ( gameData->player != nullptr )
     {
-        game_data->player->keyUpEvent(sym);
+        gameData->player->keyUpEvent(sym);
     }
 }
 
@@ -245,7 +245,7 @@ void GameEvent::OnUser(Uint32 type, int code, void *data1, void *data2)
 
 GameEvent::GameEvent(GameData *game_data)
 {
-    this->game_data = game_data;
+    this->gameData = game_data;
 }
 
 GameEvent::~GameEvent() = default;

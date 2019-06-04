@@ -29,7 +29,7 @@ public:
         return category;
     }
 
-    Bullet fire(Window* target_window, SDL_Texture* texture, SDL_Rect *position);
+    Bullet fire(Window* target_window, SDL_Texture* texture, SDL_Point* position);
 
 	double get_fire_interval()
     {

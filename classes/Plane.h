@@ -32,7 +32,7 @@ public:
 
 	//坐标与大小
 	SDL_Rect position;
-	SDL_Rect centerRelativePosition;
+	SDL_Point fireOriginPosition;
 
 	SDL_Texture *texture = nullptr;
 

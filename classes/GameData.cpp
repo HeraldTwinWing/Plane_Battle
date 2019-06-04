@@ -13,11 +13,20 @@ void GameData::addPlayerBullet()
 
 void GameData::addEnemyBullet(Enemy& enemy)
 {
-    enemy.fire(enemy_bullets);
+    enemy.fire(enemyBullets);
 }
 
 void GameData::addEnemy(Enemy& enemy)
 {
     enemies.push_back(enemy);
+}
+
+GameData::~GameData()
+{
+	delete mainWindow;
+	delete player;
+	enemies.clear();
+	playerBullets.clear();
+	enemyBullets.clear();
 }
 

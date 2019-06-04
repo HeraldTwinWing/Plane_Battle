@@ -12,9 +12,9 @@ Window::Window(int width, int height)
 
     background1_pos.x = 0;
     background1_pos.y = 0;
-    background1_pos.w = 1920;
+    background1_pos.w = 1200;
     background1_pos.h = 720;
-    background2_pos.x = 1280;
+    background2_pos.x = 1200;
     background2_pos.y = 0;
     background2_pos.w = 1920;
     background2_pos.h = 720;
@@ -118,6 +118,7 @@ void Window::show_image(SDL_Texture *texture, SDL_Renderer *target_renderer, int
 
 Window::~Window()
 {
+
     SDL_DestroyRenderer(renderer);
     for ( std::pair<std::string, SDL_Texture*> p: textures )
     {
@@ -127,6 +128,7 @@ Window::~Window()
     SDL_DestroyTexture(background);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
 }
 
 void Window::background_move(double this_time)

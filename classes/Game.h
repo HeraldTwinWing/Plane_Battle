@@ -7,8 +7,10 @@
 #include <deque>
 #include <memory>
 #include "Window.h"
+#include "UI.h"
 #include "GameData.h"
 #include "GameEvent.h"
+
 
 
 class Game
@@ -29,10 +31,12 @@ public:
 
     void playerBulletMoveAndHitDeterminate();
 
+    void gamingUpdate();
+
     SDL_Window *window;
     SDL_Event event;
 
-    GameEvent *event_handle;
+    GameEvent *eventHandle;
     GameData *gameData;
 };
 

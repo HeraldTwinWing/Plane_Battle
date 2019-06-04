@@ -15,13 +15,14 @@ HitBox::~HitBox()
 {
 }
 
-bool HitBox::hit(WeaponCategoryEnum weapon_category, Bullet *bullet)
+bool HitBox::hit(WeaponCategoryEnum weaponCategoryEnum, Bullet *bullet)
 {
-    switch (weapon_category)
+    switch (weaponCategoryEnum)
     {
         case BULLET:
             break;
     }
+    return false;
 }
 
 bool HitBox::ifBulletHit(Bullet *bullet)
@@ -29,7 +30,6 @@ bool HitBox::ifBulletHit(Bullet *bullet)
     if ( category == SQUARE_HITBOX )
     {
         return std::abs(bullet->position.x - center_x) < radius && std::abs(bullet->position.y - center_y) < radius;
-
     }
     else if ( category == CIRCLE_HITBOX )
     {

@@ -11,7 +11,7 @@
 class GameEvent
 {
 public:
-    GameData *game_data = nullptr;
+    GameData *gameData = nullptr;
 
     GameEvent()= default;
 
@@ -35,7 +35,7 @@ public:
 
 	virtual void OnMouseMove(int mX, int mY, int relX, int relY, bool Left, bool Right, bool Middle);
 
-	virtual void OnMouseWheel(bool Up, bool Down);    //Not implemented
+	virtual void OnMouseWheel(bool Up, bool Down);
 
 	virtual void OnLButtonDown(int mX, int mY);
 

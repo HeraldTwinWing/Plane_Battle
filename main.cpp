@@ -6,5 +6,6 @@ int main(int argc, char *args[])
     Game game(&game_data);
     game.OnExecute();
 
+	SDL_Quit();
     return 0;
 }
