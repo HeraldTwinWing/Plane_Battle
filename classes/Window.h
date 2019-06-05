@@ -5,10 +5,10 @@
 #ifndef PLANE_BATTLE_SCREEN_H
 #define PLANE_BATTLE_SCREEN_H
 
-#include "string"
+#include <string>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
-#include "iostream"
+#include <iostream>
 #include <map>
 #include <utility>
 

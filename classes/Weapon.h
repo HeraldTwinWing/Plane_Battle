@@ -19,9 +19,11 @@ private:
 	bool aim = false;
 	//敌方单位子弹的方向
 	std::vector<int> directions;
+	int direction;
 	WeaponCategoryEnum category;
 public:
     Weapon(std::vector<int> directions, double fire_interval, bool aim);
+	Weapon(int direction, double fire_interval, bool aim);
     explicit Weapon(WeaponCategoryEnum weapon_category);
 
 	WeaponCategoryEnum get_weapon_category()
@@ -29,7 +31,7 @@ public:
         return category;
     }
 
-    Bullet fire(Window* target_window, SDL_Texture* texture, SDL_Rect *position);
+    Bullet fire(Window* target_window, SDL_Texture* texture, SDL_Point* position);
 
 	double get_fire_interval()
     {

@@ -12,11 +12,11 @@ Window::Window(int width, int height)
 
     background1_pos.x = 0;
     background1_pos.y = 0;
-    background1_pos.w = 1920;
+    background1_pos.w = 1280;
     background1_pos.h = 720;
     background2_pos.x = 1280;
     background2_pos.y = 0;
-    background2_pos.w = 1920;
+    background2_pos.w = 1280;
     background2_pos.h = 720;
 }
 
@@ -80,11 +80,11 @@ SDL_Texture *Window::load_picture(const std::string &filename)
 void Window::show_background()
 {
 
-    if ( background1_pos.x >= -1920 && background1_pos.x <= 1280 )
+   // if ( background1_pos.x >= -background1_pos.w && background1_pos.x <= 1280 )
     {
         SDL_RenderCopy(renderer, background, nullptr, &background1_pos);
     }
-    if ( background2_pos.x >= -1920 && background2_pos.x <= 1280 )
+   // if ( background2_pos.x >= -background1_pos.w && background2_pos.x <= 1280 )
     {
         SDL_RenderCopy(renderer, background, nullptr, &background2_pos);
     }
@@ -118,6 +118,7 @@ void Window::show_image(SDL_Texture *texture, SDL_Renderer *target_renderer, int
 
 Window::~Window()
 {
+
     SDL_DestroyRenderer(renderer);
     for ( std::pair<std::string, SDL_Texture*> p: textures )
     {
@@ -127,6 +128,7 @@ Window::~Window()
     SDL_DestroyTexture(background);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+
 }
 
 void Window::background_move(double this_time)
@@ -139,9 +141,9 @@ void Window::background_move(double this_time)
     }
 
     //当一张背景移出屏幕后将其拼接到另一背景之后
-    if ( background1_pos.x < -background1_pos.w )
+    if ( background1_pos.x <= -background1_pos.w )
         background1_pos.x = background2_pos.x + background1_pos.w;
-    if ( background2_pos.x < -background2_pos.w )
+    if ( background2_pos.x <= -background2_pos.w )
         background2_pos.x = background1_pos.x + background2_pos.w;
     this->show_background();
 }

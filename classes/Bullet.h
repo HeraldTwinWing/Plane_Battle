@@ -22,8 +22,8 @@ public:
     SDL_Texture *texture;
 
 
-    Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Rect position,
-           SDL_Texture *texture);
+    Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Point position,
+             SDL_Texture *texture);
 
     ~Bullet();
 
