@@ -29,7 +29,7 @@ struct Button
 
 struct PauseButton : Button
 {
-	PauseButton(Window *window);
+	explicit PauseButton(Window *window);
 
 	explicit PauseButton(SDL_Rect);
 
@@ -41,7 +41,7 @@ struct PauseButton : Button
 
 struct StartButton : Button
 {
-	StartButton(Window *window);
+	explicit StartButton(Window *window);
 
 	explicit StartButton(SDL_Rect positionAndSize);
 
@@ -52,7 +52,7 @@ struct StartButton : Button
 
 struct ExitButton : Button
 {
-	ExitButton(int x, int y, int w, int h, Window *window);
+	explicit ExitButton(Window *window);
 
 	explicit ExitButton(SDL_Rect positionAndSize);
 
@@ -63,7 +63,10 @@ struct ExitButton : Button
 
 struct UI
 {
-	std::vector<Button *> buttons;
+	std::vector<std::vector<Button*>*> buttons;
+	std::vector<Button *> mainMenuButtons;
+	std::vector<Button *> gamingButtons;
+	std::vector<Button *> pauseButtons;
 
 	explicit UI(Window *window);
 
@@ -71,7 +74,7 @@ struct UI
 	//在GameEvent中调用
 	void clickButton(int x, int y, GameData *gameData);
 
-	void showButton(Window *window);
+	void showButton(Window *window, GameData *gameData);
 };
 
 

@@ -10,7 +10,7 @@ Game::Game(GameData *gameData, UI *ui)
 	this->ui = ui;
 	eventHandle = new GameEvent(gameData, ui);
 
-	gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 0, 278,
+	gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 0, 270,
 	                             "default_ship.png", gameData->mainWindow);
 	gameData->player->spawn();
 
@@ -51,10 +51,12 @@ void Game::OnUpdate()
 	gameData->thisTime = SDL_GetTicks();
 	gameData->deltaTime = (gameData->thisTime - gameData->lastTime) / 1000.0;
 	SDL_RenderClear(gameData->mainWindow->getRenderer());
-	gameData->mainWindow->background_move(gameData->thisTime);
+	gameData->mainWindow->backgroundMove(gameData->thisTime, gameData->gameStatus);
 
 	if (gameData->gameStatus == GAMING)
 		gamingUpdate();
+	else if (gameData->gameStatus == MAIN_MENU)
+		gameData->player->showImage();
 
 	menuUpdate();
 }
@@ -125,5 +127,5 @@ void Game::gamingUpdate()
 
 void Game::menuUpdate()
 {
-	this->ui->showButton(gameData->mainWindow);
+	this->ui->showButton(gameData->mainWindow, gameData);
 }
