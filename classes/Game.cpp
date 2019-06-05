@@ -28,13 +28,18 @@ Game::Game(GameData* game_data)
     event_handle = new GameEvent(game_data);
 
 
-    game_data->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 200, 360,
-                                  "default_ship.png", game_data->mainWindow);
+
+    //game_data->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 200, 360, "default_ship.png", game_data->mainWindow);
+    Save planesave;
+    planesave.getplaneinfo();
+    game_data->player = new Plane(new HitBox(SQUARE_HITBOX, 10), game_data->mainWindow,planesave);//使用save.json读入数据
     game_data->player->spawn();
 
     //测试用代码
-    game_data->enemies.push_back({1000, 200, new HitBox(SQUARE_HITBOX, 100), 500, 360,
-                                  "default_ship.png", game_data->mainWindow});
+    Save enemysave;
+    enemysave.getenemyinfo();
+    game_data->enemies.push_back({new HitBox(SQUARE_HITBOX, 100),game_data->mainWindow,enemysave});
+    //game_data->enemies.push_back({1000, 200, new HitBox(SQUARE_HITBOX, 100), 500, 360, "default_ship.png", game_data->mainWindow});
     game_data->enemies[0].spawn();
 }
 

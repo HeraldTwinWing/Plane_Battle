@@ -9,6 +9,7 @@
 #include "Window.h"
 #include "GameData.h"
 #include "GameEvent.h"
+#include "Save.h"
 
 
 class Game

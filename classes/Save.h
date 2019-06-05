@@ -14,16 +14,17 @@
 
 using json=nlohmann::json;
 
-class save
+class Save
 {
 private:
     std::string filename;
 public:
-    save();
+    Save();
     void getinfo();
     void getplaneinfo();
     void getenemyinfo();
-    std::map<std::string,std::string> planeinfo;
+    std::map<std::string,int> planeinfo;
+    std::string texture_name;
 
 };
 

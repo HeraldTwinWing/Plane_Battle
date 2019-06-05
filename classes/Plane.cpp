@@ -1,7 +1,5 @@
 #include "Plane.h"
 
-
-
 Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
              const std::string &texture_name, Window *window) : firing(false), last_fire(0)
 {
@@ -18,6 +16,25 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 
     SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
 }
+
+Plane::Plane(HitBox *hitbox, Window *window, Save save) : firing(false), last_fire(0)
+{
+    this->jsonmap = save.planeinfo;
+    this->max_health = jsonmap["max_health"];
+    this->health = jsonmap["max_health"];
+    this->speed = jsonmap["speed"];
+    this->hitbox = hitbox;
+    this->position.x = jsonmap["position_x"];
+    this->position.y = jsonmap["position_y"];
+    this->texture = window->load_picture(save.texture_name);
+    this->window = window;
+    this->weapon = new Weapon(BULLET);
+    this->lastMove = SDL_GetTicks();
+
+    std::cout<<this->max_health<< this->health<<this->speed<<this->position.x<<this->position.y<<std::endl;
+    SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
+}
+
 
 Plane::Plane(int max_health, int speed, HitBox *hitbox,
              const std::string &texture_name, Window *window)
