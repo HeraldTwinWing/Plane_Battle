@@ -7,16 +7,17 @@
 #include <deque>
 #include <memory>
 #include "Window.h"
+#include "UI.h"
 #include "GameData.h"
 #include "GameEvent.h"
 #include "Save.h"
 
 
+
 class Game
 {
-
 public:
-    explicit Game(GameData *game_data);
+    Game(GameData *gameData, UI *ui);
 
     ~Game();
 
@@ -30,10 +31,15 @@ public:
 
     void playerBulletMoveAndHitDeterminate();
 
-    SDL_Window *window;
+    void gamingUpdate();
+
+    void menuUpdate();
+
+    //SDL_Window *window;
     SDL_Event event;
 
-    GameEvent *event_handle;
+    GameEvent *eventHandle;
     GameData *gameData;
+    UI *ui;
 };
 

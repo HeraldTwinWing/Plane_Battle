@@ -10,6 +10,9 @@
 #include "Enemy.h"
 #include "Bullet.h"
 
+
+enum GameStatus{MAIN_MENU, GAMING, PAUSE};
+
 class GameData
 {
 public:
@@ -18,24 +21,29 @@ public:
 	int ScreenBPP;
 	Uint32 ScreenFlags;
 
-	bool running;
+	GameStatus gameStatus;
+	bool running = false;
+	bool pause = false;
 
-	double thisTime;
-	double lastTime;
-	double deltaTime;
+	double thisTime = 0;
+	double lastTime = 0;
+	double deltaTime = 0;
 
 	Window *mainWindow;
 	//己方飞机
 	Plane *player;
 
 	std::deque<Bullet> playerBullets;
-	std::deque<Bullet> enemy_bullets;
+	std::deque<Bullet> enemyBullets;
 	std::deque<Enemy> enemies;
 
 	//判断是否开火并添加子弹到容器
 	void addPlayerBullet();
 	void addEnemyBullet(Enemy& enemy);
 	void addEnemy(Enemy& enemy);
+
+	GameData();
+	~GameData();
 };
 
 

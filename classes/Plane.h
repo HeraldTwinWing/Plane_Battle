@@ -2,6 +2,7 @@
 
 #include <string>
 #include <utility>
+#include <memory>
 #include <deque>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
@@ -20,20 +21,22 @@ public:
 	//上下左右的移动状态
 	bool moving[4] = {false, false, false, false};
 	double lastMove;
-	std::pair<double,double> moveTemp;
+	std::pair<double, double> moveTemp;
 
 	//武器种类
-	Weapon *weapon;
+	//std::unique_ptr<Weapon> weapon;
+	Weapon* weapon;
 	bool firing;
 	double last_fire;
 
 	//击中判定点
-	HitBox *hitbox;
-	std::pair<int,int> hitboxRelativePosition;
+	//std::unique_ptr<HitBox> hitbox;
+	HitBox* hitbox;
+	std::pair<int, int> hitboxRelativePosition;
 
 	//坐标与大小
 	SDL_Rect position;
-	SDL_Rect centerRelativePosition;
+	SDL_Point fireOriginPosition;
 
 	SDL_Texture *texture = nullptr;
 
@@ -53,7 +56,7 @@ public:
 	Plane(int max_health, int speed, HitBox *hitbox,
 	      const std::string &texture_name, Window *window);
 
-	~Plane();
+	virtual ~Plane();
 
 
 	//生成单位
@@ -80,7 +83,7 @@ public:
 	/*射击
 	 * 根据武器种类创建子弹对象并存入playerBullets
 	 * */
-	virtual void fire(std::deque<Bullet>& playerBullets);
+	virtual void fire(std::deque<Bullet> &playerBullets);
 
 	//刷新该对象状态
 	//包括贴图位置与hitbox位置
@@ -88,6 +91,7 @@ public:
 
 	//处理与玩家飞机相关的事件
 	void keyDownEvent(SDL_Keycode sym);
+
 	void keyUpEvent(SDL_Keycode sym);
 
 	bool if_firing()

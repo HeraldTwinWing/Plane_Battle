@@ -12,9 +12,17 @@ Weapon::Weapon(std::vector<int> directions, double fire_interval, bool aim)
     this->category = BULLET;
 }
 
+Weapon::Weapon(int direction, double fire_interval, bool aim)
+{
+	this->direction = direction;
+	this->fire_interval = fire_interval;
+	this->aim = aim;
+	this->category = BULLET;
+}
+
 Weapon::~Weapon() = default;
 
-Bullet Weapon::fire(Window* target_window, SDL_Texture* texture, SDL_Rect* position)
+Bullet Weapon::fire(Window* target_window, SDL_Texture* texture, SDL_Point* position)
 {
     switch (category)
     {

@@ -24,8 +24,7 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 	lastMove = SDL_GetTicks();
 	sinMoveTemp = 0;
 
-	delete weapon;
-	weapon = new Weapon({1},0.5,false);
+	weapon = new Weapon(1,0.5,false);
 }
 
 
@@ -46,7 +45,7 @@ void Enemy::refresh()
 	hitbox->center_y = position.y;
 
 	//std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
-
+    //std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y  << std::endl;
 	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 

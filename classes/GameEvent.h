@@ -6,16 +6,18 @@
 
 #include <SDL2/SDL.h>
 #include "GameData.h"
-
+#include "UI.h"
 
 class GameEvent
 {
 public:
-    GameData *game_data = nullptr;
+    GameData *gameData = nullptr;
+
+    UI *ui = nullptr;
 
     GameEvent()= default;
 
-    explicit GameEvent(GameData* game_data);
+    GameEvent(GameData *game_data, UI *ui);
 
 	virtual ~GameEvent();
 
@@ -35,7 +37,7 @@ public:
 
 	virtual void OnMouseMove(int mX, int mY, int relX, int relY, bool Left, bool Right, bool Middle);
 
-	virtual void OnMouseWheel(bool Up, bool Down);    //Not implemented
+	virtual void OnMouseWheel(bool Up, bool Down);
 
 	virtual void OnLButtonDown(int mX, int mY);
 
