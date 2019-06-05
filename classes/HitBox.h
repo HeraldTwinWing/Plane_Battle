@@ -10,15 +10,19 @@ enum hitbox_category
 
 class HitBox
 {
+private:
+	hitbox_category category;
+	int radius;
 public:
 
-	//Hitbox 中心坐标
+	// Hitbox 中心坐标
+	// 在Plane::refresh中刷新
 	int center_x;
 	int center_y;
 
-	hitbox_category category;
-	int size[2];
-	int radius;
+	//hitbox_category category;
+	//int size[2];
+
 
 	HitBox(hitbox_category category, int radius);
 

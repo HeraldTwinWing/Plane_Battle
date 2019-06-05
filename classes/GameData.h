@@ -10,6 +10,7 @@
 #include "Enemy.h"
 #include "Bullet.h"
 
+
 enum GameStatus{MAIN_MENU, GAMING, PAUSE};
 
 class GameData
@@ -41,7 +42,7 @@ public:
 	void addEnemyBullet(Enemy& enemy);
 	void addEnemy(Enemy& enemy);
 
-	GameData()=default;
+	GameData();
 	~GameData();
 };
 

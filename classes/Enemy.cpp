@@ -11,8 +11,7 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 	lastMove = SDL_GetTicks();
 	sinMoveTemp = 0;
 
-	delete weapon;
-	weapon = new Weapon({1},0.5,false);
+	weapon = new Weapon(1,0.5,false);
 }
 
 

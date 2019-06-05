@@ -6,16 +6,18 @@
 
 #include <SDL2/SDL.h>
 #include "GameData.h"
-
+#include "UI.h"
 
 class GameEvent
 {
 public:
     GameData *gameData = nullptr;
 
+    UI *ui = nullptr;
+
     GameEvent()= default;
 
-    explicit GameEvent(GameData* game_data);
+    GameEvent(GameData *game_data, UI *ui);
 
 	virtual ~GameEvent();
 

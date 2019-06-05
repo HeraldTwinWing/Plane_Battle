@@ -8,13 +8,13 @@ HitBox::HitBox(hitbox_category category, int radius)
 {
     this->category = category;
     this->radius = radius;
+
+    center_x = 0;
+    center_y = 0;
 }
 
 
-HitBox::~HitBox()
-{
-}
-
+HitBox::~HitBox()=default;
 bool HitBox::hit(WeaponCategoryEnum weaponCategoryEnum, Bullet *bullet)
 {
     switch (weaponCategoryEnum)

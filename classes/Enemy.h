@@ -5,6 +5,7 @@
 #include <string>
 
 
+
 class Enemy :
         public Plane
 {
@@ -16,6 +17,7 @@ public:
 
     SDL_Rect originPosition;
 
+    Enemy()= default;
     Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
           const std::string &texture_name, Window *window);
 

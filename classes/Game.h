@@ -15,9 +15,8 @@
 
 class Game
 {
-
 public:
-    explicit Game(GameData *game_data);
+    Game(GameData *gameData, UI *ui);
 
     ~Game();
 
@@ -33,10 +32,13 @@ public:
 
     void gamingUpdate();
 
-    SDL_Window *window;
+    void menuUpdate();
+
+    //SDL_Window *window;
     SDL_Event event;
 
     GameEvent *eventHandle;
     GameData *gameData;
+    UI *ui;
 };
 

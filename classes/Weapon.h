@@ -19,9 +19,11 @@ private:
 	bool aim = false;
 	//敌方单位子弹的方向
 	std::vector<int> directions;
+	int direction;
 	WeaponCategoryEnum category;
 public:
     Weapon(std::vector<int> directions, double fire_interval, bool aim);
+	Weapon(int direction, double fire_interval, bool aim);
     explicit Weapon(WeaponCategoryEnum weapon_category);
 
 	WeaponCategoryEnum get_weapon_category()
