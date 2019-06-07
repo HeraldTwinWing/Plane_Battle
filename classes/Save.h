@@ -21,11 +21,10 @@ private:
 public:
     Save();
     void getinfo();
-    void getplaneinfo();
-    void getenemyinfo();
-    std::map<std::string,int> planeinfo;
-    std::string texture_name;
-
+    void getPlaneInfo();
+    void getEnemyInfo();
+    std::map<std::string,int> planeInfo;
+    std::string textureName;
 };
 
 

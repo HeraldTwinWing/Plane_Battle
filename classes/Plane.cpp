@@ -1,16 +1,36 @@
 #include "Plane.h"
 
+Plane::Plane(HitBox *hitbox, Window *window, Save save) : firing(false), lastFire(0)
+{
+	this->jsonMap = save.planeInfo;
+	this->maxHealth = jsonMap["max_health"];
+	this->health = jsonMap["max_health"];
+	this->speed = jsonMap["speed"];
+	this->hitbox = hitbox;
+	this->position.x = jsonMap["position_x"];
+	this->position.y = jsonMap["position_y"];
+	this->texture = window->loadPicture(save.textureName);
+	this->window = window;
+	this->weapon = new Weapon(BULLET);
+	this->lastMove = SDL_GetTicks();
+
+    position.w = 164;
+    position.h = 182;
+    fireOriginPosition.x = position.x + 150;
+    fireOriginPosition.y = position.y + 80;
+	//SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
+}
 
 Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
-             const std::string &texture_name, Window *window) : firing(false), last_fire(0)
+             const std::string &texture_name, Window *window) : firing(false), lastFire(0)
 {
-	this->max_health = max_health;
+	this->maxHealth = max_health;
 	this->health = max_health;
 	this->speed = speed;
 	this->hitbox = hitbox;
 	this->position.x = coordinate_x;
 	this->position.y = coordinate_y;
-	this->texture = window->load_picture(texture_name);
+	this->texture = window->loadPicture(texture_name);
 	this->window = window;
 	this->weapon =  new Weapon(BULLET);
 	this->lastMove = SDL_GetTicks();
@@ -24,13 +44,13 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 Plane::Plane(int max_health, int speed, HitBox *hitbox,
              const std::string &texture_name, Window *window): hitbox(hitbox)
 {
-	this->max_health = max_health;
+	this->maxHealth = max_health;
 	this->health = max_health;
 	this->speed = speed;
 	//this->hitbox = hitbox;
 	this->position.x = SDL_WINDOWPOS_CENTERED;
 	this->position.y = SDL_WINDOWPOS_CENTERED;
-	this->texture = window->load_picture(texture_name);
+	this->texture = window->loadPicture(texture_name);
 	this->window = window;
 	this->lastMove = SDL_GetTicks();
 	SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
@@ -90,8 +110,8 @@ void Plane::change_weapon(Weapon weapon)
 
 void Plane::fire(std::deque<Bullet> &playerBullets)
 {
-	last_fire = SDL_GetTicks();
-	playerBullets.push_back(weapon->fire(window, window->load_picture("playerBullet.png"), &fireOriginPosition));
+	lastFire = SDL_GetTicks();
+	playerBullets.push_back(weapon->fire(window, window->loadPicture("playerBullet.png"), &fireOriginPosition));
 }
 
 void Plane::refresh()
@@ -101,11 +121,16 @@ void Plane::refresh()
 	hitbox->set_y(position.y);
 	fireOriginPosition.x = position.x + 100;
 	fireOriginPosition.y = position.y + 86;
-	/*if ( firing && SDL_GetTicks() - last_fire > weapon->get_fire_interval() * 1000 )
+	/*if ( firing && SDL_GetTicks() - lastFire > weapon->get_fire_interval() * 1000 )
 	{
 		std::cout << "fire at" << SDL_GetTicks() << std::endl;
 	}*/
 
+	showImage();
+}
+
+void Plane::showImage()
+{
 	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position, 0, nullptr, SDL_FLIP_NONE);
 }
 

@@ -6,61 +6,61 @@
 // Created by leo duan on 2019/4/7.
 //
 
-#include "save.h"
+#include "Save.h"
 
-save::save()
+Save::Save()
 {
     filename = "save.json";
 }
 
-void save::getinfo()
+void Save::getinfo()
 {
-    getplaneinfo();
+    getPlaneInfo();
 }
 
-void save::getplaneinfo()
+void Save::getPlaneInfo()
 {
-    std::ifstream isave(filename);
-    json jsave;
-    isave >> jsave;
-    std::string max_health = std::to_string(jsave.at("plane").at("max_health").get<int>());
-    std::string health = std::to_string(jsave.at("plane").at("health").get<int>());
-    std::string speed = std::to_string(jsave.at("plane").at("speed").get<int>());
-    std::string position_x = std::to_string(jsave.at("plane").at("position_x").get<int>());
-    std::string position_y = std::to_string(jsave.at("plane").at("position_y").get<int>());
-    std::string texture_name = jsave.at("plane").at("texture_name").get<std::string>();
-    std::string weapon_name = jsave.at("plane").at("weapon_name").get<std::string>();
-    std::string LastMove = std::to_string(jsave.at("plane").at("LastMove").get<int>());
-    planeinfo["max_health"] = max_health;
-    planeinfo["health"] = health;
-    planeinfo["speed"] = speed;
-    planeinfo["position_x"] = position_x;
-    planeinfo["position_y"] = position_y;
-    planeinfo["texture_name"] = texture_name;
-    planeinfo["weapon_name"] = weapon_name;
-    planeinfo["LastMove"] = LastMove;
+    std::ifstream iSave(filename);
+    json jSave;
+    iSave >> jSave;
+    int max_health = jSave.at("plane").at("max_health").get<int>();
+    int health = jSave.at("plane").at("health").get<int>();
+    int speed = jSave.at("plane").at("speed").get<int>();
+    int position_x = jSave.at("plane").at("position_x").get<int>();
+    int position_y = jSave.at("plane").at("position_y").get<int>();
+    std::string texture_name = jSave.at("plane").at("textureName").get<std::string>();
+    int weapon_num = jSave.at("plane").at("weapon_num").get<int>();
+    //std::string LastMove = std::to_string(jSave.at("plane").at("LastMove").get<int>());
+    planeInfo["max_health"] = max_health;
+    planeInfo["health"] = health;
+    planeInfo["speed"] = speed;
+    planeInfo["position_x"] = position_x;
+    planeInfo["position_y"] = position_y;
+    this->textureName = texture_name;
+    planeInfo["weapon_num"] = weapon_num;
+    //planeInfo["LastMove"] = LastMove;
 }
 
-void save::getenemyinfo()
+void Save::getEnemyInfo()
 {
-    std::ifstream isave(filename);
-    json jsave;
-    isave >> jsave;
-    std::string max_health = std::to_string(jsave.at("enemy").at("max_health").get<int>());
-    std::string health = std::to_string(jsave.at("enemy").at("health").get<int>());
-    std::string speed = std::to_string(jsave.at("enemy").at("speed").get<int>());
-    std::string position_x = std::to_string(jsave.at("enemy").at("position_x").get<int>());
-    std::string position_y = std::to_string(jsave.at("enemy").at("position_y").get<int>());
-    std::string texture_name = jsave.at("enemy").at("texture_name").get<std::string>();
-    std::string weapon_name = jsave.at("enemy").at("weapon_name").get<std::string>();
-    std::string LastMove = std::to_string(jsave.at("enemy").at("LastMove").get<int>());
-    planeinfo["max_health"] = max_health;
-    planeinfo["health"] = health;
-    planeinfo["speed"] = speed;
-    planeinfo["position_x"] = position_x;
-    planeinfo["position_y"] = position_y;
-    planeinfo["texture_name"] = texture_name;
-    planeinfo["weapon_name"] = weapon_name;
-    planeinfo["LastMove"] = LastMove;
+    std::ifstream iSave(filename);
+    json jSave;
+    iSave >> jSave;
+    int max_health = jSave.at("Enemy").at("max_health").get<int>();
+    int health = jSave.at("Enemy").at("health").get<int>();
+    int speed = jSave.at("Enemy").at("speed").get<int>();
+    int position_x = jSave.at("Enemy").at("position_x").get<int>();
+    int position_y = jSave.at("Enemy").at("position_y").get<int>();
+    std::string texture_name = jSave.at("Enemy").at("textureName").get<std::string>();
+    int weapon_num = jSave.at("Enemy").at("weapon_num").get<int>();
+    //int LastMove = jSave.at("Enemy").at("LastMove").get<int>();
+    planeInfo["max_health"] = max_health;
+    planeInfo["health"] = health;
+    planeInfo["speed"] = speed;
+    planeInfo["position_x"] = position_x;
+    planeInfo["position_y"] = position_y;
+    this->textureName = texture_name;
+    planeInfo["weapon_num"] = weapon_num;
+    //planeInfo["LastMove"] = LastMove;
 }
 

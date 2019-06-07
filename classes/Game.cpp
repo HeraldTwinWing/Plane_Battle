@@ -10,13 +10,21 @@ Game::Game(GameData *gameData, UI *ui)
 	this->ui = ui;
 	eventHandle = new GameEvent(gameData, ui);
 
-	gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 0, 278,
-	                             "default_ship.png", gameData->mainWindow);
+	Save planeSave;
+	planeSave.getPlaneInfo();
+
+	gameData->player = new Plane(new HitBox(SQUARE_HITBOX,10),gameData->mainWindow,planeSave);
+
+	//gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 0, 270, "default_ship.png", gameData->mainWindow);
+
 	gameData->player->spawn();
 
 	//²âÊÔÓÃ´úÂë
-	gameData->enemies.push_back({30, 200, new HitBox(SQUARE_HITBOX, 100), 700, 360,
-	                             "default_ship.png", gameData->mainWindow});
+	Save enemySave;
+	enemySave.getEnemyInfo();
+	gameData->enemies.push_back({new HitBox(SQUARE_HITBOX,100),gameData->mainWindow,enemySave});
+	//gameData->enemies.push_back({30, 200, new HitBox(SQUARE_HITBOX, 100), 700, 360,
+	                            "default_ship.png", gameData->mainWindow});
 	gameData->enemies[0].spawn();
 }
 
@@ -51,10 +59,12 @@ void Game::OnUpdate()
 	gameData->thisTime = SDL_GetTicks();
 	gameData->deltaTime = (gameData->thisTime - gameData->lastTime) / 1000.0;
 	SDL_RenderClear(gameData->mainWindow->getRenderer());
-	gameData->mainWindow->background_move(gameData->thisTime);
+	gameData->mainWindow->backgroundMove(gameData->thisTime, gameData->gameStatus);
 
 	if (gameData->gameStatus == GAMING)
 		gamingUpdate();
+	else if (gameData->gameStatus == MAIN_MENU)
+		gameData->player->showImage();
 
 	menuUpdate();
 }
@@ -125,5 +135,5 @@ void Game::gamingUpdate()
 
 void Game::menuUpdate()
 {
-	this->ui->showButton(gameData->mainWindow);
+	this->ui->showButton(gameData->mainWindow, gameData);
 }

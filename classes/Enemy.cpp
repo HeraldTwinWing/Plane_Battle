@@ -1,22 +1,11 @@
+#include <utility>
+
 #include "Enemy.h"
 
-Enemy::Enemy(HitBox *hitbox , Window *window,Save save)//:Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
-: Plane(hitbox, window, save)
-{
-	lastMove = SDL_GetTicks();
-	parameter = 0;
-	originPosition = position;
-	lastMove = SDL_GetTicks();
-	sinMoveTemp = 0;
-
-	delete weapon;
-	weapon = new Weapon({1},0.5,false);
-    std::cout<<this->max_health<< this->health<<this->speed<<this->position.x<<this->position.y<<std::endl;
-}
 
 Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
-             const std::string &texture_name, Window *window):Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
-		//: Plane(hitbox, texture_name, window, Save())
+             const std::string &texture_name, Window *window)
+		: Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
 {
 	lastMove = SDL_GetTicks();
 	parameter = 0;
@@ -27,6 +16,18 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 	weapon = new Weapon(1,0.5,false);
 }
 
+Enemy::Enemy(HitBox *hitbox , Window *window,Save save)//:Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
+		: Plane(hitbox, window, std::move(save))
+{
+	lastMove = SDL_GetTicks();
+	parameter = 0;
+	originPosition = position;
+	lastMove = SDL_GetTicks();
+	sinMoveTemp = 0;
+
+	weapon = new Weapon(1,0.5,false);
+	//std::cout<<this->maxHealth<< this->health<<this->speed<<this->position.x<<this->position.y<<std::endl;
+}
 
 Enemy::~Enemy() = default;
 
