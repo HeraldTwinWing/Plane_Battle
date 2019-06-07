@@ -1,0 +1,58 @@
+{
+  "Enemy": {
+    "LastMove": 0,
+    "health": 30,
+    "max_health": 30,
+    "position_x": 700,
+    "position_y": 360,
+    "speed": 200,
+    "textureName": "default_ship.png",
+    "weapon_num": 1,
+    "parameter": 0
+  },
+  "plane": {
+    "LastMove": 0,
+    "health": 1000,
+    "max_health": 1000,
+    "position_x": 0,
+    "position_y": 270,
+    "speed": 400,
+    "textureName": "default_ship.png",
+    "weapon_num": 1
+  },
+  "Level1": {
+    "Enemy0": {
+      "LastMove": 0,
+      "health": 30,
+      "max_health": 30,
+      "position_x": 700,
+      "position_y": 160,
+      "speed": 200,
+      "textureName": "default_ship.png",
+      "weapon_num": 1,
+      "parameter": 0
+    },
+    "Enemy1": {
+      "LastMove": 0,
+      "health": 30,
+      "max_health": 30,
+      "position_x": 700,
+      "position_y": 260,
+      "speed": 200,
+      "textureName": "default_ship.png",
+      "weapon_num": 1,
+      "parameter": 0
+    },
+    "Enemy2": {
+      "LastMove": 0,
+      "health": 30,
+      "max_health": 30,
+      "position_x": 700,
+      "position_y": 360,
+      "speed": 200,
+      "textureName": "default_ship.png",
+      "weapon_num": 1,
+      "parameter": 0
+    }
+  }
+}

@@ -7,7 +7,7 @@
 class Level
 {
 public:
-    std::queue<std::pair<double, EnemyType>> levelInfo;
+    //std::queue<std::pair<double, EnemyType>> levelInfo;
     //开始当前关卡的时间
     double startTime;
 
@@ -15,12 +15,13 @@ public:
      *       用当前时间初始化startTime
      * 参数：level:当前关卡
      * */
-    Level(int level);
+    Level(int level,GameData *gameData);
+
+    void spawnEntity(GameData *gameData, const std::string &entityType, int levelnum, int entityNum);
 
     /* 功能：根据当前时间与关卡开始时间的时间差生成敌方单位
      * 返回值：生成单位返回true，未生成返回false;
      * */
-    bool UnitSpawn();
 
     ~Level();
 };

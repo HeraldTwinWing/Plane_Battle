@@ -4,7 +4,7 @@
 #include <utility>
 #include <memory>
 #include <deque>
-#include <map>
+//#include <map>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "HitBox.h"
@@ -41,14 +41,12 @@ public:
 
 	SDL_Texture *texture = nullptr;
 
+	//存放数据
+	//std::map<std::string,int> jsonMap;
 	//飞机所在的渲染器[图层]
 	Window *window = nullptr;
 
-	//存储数据用的map容器
-	std::map<std::string,int> jsonMap;
-
-	//构造函数
-	Plane(HitBox *hitbox, Window *window, Save save);
+    Plane(HitBox *hitbox, Window *window, Save save);
 
 	Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
 	      const std::string &texture_name, Window *window);

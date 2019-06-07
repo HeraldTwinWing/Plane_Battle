@@ -23,8 +23,10 @@ public:
     void getinfo();
     void getPlaneInfo();
     void getEnemyInfo();
+    void getLevelOneInfo(int levelnum,int enemynum);
     std::map<std::string,int> planeInfo;
     std::string textureName;
+
 };
 
 
