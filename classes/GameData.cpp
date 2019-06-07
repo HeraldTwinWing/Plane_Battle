@@ -41,8 +41,8 @@ GameData::GameData()
 
 	//创建主窗口并加载背景
 	this->mainWindow = new Window(this->ScreenWidth, this->ScreenHeight);
-	this->mainWindow->create_window("Plane Battle");
-	this->mainWindow->create_renderer();
-	this->mainWindow->load_background();
-	this->mainWindow->show_background();
+	this->mainWindow->createWindow("Plane Battle");
+	this->mainWindow->createRenderer();
+	this->mainWindow->loadBackground();
+	this->mainWindow->showBackground();
 }

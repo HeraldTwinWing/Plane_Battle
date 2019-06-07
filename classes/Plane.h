@@ -13,7 +13,7 @@ class Plane
 {
 public:
 	//生命值
-	int max_health;
+	int maxHealth;
 	int health;
 
 	//移动速度
@@ -27,7 +27,7 @@ public:
 	//std::unique_ptr<Weapon> weapon;
 	Weapon* weapon;
 	bool firing;
-	double last_fire;
+	double lastFire;
 
 	//击中判定点
 	//std::unique_ptr<HitBox> hitbox;
@@ -81,13 +81,15 @@ public:
 	void change_weapon(Weapon weapon);
 
 	/*射击
-	 * 根据武器种类创建子弹对象并存入playerBullets
+	 * 根据武器种类创建子弹对象并存入GameData::playerBullets
 	 * */
 	virtual void fire(std::deque<Bullet> &playerBullets);
 
 	//刷新该对象状态
 	//包括贴图位置与hitbox位置
 	virtual void refresh();
+
+	void showImage();
 
 	//处理与玩家飞机相关的事件
 	void keyDownEvent(SDL_Keycode sym);
@@ -101,7 +103,7 @@ public:
 
 	bool if_not_in_fire_CD()
 	{
-		return SDL_GetTicks() - last_fire > weapon->get_fire_interval() * 1000;
+		return SDL_GetTicks() - lastFire > weapon->get_fire_interval() * 1000;
 	}
 
 };
