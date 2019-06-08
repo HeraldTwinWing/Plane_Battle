@@ -1,14 +1,14 @@
 #include "Enemy.h"
 
 Enemy::Enemy(HitBox *hitbox, Window *window,
-             Save& save)//:Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
+             Save &save)//:Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
 		: Plane(hitbox, window, save)
 {
 	lastMove = SDL_GetTicks();
 	parameter = 0;
 	originPosition = position;
 	sinMoveTemp = 0;
-    this->spawntime = save.spawnTime;
+	this->spawntime = save.spawnTime;
 	this->sinMoveAmplitude = save.planeInfo["sinMoveAmplitude"];
 	this->sinMovePeriod = save.planeInfo["sinMovePeriod"];
 	this->parabolaMoveA = save.planeInfo["parabolaMoveA"];
@@ -17,7 +17,7 @@ Enemy::Enemy(HitBox *hitbox, Window *window,
 	this->circleMoveCenter.x = save.planeInfo["circleMoveCenter_x"];
 	this->circleMoveCenter.y = save.planeInfo["circleMoveCenter_y"];
 	this->circleMoveRadius = save.planeInfo["circleMoveRadius"];
-	this->moveMode = new std::array<bool,4>(save.movemode);
+	this->moveMode = new std::array<bool, 4>(save.movemode);
 
 	weapon = new Weapon(1, 0.5, false);
 	//std::cout<<this->maxHealth<< this->health<<this->speed<<this->position.x<<this->position.y<<std::endl;
@@ -72,13 +72,15 @@ void Enemy::refresh()
 	fireOriginPosition.y = position.y + 86;
 
 	std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
-	std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y  << std::endl;
-	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
+	std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y << std::endl;
+	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position, lineMoveDirection * 180, nullptr,
+	                 SDL_FLIP_NONE);
 }
 
 void Enemy::spawn()
 {
-	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
+	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position, lineMoveDirection * 180, nullptr,
+	                 SDL_FLIP_NONE);
 }
 
 void Enemy::MoveAsSin()
@@ -144,7 +146,8 @@ void Enemy::MoveAsCircle()
 
 void Enemy::showImage()
 {
-	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
+	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position,std::trunc(lineMoveDirection * 180), nullptr,
+	                 SDL_FLIP_NONE);
 }
 
 void Enemy::fire(std::deque<Bullet> &enemyBullets)
