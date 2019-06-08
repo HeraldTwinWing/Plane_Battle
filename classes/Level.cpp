@@ -32,7 +32,7 @@ void Level::levelExecute()
     lastTime = thisTime;
     thisTime = SDL_GetTicks();
     double deltaGaminTime = (thisTime - gameData->startTime) / 1000.0;
-
+    int loopNum = 0;
 
     switch (count)
     {
@@ -142,6 +142,13 @@ void Level::levelExecute()
             }
             break;
         default:
+            count = 0;
+            gameData->startTime = SDL_GetTicks();
+            ++loopNum;
+            if(loopNum == 6)
+            {
+                gameData->gameStatus = PAUSE;
+            }
             break;
     }
 
