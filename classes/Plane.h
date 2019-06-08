@@ -87,7 +87,7 @@ public:
 	//包括贴图位置与hitbox位置
 	virtual void refresh();
 
-	void showImage();
+	virtual void showImage();
 
 	//处理与玩家飞机相关的事件
 	void keyDownEvent(SDL_Keycode sym);
