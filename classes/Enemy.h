@@ -37,6 +37,8 @@ public:
 	      double parabolaMoveA, double parabolaMoveB, double parabolaMoveC, SDL_Point circleMoveCenter,
 	      int circleMoveRadius, std::vector<EnemyMoveMode> *moveMode);
 
+	Enemy(HitBox *hitbox, Window *window, Save save);
+
 	void spawn() override;
 
 	void move() override;

@@ -11,7 +11,7 @@ Plane::Plane(HitBox *hitbox, Window *window, Save save) : firing(false), lastFir
     this->position.y = save.planeInfo["position_y"];
     this->texture = window->loadPicture(save.textureName);
     this->window = window;
-    this->weapon = new Weapon(BULLET);
+    this->weapon = new Weapon((BULLET));
     this->lastMove = SDL_GetTicks();
 
 
