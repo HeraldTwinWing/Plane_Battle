@@ -31,8 +31,10 @@ void Bullet::move()
 
 void Bullet::showImage()
 {
-
-	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position, direction_theta * 180, nullptr, SDL_FLIP_NONE);
+	SDL_Rect tempRect = position;
+	tempRect.x -= tempRect.w / 2;
+	tempRect.y -= tempRect.h / 2;
+	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &tempRect, direction_theta * 180, nullptr, SDL_FLIP_NONE);
 }
 
 Bullet::Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Point position,

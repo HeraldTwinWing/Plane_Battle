@@ -18,9 +18,9 @@ Enemy::Enemy(HitBox *hitbox, Window *window,
 	this->circleMoveCenter.y = save.planeInfo["circleMoveCenter_y"];
 	this->circleMoveRadius = save.planeInfo["circleMoveRadius"];
 	this->moveMode = new std::array<bool, 4>(save.movemode);
-	this->width = save.planeInfo["Width"];
-	this->height = save.planeInfo["Height"];
-	SDL_QueryTexture(texture, nullptr, nullptr,&this->width,&this->height);
+//	this->width = save.planeInfo["Width"];
+//	this->height = save.planeInfo["Height"];
+	SDL_QueryTexture(texture, nullptr, nullptr,&position.w,&position.h);
 			weapon = new Weapon(1, 0.5, false);
 
 	weapon = new Weapon(0, 0.5, false);
@@ -76,7 +76,7 @@ void Enemy::refresh()
 
 	hitbox->set_x(position.x + position.w / 2);
 	hitbox->set_y(position.y + position.h / 2);
-	fireOriginPosition.x = position.x;
+	fireOriginPosition.x = position.x - 20;
 	fireOriginPosition.y = position.y + position.w / 2;
 
 

@@ -22,7 +22,7 @@ void Level::spawnEntity(const std::string &entityType, int levelNum, int entityN
         Save levelSave;
         levelSave.getLevelInfo(levelNum, entityNum);
         if ((SDL_GetTicks() - gameData->startTime) / 1000 >= levelSave.spawnTime)
-            gameData->enemies.push_back({new HitBox(SQUARE_HITBOX, 100), gameData->mainWindow, levelSave});
+            gameData->enemies.push_back({new HitBox(SQUARE_HITBOX, 50), gameData->mainWindow, levelSave});
         //gameData->enemies[entityNum].spawn();
     }
 }
