@@ -30,7 +30,19 @@
       "speed": 200,
       "textureName": "default_ship.png",
       "weapon_num": 1,
-      "parameter": 0
+      "parameter": 0,
+      "movemode_line":1,
+      "movemode_sin":1,
+      "movemode_parabola":0,
+      "movemode_circle":0,
+      "sinMoveAmplitude":0,
+      "sinMovePeriod":0,
+      "parabolaMoveA":0,
+      "parabolaMoveB":0,
+      "parabolaMoveC":0,
+      "circleMoveCenter_x":0,
+      "circleMoveCenter_y":0,
+      "circleMoveRadius":0
     },
     "Enemy1": {
       "LastMove": 0,
@@ -41,18 +53,19 @@
       "speed": 200,
       "textureName": "default_ship.png",
       "weapon_num": 1,
-      "parameter": 0
-    },
-    "Enemy2": {
-      "LastMove": 0,
-      "health": 30,
-      "max_health": 30,
-      "position_x": 700,
-      "position_y": 360,
-      "speed": 200,
-      "textureName": "default_ship.png",
-      "weapon_num": 1,
-      "parameter": 0
+      "parameter": 0,
+      "movemode_line":1,
+      "movemode_sin":1,
+      "movemode_parabola":0,
+      "movemode_circle":0,
+      "sinMoveAmplitude":0,
+      "sinMovePeriod":0,
+      "parabolaMoveA":0,
+      "parabolaMoveB":0,
+      "parabolaMoveC":0,
+      "circleMoveCenter_x":0,
+      "circleMoveCenter_y":0,
+      "circleMoveRadius":0
     }
   }
 }
