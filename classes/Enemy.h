@@ -18,6 +18,7 @@ public:
     SDL_Rect originPosition;
 
     Enemy()= default;
+    Enemy(HitBox *hitbox , Window *window,Save save);
     Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
           const std::string &texture_name, Window *window);
 

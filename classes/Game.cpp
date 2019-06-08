@@ -10,14 +10,23 @@ Game::Game(GameData *gameData, UI *ui)
 	this->ui = ui;
 	eventHandle = new GameEvent(gameData, ui);
 
-	gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 0, 270,
-	                             "default_ship.png", gameData->mainWindow);
+    Save planeSave;
+    planeSave.getPlaneInfo();
+
+    gameData->player = new Plane(new HitBox(SQUARE_HITBOX,10),gameData->mainWindow,planeSave);
+	//gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 0, 270,
+	                             //"default_ship.png", gameData->mainWindow);
 	gameData->player->spawn();
 
 	//测试用代码
-	gameData->enemies.push_back({30, 200, new HitBox(SQUARE_HITBOX, 100), 700, 360,
-	                             "default_ship.png", gameData->mainWindow});
-	gameData->enemies[0].spawn();
+    //Save enemySave;
+    //enemySave.getEnemyInfo();
+    //gameData->enemies.push_back(Enemy{new HitBox(SQUARE_HITBOX,100),gameData->mainWindow,enemySave});
+	//gameData->enemies.push_back({30, 200, new HitBox(SQUARE_HITBOX, 100), 700, 360,
+	                             //"default_ship.png", gameData->mainWindow});
+	//gameData->enemies[0].spawn();
+	//第一关 测试代码
+	Level Level1(1,gameData);
 }
 
 Game::~Game() = default;
