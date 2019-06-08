@@ -1,47 +1,59 @@
 #pragma once
 
-#include "Plane.h"
 #include <utility>
 #include <string>
+#include <vector>
+#include "Plane.h"
 
-
+enum EnemyMoveMode
+{
+	LINE, SIN, PARABOLA, CIRCLE
+};
 
 class Enemy :
-        public Plane
+		public Plane
 {
 public:
-    double lastMove;
-    double parameter;
-    double sinMoveTemp;
-    std::pair<double, double> lineMoveTemp;
+	double lastMove;
+	double parameter;
+	double sinMoveTemp;
+	std::pair<double, double> MoveTemp;
 
-    SDL_Rect originPosition;
+	SDL_Rect originPosition;
+	double lineMoveDirection;
+	int sinMoveAmplitude;
+	double sinMovePeriod;
+	double parabolaMoveA;
+	double parabolaMoveB;
+	double parabolaMoveC;
+	SDL_Point circleMoveCenter;
+	int circleMoveRadius;
+	std::vector<EnemyMoveMode> *moveMode;
 
-    Enemy()= default;
-    Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
-          const std::string &texture_name, Window *window);
+	Enemy() = default;
 
-    void spawn() override;
+	Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
+	      const std::string &texture_name, Window *window, int sinMoveAmplitude, double sinMovePeriod,
+	      double parabolaMoveA, double parabolaMoveB, double parabolaMoveC, SDL_Point circleMoveCenter,
+	      int circleMoveRadius, std::vector<EnemyMoveMode> *moveMode);
 
-    void move() override;
+	void spawn() override;
 
-    //刷新状态及贴图
-    void refresh() override;
+	void move() override;
 
-    //周期运动
-    void MoveAsSin(int amplitude, double period);
+	//刷新状态及贴图
+	void refresh() override;
 
-    //周期移动默认值
-    void MoveAsSin();
+	// y轴方向上周期运动
+	void MoveAsSin();
 
-    void MoveAsParabola(double a, double v, double c);
+	void MoveAsParabola();
 
-    void MoveAsCircle(int radius);
+	void MoveAsCircle();
 
-    //直线移动
-    //参数为极坐标下θ,单位为Π
-    void MoveAsLine(double direction);
-    void MoveAsLine();
+	//直线移动
+	//参数为极坐标下θ,单位为Π
+	void MoveAsLine();
 
-    ~Enemy();
+	~Enemy();
 };

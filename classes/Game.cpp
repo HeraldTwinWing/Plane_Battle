@@ -15,7 +15,7 @@ Game::Game(GameData *gameData, UI *ui)
 	gameData->player->spawn();
 
 	//²âÊÔÓÃ´úÂë
-	gameData->enemies.push_back({30, 200, new HitBox(SQUARE_HITBOX, 100), 700, 360,
+	gameData->enemies.push_back({30, 200, new HitBox(SQUARE_HITBOX, 5), 700, 360,
 	                             "default_ship.png", gameData->mainWindow});
 	gameData->enemies[0].spawn();
 }

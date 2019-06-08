@@ -12,7 +12,7 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 	this->position.y = coordinate_y;
 	this->texture = window->loadPicture(texture_name);
 	this->window = window;
-	this->weapon =  new Weapon(BULLET);
+	this->weapon = new Weapon(BULLET);
 	this->lastMove = SDL_GetTicks();
 
 	position.w = 164;
@@ -22,7 +22,7 @@ Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 }
 
 Plane::Plane(int max_health, int speed, HitBox *hitbox,
-             const std::string &texture_name, Window *window): hitbox(hitbox)
+             const std::string &texture_name, Window *window) : hitbox(hitbox)
 {
 	this->maxHealth = max_health;
 	this->health = max_health;
@@ -97,8 +97,8 @@ void Plane::fire(std::deque<Bullet> &playerBullets)
 void Plane::refresh()
 {
 	move();
-	hitbox->set_x(position.x);
-	hitbox->set_y(position.y);
+	hitbox->set_x(position.x + position.w / 2);
+	hitbox->set_y(position.y + position.h / 2);
 	fireOriginPosition.x = position.x + 100;
 	fireOriginPosition.y = position.y + 86;
 	/*if ( firing && SDL_GetTicks() - lastFire > weapon->get_fire_interval() * 1000 )

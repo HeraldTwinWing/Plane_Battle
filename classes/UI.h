@@ -19,7 +19,6 @@ struct Button
 
 	bool effective;
 
-
 	Button();
 
 	virtual void clickEvent(GameData *gameData) = 0;
@@ -63,7 +62,7 @@ struct ExitButton : Button
 
 struct UI
 {
-	std::vector<std::vector<Button*>*> buttons;
+	std::vector<std::vector<Button *> *> buttons;
 	std::vector<Button *> mainMenuButtons;
 	std::vector<Button *> gamingButtons;
 	std::vector<Button *> pauseButtons;

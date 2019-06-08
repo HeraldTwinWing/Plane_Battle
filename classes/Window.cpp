@@ -4,7 +4,6 @@
 
 #include "Window.h"
 
-
 Window::Window(int width, int height)
 {
 	window_width = width;
@@ -120,7 +119,6 @@ Window::~Window()
 	SDL_DestroyTexture(background);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
-
 }
 
 void Window::backgroundMove(double this_time, int gameStatus)
