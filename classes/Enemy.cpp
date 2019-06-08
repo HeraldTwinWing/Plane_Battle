@@ -64,7 +64,7 @@ void Enemy::refresh()
 
 	//std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
 	//std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y  << std::endl;
-	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
+	showImage();
 }
 
 void Enemy::spawn()
@@ -133,4 +133,9 @@ void Enemy::MoveAsParabola()
 void Enemy::MoveAsCircle()
 {
 
+}
+
+void Enemy::showImage()
+{
+	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }

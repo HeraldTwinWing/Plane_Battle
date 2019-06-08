@@ -35,7 +35,7 @@ public:
 	Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
 	      const std::string &texture_name, Window *window, int sinMoveAmplitude, double sinMovePeriod,
 	      double parabolaMoveA, double parabolaMoveB, double parabolaMoveC, SDL_Point circleMoveCenter,
-	      int circleMoveRadius, std::vector<EnemyMoveMode> *moveMode);
+	      int circleMoveRadius, std::array<bool, 4> *moveMode);
 
 	Enemy(HitBox *hitbox, Window *window, Save save);
 
@@ -45,6 +45,8 @@ public:
 
 	//刷新状态及贴图
 	void refresh() override;
+
+	void showImage() override;
 
 	// y轴方向上周期运动
 	void MoveAsSin();
