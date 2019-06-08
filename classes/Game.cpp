@@ -14,10 +14,11 @@ Game::Game(GameData *gameData, UI *ui)
 	                             "default_ship.png", gameData->mainWindow);
 	gameData->player->spawn();
 
-	//测试用代码
+	/*测试用代码
 	gameData->enemies.push_back({30, 200, new HitBox(SQUARE_HITBOX, 5), 700, 360,
 	                             "default_ship.png", gameData->mainWindow});
 	gameData->enemies[0].spawn();
+	 */
 }
 
 Game::~Game() = default;
@@ -56,9 +57,10 @@ void Game::OnUpdate()
 	if (gameData->gameStatus == GAMING)
 		gamingUpdate();
 	else if (gameData->gameStatus == MAIN_MENU)
-		gameData->player->showImage();
-
-	menuUpdate();
+		menuUpdate();
+	else if (gameData->gameStatus == PAUSE)
+		pauseUpdate();
+	this->ui->showButton(gameData->mainWindow, gameData);
 }
 
 void Game::OnRender()
@@ -71,7 +73,7 @@ void Game::playerBulletMoveAndHitDeterminate()
 	int lastNeedDeleteBullet = 0;
 	for (int j = 0; j < gameData->playerBullets.size(); ++j)
 	{
-		gameData->playerBullets[j].show_image();
+		gameData->playerBullets[j].showImage();
 		if (gameData->playerBullets[j].position.x < -30 || gameData->playerBullets[j].position.x > 1300 ||
 		    gameData->playerBullets[j].position.y < -30 || gameData->playerBullets[j].position.y > 750)
 		{
@@ -125,7 +127,20 @@ void Game::gamingUpdate()
 	}
 }
 
+
+
 void Game::menuUpdate()
 {
-	this->ui->showButton(gameData->mainWindow, gameData);
+	gameData->player->showImage();
+}
+
+void Game::pauseUpdate()
+{
+	gameData->player->showImage();
+	for (auto &enemy:gameData->enemies)
+		enemy.showImage();
+	for (auto& bullet: gameData->playerBullets)
+		bullet.showImage();
+	for(auto& bullet: gameData->enemyBullets)
+		bullet.showImage();
 }

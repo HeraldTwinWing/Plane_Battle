@@ -8,15 +8,11 @@ Button::Button() = default;
 
 PauseButton::PauseButton(Window *window)
 {
-	effective = false;
-	/*
-	positionAndSize.x = ;
-	positionAndSize.y = y;
-	positionAndSize.h = h;
-	positionAndSize.w = w;
-	 */
-
 	texture = window->loadPicture("PauseButton.png");
+	effective = false;
+	SDL_QueryTexture(texture, nullptr, nullptr, &positionAndSize.w, &positionAndSize.h);
+	positionAndSize.x = 1280 - positionAndSize.w;
+	positionAndSize.y = 0;
 }
 
 PauseButton::PauseButton(SDL_Rect positionAndSize)
@@ -91,7 +87,7 @@ UI::UI(Window *window)
 void UI::clickButton(int x, int y, GameData *gameData)
 {
 	SDL_Point mousePos = {x, y};
-	for (auto button: mainMenuButtons)
+	for (auto button: *buttons[gameData->gameStatus])
 		if (SDL_PointInRect(&mousePos, &button->positionAndSize) && button->effective)
 			button->clickEvent(gameData);
 }
@@ -102,15 +98,25 @@ void UI::showButton(Window *window, GameData *gameData)
 	switch (gameData->gameStatus)
 	{
 		case MAIN_MENU:
-			for (auto button: mainMenuButtons)
+			for (auto &button: mainMenuButtons)
 			{
 				button->effective = true;
 				SDL_RenderCopy(window->getRenderer(), button->texture, nullptr, &button->positionAndSize);
 			}
 			break;
 		case GAMING:
+			for (auto& button: gamingButtons)
+			{
+				button->effective = true;
+				SDL_RenderCopy(window->getRenderer(), button->texture, nullptr, &button->positionAndSize);
+			}
 			break;
 		case PAUSE:
+			for (auto &button: pauseButtons)
+			{
+				button->effective = true;
+				SDL_RenderCopy(window->getRenderer(), button->texture, nullptr, &button->positionAndSize);
+			}
 			break;
 	}
 	if (currentStatus != gameData->gameStatus)
@@ -118,9 +124,9 @@ void UI::showButton(Window *window, GameData *gameData)
 		auto invalidButtons = buttons[currentStatus];
 		for (auto button:*invalidButtons)
 			button->effective = false;
-		auto activeButtons = buttons[gameData->gameStatus];
-		for (auto button:*activeButtons)
-			button->effective = true;
+//		auto activeButtons = buttons[gameData->gameStatus];
+//		for (auto button:*activeButtons)
+//			button->effective = true;
 	}
 }
 

@@ -33,6 +33,8 @@ public:
 
     void gamingUpdate();
 
+    void pauseUpdate();
+
     void menuUpdate();
 
     //SDL_Window *window;

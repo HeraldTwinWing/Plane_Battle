@@ -12,7 +12,7 @@ void Bullet::move()
     position.y += std::floor(speed * sin(direction_theta * pi));
 }
 
-void Bullet::show_image()
+void Bullet::showImage()
 {
 
     SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position, direction_theta * 180, nullptr, SDL_FLIP_NONE);

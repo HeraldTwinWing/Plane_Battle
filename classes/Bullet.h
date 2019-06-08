@@ -34,7 +34,7 @@ public:
 
     void move();
 
-    void show_image();
+    void showImage();
 };
 
 #endif //PLANE_BATTLE_BULLET_H

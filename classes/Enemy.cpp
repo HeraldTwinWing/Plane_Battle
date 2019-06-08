@@ -1,6 +1,7 @@
 #include "Enemy.h"
 
-Enemy::Enemy(HitBox *hitbox , Window *window,Save save)//:Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
+Enemy::Enemy(HitBox *hitbox, Window *window,
+             Save save)//:Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
 		: Plane(hitbox, window, std::move(save))
 {
 	lastMove = SDL_GetTicks();
@@ -9,7 +10,7 @@ Enemy::Enemy(HitBox *hitbox , Window *window,Save save)//:Plane(max_health, spee
 	lastMove = SDL_GetTicks();
 	sinMoveTemp = 0;
 
-	weapon = new Weapon(1,0.5,false);
+	weapon = new Weapon(1, 0.5, false);
 	//std::cout<<this->maxHealth<< this->health<<this->speed<<this->position.x<<this->position.y<<std::endl;
 }
 
@@ -17,7 +18,7 @@ Enemy::Enemy(HitBox *hitbox , Window *window,Save save)//:Plane(max_health, spee
 Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
              const std::string &texture_name, Window *window, int sinMoveAmplitude, double sinMovePeriod,
              double parabolaMoveA, double parabolaMoveB, double parabolaMoveC, SDL_Point circleMoveCenter,
-             int circleMoveRadius, std::vector<EnemyMoveMode> *moveMode)
+             int circleMoveRadius, std::array<bool, 4> *moveMode)
 		: Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
 {
 	lastMove = SDL_GetTicks();
@@ -43,24 +44,14 @@ Enemy::~Enemy() = default;
 
 void Enemy::move()
 {
-	for (auto &i:*moveMode)
-	{
-		switch (i)
-		{
-			case LINE:
-				MoveAsLine();
-				break;
-			case SIN:
-				MoveAsSin();
-				break;
-			case PARABOLA:
-				MoveAsParabola();
-				break;
-			case CIRCLE:
-				MoveAsCircle();
-				break;
-		}
-	}
+	if (moveMode->at(0))
+		MoveAsLine();
+	if (moveMode->at(1))
+		MoveAsSin();
+	if (moveMode->at(2))
+		MoveAsParabola();
+	if (moveMode->at(3))
+		MoveAsCircle();
 	lastMove = SDL_GetTicks();
 }
 
@@ -108,10 +99,6 @@ void Enemy::MoveAsSin()
 	//std::cout << "t:" << parameter << std::endl;
 }
 
-void Enemy::MoveAsSin()
-{
-	MoveAsSin(200, 5);
-}
 
 void Enemy::MoveAsLine()
 {
@@ -137,12 +124,13 @@ void Enemy::MoveAsLine()
 	}
 }
 
-void Enemy::MoveAsLine()
-{
-	MoveAsLine(0);
-}
 
 void Enemy::MoveAsParabola()
+{
+
+}
+
+void Enemy::MoveAsCircle()
 {
 
 }

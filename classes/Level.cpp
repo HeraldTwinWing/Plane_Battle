@@ -4,12 +4,12 @@
 
 Level::Level(int level,GameData *gameData)
 {
-    spawnEntity(gameData,"enemy",level,0);
-    gameData->enemies[0].MoveAsLine(-1);
-    spawnEntity(gameData,"enemy",level,1);
-    gameData->enemies[1].move();
-    spawnEntity(gameData,"enemy",level,2);
-    gameData->enemies[2].MoveAsSin();
+//    spawnEntity(gameData,"enemy",level,0);
+//    gameData->enemies[0].MoveAsLine(-1);
+//    spawnEntity(gameData,"enemy",level,1);
+//    gameData->enemies[1].move();
+//    spawnEntity(gameData,"enemy",level,2);
+//    gameData->enemies[2].MoveAsSin();
 }
 
 

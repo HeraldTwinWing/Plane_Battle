@@ -2,7 +2,7 @@
 
 #include <utility>
 #include <string>
-#include <vector>
+#include <array>
 #include "Plane.h"
 
 enum EnemyMoveMode
@@ -28,7 +28,7 @@ public:
 	double parabolaMoveC;
 	SDL_Point circleMoveCenter;
 	int circleMoveRadius;
-	std::vector<EnemyMoveMode> *moveMode;
+	std::array<bool, 4> *moveMode;
 
 	Enemy() = default;
 
