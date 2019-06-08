@@ -18,6 +18,10 @@ Enemy::Enemy(HitBox *hitbox, Window *window,
 	this->circleMoveCenter.y = save.planeInfo["circleMoveCenter_y"];
 	this->circleMoveRadius = save.planeInfo["circleMoveRadius"];
 	this->moveMode = new std::array<bool, 4>(save.movemode);
+	this->width = save.planeInfo["Width"];
+	this->height = save.planeInfo["Height"];
+	SDL_QueryTexture(texture, nullptr, nullptr,&this->width,&this->height);
+			weapon = new Weapon(1, 0.5, false);
 
 	weapon = new Weapon(0, 0.5, false);
 	weapon->category = ENEMYBULLET;

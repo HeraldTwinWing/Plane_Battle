@@ -106,7 +106,7 @@ void Game::playerBulletMoveAndHitDeterminate()
 
 			if (enemy->hitbox->ifBulletHit(&*playerBullet))
 			{
-				std::cout << "hit" << std::endl;
+				//std::cout << "hit" << std::endl;
 				if (enemy->damage(playerBullet->atk))
 				{
 					enemy = gameData->enemies.erase(enemy);
@@ -127,7 +127,6 @@ void Game::gamingUpdate()
 	enemyBulletMoveAndHitDeterminate();
 	gameData->player->refresh();
 	level->levelExecute();
-
 
 	//std::cout << playerBullets.size() << std::endl;
 	for (auto &i: gameData->enemies)

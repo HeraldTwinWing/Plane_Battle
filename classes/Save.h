@@ -20,7 +20,6 @@ private:
     std::string filename;
 public:
     Save();
-    void getinfo();
     void getPlaneInfo();
     void getEnemyInfo();
     void getLevelInfo(int levelnum,int enemynum);
