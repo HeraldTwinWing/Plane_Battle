@@ -62,7 +62,7 @@ void Save::getEnemyInfo()
     //planeInfo["LastMove"] = LastMove;
 }
 
-void Save::getLevelOneInfo(int levelnum,int enemynum)
+void Save::getLevelInfo(int levelnum,int enemynum)
 {
     std::ifstream iSave(filename);
     json jSave;
@@ -78,7 +78,7 @@ void Save::getLevelOneInfo(int levelnum,int enemynum)
     bool movemode_sin = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("movemode_sin").get<bool>();
     bool movemode_parabola = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("movemode_parabola").get<bool>();
     bool movemode_circle = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("movemode_circle").get<bool>();
-    int LastMove = jSave.at("Level1"+std::to_string(levelnum)).at("Enemy").at("LastMove").get<int>();
+    int LastMove = jSave.at("Level1").at("Enemy"+std::to_string(levelnum)).at("LastMove").get<int>();
     int sinMoveAmplitude = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("sinMoveAmplitude").get<int>();
     int sinMovePeriod = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("sinMovePeriod").get<int>();
     int parabolaMoveA = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("parabolaMoveA").get<int>();

@@ -75,7 +75,7 @@ void Enemy::refresh()
 
 	//std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
 	//std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y  << std::endl;
-	showImage();
+	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
 void Enemy::spawn()

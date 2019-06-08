@@ -14,11 +14,15 @@ Game::Game(GameData *gameData, UI *ui)
 	                             "default_ship.png", gameData->mainWindow);
 	gameData->player->spawn();
 
-	/*测试用代码
-	gameData->enemies.push_back({30, 200, new HitBox(SQUARE_HITBOX, 5), 700, 360,
-	                             "default_ship.png", gameData->mainWindow});
+	//测试用代码
+	/*
+	Save save1;
+	save1.getLevelInfo(1,0);
+	gameData->enemies.push_back(Enemy{new HitBox(SQUARE_HITBOX, 100),gameData->mainWindow,save1});
 	gameData->enemies[0].spawn();
-	 */
+    */
+
+
 }
 
 Game::~Game() = default;
@@ -55,7 +59,10 @@ void Game::OnUpdate()
 	gameData->mainWindow->backgroundMove(gameData->thisTime, gameData->gameStatus);
 
 	if (gameData->gameStatus == GAMING)
-		gamingUpdate();
+    {
+	    gamingUpdate();
+
+    }
 	else if (gameData->gameStatus == MAIN_MENU)
 		menuUpdate();
 	else if (gameData->gameStatus == PAUSE)
@@ -119,6 +126,8 @@ void Game::gamingUpdate()
 	playerBulletMoveAndHitDeterminate();
 	gameData->player->refresh();
 
+    Level level1(1,gameData);
+    level1.levelexecute();
 
 	//std::cout << playerBullets.size() << std::endl;
 	for (auto &i: gameData->enemies)

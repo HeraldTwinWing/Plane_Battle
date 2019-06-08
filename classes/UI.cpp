@@ -36,6 +36,7 @@ void StartButton::clickEvent(GameData *gameData)
 {
 	gameData->gameStatus = GAMING;
 	effective = false;
+
 }
 
 ExitButton::ExitButton(Window *window)
