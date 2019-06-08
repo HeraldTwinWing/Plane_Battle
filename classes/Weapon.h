@@ -7,35 +7,39 @@
 
 enum WeaponCategoryEnum
 {
-    PELLET, BULLET, BEAM
+	ENEMYBULLET, BULLET, BEAM
 };
 
 class Weapon
 {
 public:
-	double fire_interval;
+	double fireInterval;
+	int count = 0;
 
 	//开火时瞄准玩家
 	bool aim = false;
 	//敌方单位子弹的方向
-	std::vector<int> directions;
+	std::vector<double> directions = {0.9, 0.95, 1, 1.05, 1.1, 1.05, 1, 0.95};
 	int direction;
 	WeaponCategoryEnum category;
 
-    Weapon(std::vector<int> directions, double fire_interval, bool aim);
+	Weapon(std::vector<double> directions, double fire_interval, bool aim);
+
 	Weapon(int direction, double fire_interval, bool aim);
-    explicit Weapon(WeaponCategoryEnum weapon_category);
+
+	explicit Weapon(WeaponCategoryEnum weapon_category);
 
 	WeaponCategoryEnum get_weapon_category()
-    {
-        return category;
-    }
+	{
+		return category;
+	}
 
-    Bullet fire(Window* target_window, SDL_Texture* texture, SDL_Point* position);
+	Bullet fire(Window *target_window, SDL_Texture *texture, SDL_Point *position);
 
 	double get_fire_interval()
-    {
-        return fire_interval;
-    }
-    ~Weapon();
+	{
+		return fireInterval;
+	}
+
+	~Weapon();
 };

@@ -31,6 +31,8 @@ public:
 
     void playerBulletMoveAndHitDeterminate();
 
+	void enemyBulletMoveAndHitDeterminate();
+
     void gamingUpdate();
 
     void pauseUpdate();

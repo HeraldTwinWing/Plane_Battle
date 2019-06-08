@@ -2,7 +2,6 @@
 
 Plane::Plane(HitBox *hitbox, Window *window, Save& save) : firing(false), lastFire(0)
 {
-
     this->maxHealth = save.planeInfo["max_health"];
     this->health = save.planeInfo["max_health"];
     this->speed = save.planeInfo["speed"];

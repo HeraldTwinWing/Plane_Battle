@@ -19,7 +19,11 @@ Enemy::Enemy(HitBox *hitbox, Window *window,
 	this->circleMoveRadius = save.planeInfo["circleMoveRadius"];
 	this->moveMode = new std::array<bool, 4>(save.movemode);
 
-	weapon = new Weapon(1, 0.5, false);
+	weapon = new Weapon(0, 0.5, false);
+	weapon->category = ENEMYBULLET;
+	firing = true;
+	fireOriginPosition.x = position.x;
+	fireOriginPosition.y = position.y + position.w / 2;
 	//std::cout<<this->maxHealth<< this->health<<this->speed<<this->position.x<<this->position.y<<std::endl;
 }
 
@@ -68,11 +72,12 @@ void Enemy::refresh()
 
 	hitbox->set_x(position.x + position.w / 2);
 	hitbox->set_y(position.y + position.h / 2);
-	fireOriginPosition.x = position.x + 100;
-	fireOriginPosition.y = position.y + 86;
+	fireOriginPosition.x = position.x;
+	fireOriginPosition.y = position.y + position.w / 2;
 
-	std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
-	std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y << std::endl;
+
+	//std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
+	//std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y << std::endl;
 	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position, lineMoveDirection * 180, nullptr,
 	                 SDL_FLIP_NONE);
 }
@@ -146,7 +151,7 @@ void Enemy::MoveAsCircle()
 
 void Enemy::showImage()
 {
-	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position,std::trunc(lineMoveDirection * 180), nullptr,
+	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position, std::trunc(lineMoveDirection * 180), nullptr,
 	                 SDL_FLIP_NONE);
 }
 
@@ -154,4 +159,10 @@ void Enemy::fire(std::deque<Bullet> &enemyBullets)
 {
 	lastFire = SDL_GetTicks();
 	enemyBullets.push_back(weapon->fire(window, window->loadPicture("enemyBullet.png"), &fireOriginPosition));
+	std::cout << "fire at: " << SDL_GetTicks() << std::endl;
+}
+
+bool Enemy::if_not_in_fire_CD()
+{
+	return (SDL_GetTicks() - lastFire) / 1000 > weapon->fireInterval;
 }

@@ -9,9 +9,9 @@ Game::Game(GameData *gameData, UI *ui)
 	this->gameData = gameData;
 	this->ui = ui;
 	eventHandle = new GameEvent(gameData, ui);
-	this->level = new Level(1,gameData);
+	this->level = new Level(1, gameData);
 
-	gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 0, 270,
+	gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 25), 0, 270,
 	                             "default_ship.png", gameData->mainWindow);
 	gameData->player->spawn();
 
@@ -62,7 +62,7 @@ void Game::OnUpdate()
 	gameData->mainWindow->backgroundMove(gameData->thisTime, gameData->gameStatus);
 
 	if (gameData->gameStatus == GAMING)
-	    gamingUpdate();
+		gamingUpdate();
 	else if (gameData->gameStatus == MAIN_MENU)
 		menuUpdate();
 	else if (gameData->gameStatus == PAUSE)
@@ -124,6 +124,7 @@ void Game::gamingUpdate()
 	gameData->addPlayerBullet();    //Íæ¼ÒÉä»÷
 	gameData->player->move();
 	playerBulletMoveAndHitDeterminate();
+	enemyBulletMoveAndHitDeterminate();
 	gameData->player->refresh();
 	level->levelExecute();
 
@@ -131,10 +132,10 @@ void Game::gamingUpdate()
 	//std::cout << playerBullets.size() << std::endl;
 	for (auto &i: gameData->enemies)
 	{
+		gameData->addEnemyBullet(i);
 		i.refresh();
 	}
 }
-
 
 
 void Game::menuUpdate()
@@ -147,8 +148,42 @@ void Game::pauseUpdate()
 	gameData->player->showImage();
 	for (auto &enemy:gameData->enemies)
 		enemy.showImage();
-	for (auto& bullet: gameData->playerBullets)
+	for (auto &bullet: gameData->playerBullets)
 		bullet.showImage();
-	for(auto& bullet: gameData->enemyBullets)
+	for (auto &bullet: gameData->enemyBullets)
 		bullet.showImage();
+}
+
+void Game::enemyBulletMoveAndHitDeterminate()
+{
+
+	int lastNeedDeleteBullet = 0;
+	for (int j = 0; j < gameData->enemyBullets.size(); ++j)
+	{
+		gameData->enemyBullets[j].showImage();
+		if (gameData->enemyBullets[j].position.x < -30 || gameData->enemyBullets[j].position.x > 1300 ||
+		    gameData->enemyBullets[j].position.y < -30 || gameData->enemyBullets[j].position.y > 750)
+		{
+			lastNeedDeleteBullet = j;
+		}
+	}
+	//gameData->enemyBullets.erase(gameData->enemyBullets.begin(),
+	//                             gameData->enemyBullets.begin() + lastNeedDeleteBullet);
+
+	for (auto enemyBullet = gameData->enemyBullets.begin();
+	     enemyBullet < gameData->enemyBullets.end(); ++enemyBullet)
+	{
+		enemyBullet->move();
+
+		if (gameData->player->hitbox->ifBulletHit(&*enemyBullet))
+		{
+			std::cout << "hit" << std::endl;
+			if (gameData->player->damage(enemyBullet->atk))
+			{
+				gameData->gameStatus = PAUSE;
+			}
+			enemyBullet = gameData->enemyBullets.erase(enemyBullet);
+		}
+	}
+	gameData->enemyBullets.shrink_to_fit();
 }

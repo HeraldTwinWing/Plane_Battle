@@ -14,12 +14,14 @@ class Bullet
 public:
     int atk;
     int speed;
-    double pi = std::acos(-1);
+    double pi = 3.14;
+    double lastMove;
     //子弹飞行方向,以极坐标角度标记,右为正方向,单位为pi*rad
     double direction_theta;
     Window *window;
     SDL_Rect position{};
     SDL_Texture *texture;
+    std::pair<double, double> moveTemp = {0,0};
 
 
     Bullet(int atk, int speed, double direction_theta, Window *window, SDL_Point position,

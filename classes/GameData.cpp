@@ -13,7 +13,8 @@ void GameData::addPlayerBullet()
 
 void GameData::addEnemyBullet(Enemy& enemy)
 {
-    enemy.fire(enemyBullets);
+	if (enemy.if_not_in_fire_CD())
+        enemy.fire(enemyBullets);
 }
 
 void GameData::addEnemy(Enemy& enemy)

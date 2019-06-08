@@ -99,7 +99,7 @@ public:
 		return firing;
 	}
 
-	bool if_not_in_fire_CD()
+	virtual bool if_not_in_fire_CD()
 	{
 		return SDL_GetTicks() - lastFire > weapon->get_fire_interval() * 1000;
 	}
