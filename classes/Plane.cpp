@@ -1,6 +1,27 @@
 #include "Plane.h"
 
+Plane::Plane(HitBox *hitbox, Window *window, Save save) : firing(false), lastFire(0)
+{
 
+    this->maxHealth = save.planeInfo["max_health"];
+    this->health = save.planeInfo["max_health"];
+    this->speed = save.planeInfo["speed"];
+    this->hitbox = hitbox;
+    this->position.x = save.planeInfo["position_x"];
+    this->position.y = save.planeInfo["position_y"];
+    this->texture = window->loadPicture(save.textureName);
+    this->window = window;
+    this->weapon = new Weapon(BULLET);
+    this->lastMove = SDL_GetTicks();
+
+
+    position.w = 164;
+    position.h = 182;
+    fireOriginPosition.x = position.x + 150;
+    fireOriginPosition.y = position.y + 80;
+
+    //SDL_QueryTexture(texture, nullptr, nullptr, &position.w, &position.h);
+}
 Plane::Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
              const std::string &texture_name, Window *window) : firing(false), lastFire(0)
 {
