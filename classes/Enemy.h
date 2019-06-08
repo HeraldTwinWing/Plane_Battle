@@ -20,7 +20,7 @@ public:
 	std::pair<double, double> MoveTemp;
 
 	SDL_Rect originPosition;
-	double lineMoveDirection;
+	double lineMoveDirection = 1;
 	int sinMoveAmplitude;
 	double sinMovePeriod;
 	double parabolaMoveA;
@@ -38,7 +38,7 @@ public:
 	      double parabolaMoveA, double parabolaMoveB, double parabolaMoveC, SDL_Point circleMoveCenter,
 	      int circleMoveRadius, std::array<bool, 4> *moveMode);
 
-	Enemy(HitBox *hitbox, Window *window, Save save);
+	Enemy(HitBox *hitbox, Window *window, Save& save);
 
 	void spawn() override;
 

@@ -35,6 +35,7 @@ StartButton::StartButton(Window *window)
 void StartButton::clickEvent(GameData *gameData)
 {
 	gameData->gameStatus = GAMING;
+	gameData->startTime = SDL_GetTicks();
 	effective = false;
 
 }

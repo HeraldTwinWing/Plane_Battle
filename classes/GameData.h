@@ -25,6 +25,7 @@ public:
 	bool running = false;
 	bool pause = false;
 
+	double startTime = 0;
 	double thisTime = 0;
 	double lastTime = 0;
 	double deltaTime = 0;

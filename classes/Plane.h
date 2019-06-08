@@ -46,7 +46,7 @@ public:
 	//飞机所在的渲染器[图层]
 	Window *window = nullptr;
 
-    Plane(HitBox *hitbox, Window *window, Save save);
+    Plane(HitBox *hitbox, Window *window, Save &save);
 
 	Plane(int max_health, int speed, HitBox *hitbox, int coordinate_x, int coordinate_y,
 	      const std::string &texture_name, Window *window);

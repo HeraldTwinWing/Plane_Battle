@@ -9,10 +9,13 @@ Game::Game(GameData *gameData, UI *ui)
 	this->gameData = gameData;
 	this->ui = ui;
 	eventHandle = new GameEvent(gameData, ui);
+	this->level = new Level(1,gameData);
 
 	gameData->player = new Plane(1000, 400, new HitBox(SQUARE_HITBOX, 10), 0, 270,
 	                             "default_ship.png", gameData->mainWindow);
 	gameData->player->spawn();
+
+
 
 	//²âÊÔÓÃ´úÂë
 	/*
@@ -59,10 +62,7 @@ void Game::OnUpdate()
 	gameData->mainWindow->backgroundMove(gameData->thisTime, gameData->gameStatus);
 
 	if (gameData->gameStatus == GAMING)
-    {
 	    gamingUpdate();
-
-    }
 	else if (gameData->gameStatus == MAIN_MENU)
 		menuUpdate();
 	else if (gameData->gameStatus == PAUSE)
@@ -125,9 +125,8 @@ void Game::gamingUpdate()
 	gameData->player->move();
 	playerBulletMoveAndHitDeterminate();
 	gameData->player->refresh();
+	level->levelExecute();
 
-    Level level1(1,gameData);
-    level1.levelexecute();
 
 	//std::cout << playerBullets.size() << std::endl;
 	for (auto &i: gameData->enemies)

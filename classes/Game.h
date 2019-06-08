@@ -42,6 +42,7 @@ public:
 
     GameEvent *eventHandle;
     GameData *gameData;
+    Level* level;
     UI *ui;
 };
 

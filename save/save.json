@@ -32,7 +32,7 @@
       "weapon_num": 1,
       "parameter": 0,
       "movemode_line":true,
-      "movemode_sin":true,
+      "movemode_sin":false,
       "movemode_parabola":false,
       "movemode_circle":false,
       "sinMoveAmplitude":0,
@@ -56,7 +56,7 @@
       "weapon_num": 1,
       "parameter": 0,
       "movemode_line":true,
-      "movemode_sin":true,
+      "movemode_sin":false,
       "movemode_parabola":false,
       "movemode_circle":false,
       "sinMoveAmplitude":0,
@@ -67,7 +67,7 @@
       "circleMoveCenter_x":0,
       "circleMoveCenter_y":0,
       "circleMoveRadius":0,
-      "spawnTime": 2.0;
+      "spawnTime": 2.0
     }
   }
 }

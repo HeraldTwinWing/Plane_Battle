@@ -1,13 +1,12 @@
 #include "Enemy.h"
 
 Enemy::Enemy(HitBox *hitbox, Window *window,
-             Save save)//:Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
-		: Plane(hitbox, window, std::move(save))
+             Save& save)//:Plane(max_health, speed, hitbox, coordinate_x, coordinate_y, texture_name, window)
+		: Plane(hitbox, window, save)
 {
 	lastMove = SDL_GetTicks();
 	parameter = 0;
 	originPosition = position;
-	lastMove = SDL_GetTicks();
 	sinMoveTemp = 0;
     this->spawntime = save.spawnTime;
 	this->sinMoveAmplitude = save.planeInfo["sinMoveAmplitude"];
@@ -34,7 +33,6 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 	lastMove = SDL_GetTicks();
 	parameter = 0;
 	originPosition = position;
-	lastMove = SDL_GetTicks();
 	sinMoveTemp = 0;
 
 	this->sinMoveAmplitude = sinMoveAmplitude;
@@ -73,8 +71,8 @@ void Enemy::refresh()
 	fireOriginPosition.x = position.x + 100;
 	fireOriginPosition.y = position.y + 86;
 
-	//std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
-	//std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y  << std::endl;
+	std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
+	std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y  << std::endl;
 	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
 }
 
@@ -101,12 +99,10 @@ void Enemy::MoveAsSin()
 		position.y = std::ceil(originPosition.y + sinMoveTemp);
 	}
 
-	//���Դ���
 	//std::cout << "time:" << timeLength << std::endl;
 
 	parameter += timeLength;
 
-	//���Դ���
 	//std::cout << "t:" << parameter << std::endl;
 }
 
