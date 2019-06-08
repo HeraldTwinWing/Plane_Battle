@@ -25,6 +25,7 @@ public:
     void getEnemyInfo();
     void getLevelOneInfo(int levelnum,int enemynum);
     std::map<std::string,int> planeInfo;
+    std::array<bool,4> movemode;
     std::string textureName;
 
 };

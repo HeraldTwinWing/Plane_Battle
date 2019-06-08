@@ -10,6 +10,16 @@ Enemy::Enemy(HitBox *hitbox, Window *window,
 	lastMove = SDL_GetTicks();
 	sinMoveTemp = 0;
 
+	this->sinMoveAmplitude = save.planeInfo["sinMoveAmplitude"];
+	this->sinMovePeriod = save.planeInfo["sinMovePeriod"];
+	this->parabolaMoveA = save.planeInfo["parabolaMoveA"];
+	this->parabolaMoveB = save.planeInfo["parabolaMoveB"];
+	this->parabolaMoveC = save.planeInfo["parabolaMoveC"];
+	this->circleMoveCenter.x = save.planeInfo["circleMoveCenter_x"];
+	this->circleMoveCenter. = save.planeInfo["circleMoveCenter_y"];
+	this->circleMoveRadius = save.planeInfo["circleMoveRadius"];
+	this->moveMode = new std::array<bool,4>(save.movemode);
+
 	weapon = new Weapon(1, 0.5, false);
 	//std::cout<<this->maxHealth<< this->health<<this->speed<<this->position.x<<this->position.y<<std::endl;
 }
@@ -90,12 +100,12 @@ void Enemy::MoveAsSin()
 		position.y = std::ceil(originPosition.y + sinMoveTemp);
 	}
 
-	//²âÊÔ´úÂë
+	//ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½
 	//std::cout << "time:" << timeLength << std::endl;
 
 	parameter += timeLength;
 
-	//²âÊÔ´úÂë
+	//ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½
 	//std::cout << "t:" << parameter << std::endl;
 }
 
