@@ -18,8 +18,10 @@ Enemy::Enemy(HitBox *hitbox, Window *window,
 	this->circleMoveCenter.y = save.planeInfo["circleMoveCenter_y"];
 	this->circleMoveRadius = save.planeInfo["circleMoveRadius"];
 	this->moveMode = new std::array<bool, 4>(save.movemode);
-
-	weapon = new Weapon(1, 0.5, false);
+	this->width = save.planeInfo["Width"];
+	this->height = save.planeInfo["Height"];
+	SDL_QueryTexture(texture, nullptr, nullptr,&this->width,&this->height);
+			weapon = new Weapon(1, 0.5, false);
 	//std::cout<<this->maxHealth<< this->health<<this->speed<<this->position.x<<this->position.y<<std::endl;
 }
 
@@ -71,8 +73,8 @@ void Enemy::refresh()
 	fireOriginPosition.x = position.x + 100;
 	fireOriginPosition.y = position.y + 86;
 
-	std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
-	std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y << std::endl;
+	//std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
+	//std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y << std::endl;
 	SDL_RenderCopyEx(window->getRenderer(), texture, nullptr, &position, lineMoveDirection * 180, nullptr,
 	                 SDL_FLIP_NONE);
 }

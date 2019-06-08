@@ -30,6 +30,8 @@ public:
 	int circleMoveRadius;
 	std::array<bool, 4> *moveMode;
 	double spawntime;
+	int width;
+	int height;
 
 	Enemy() = default;
 
