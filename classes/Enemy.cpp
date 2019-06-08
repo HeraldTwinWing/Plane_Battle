@@ -9,7 +9,7 @@ Enemy::Enemy(HitBox *hitbox, Window *window,
 	originPosition = position;
 	lastMove = SDL_GetTicks();
 	sinMoveTemp = 0;
-
+    this->spawntime = save.spawnTime;
 	this->sinMoveAmplitude = save.planeInfo["sinMoveAmplitude"];
 	this->sinMovePeriod = save.planeInfo["sinMovePeriod"];
 	this->parabolaMoveA = save.planeInfo["parabolaMoveA"];

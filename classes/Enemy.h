@@ -29,6 +29,7 @@ public:
 	SDL_Point circleMoveCenter;
 	int circleMoveRadius;
 	std::array<bool, 4> *moveMode;
+	double spawntime;
 
 	Enemy() = default;
 

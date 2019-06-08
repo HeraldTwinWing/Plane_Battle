@@ -87,7 +87,7 @@ void Save::getLevelInfo(int levelnum,int enemynum)
     int circleMoveCenter_x = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("circleMoveCenter_x").get<int>();
     int circleMoveCenter_y = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("circleMoveCenter_y").get<int>();
     int circleMoveRadius = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("circleMoveRadius").get<int>();
-
+    auto spawnTime = jSave.at("Level"+std::to_string(levelnum)).at("Enemy"+std::to_string(enemynum)).at("spawnTime").get<double>();
     planeInfo["max_health"] = max_health;
     planeInfo["health"] = health;
     planeInfo["speed"] = speed;
@@ -105,7 +105,7 @@ void Save::getLevelInfo(int levelnum,int enemynum)
     planeInfo["circleMoveCenter_x"] = circleMoveCenter_x;
     planeInfo["circleMoveCenter_y"] = circleMoveCenter_y;
     planeInfo["circleMoveRadius"] = circleMoveRadius;
-
+    this->spawnTime = spawnTime;
 
 }
 
