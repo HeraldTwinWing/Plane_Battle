@@ -4,8 +4,6 @@
 
 #include "UI.h"
 
-Button::Button() = default;
-
 PauseButton::PauseButton(Window *window)
 {
 	texture = window->loadPicture("PauseButton.png");
