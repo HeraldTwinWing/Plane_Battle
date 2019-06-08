@@ -15,12 +15,6 @@ PauseButton::PauseButton(Window *window)
 	positionAndSize.y = 0;
 }
 
-PauseButton::PauseButton(SDL_Rect positionAndSize)
-{
-	effective = false;
-	this->positionAndSize = positionAndSize;
-}
-
 void PauseButton::clickEvent(GameData *gameData)
 {
 	if (!gameData->pause)
@@ -40,12 +34,6 @@ StartButton::StartButton(Window *window)
 
 }
 
-StartButton::StartButton(SDL_Rect positionAndSize)
-{
-	effective = false;
-	this->positionAndSize = positionAndSize;
-}
-
 void StartButton::clickEvent(GameData *gameData)
 {
 	gameData->gameStatus = GAMING;
@@ -61,15 +49,26 @@ ExitButton::ExitButton(Window *window)
 	positionAndSize.y = 720 - positionAndSize.h;
 }
 
-ExitButton::ExitButton(SDL_Rect positionAndSize)
-{
-	effective = false;
-	this->positionAndSize = positionAndSize;
-}
-
 void ExitButton::clickEvent(GameData *gameData)
 {
 	gameData->running = false;
+}
+
+void UI::clickButton(int x, int y, GameData *gameData)
+{
+	SDL_Point mousePos = {x, y};
+	for (auto button: *buttons[gameData->gameStatus])
+		if (SDL_PointInRect(&mousePos, &button->positionAndSize) && button->effective)
+			button->clickEvent(gameData);
+}
+
+ContinueButton::ContinueButton(Window *window)
+{
+	texture = window->loadPicture("Continue.png");
+	effective = false;
+	SDL_QueryTexture(texture, nullptr, nullptr, &positionAndSize.w, &positionAndSize.h);
+	positionAndSize.x = 0;
+	positionAndSize.y = 720 - positionAndSize.h;
 }
 
 UI::UI(Window *window)
@@ -81,20 +80,20 @@ UI::UI(Window *window)
 		button->effective = true;
 	gamingButtons.push_back(new PauseButton(window));
 	pauseButtons.push_back(new ExitButton(window));
+	pauseButtons.push_back(new ContinueButton(window));
 }
 
 
-void UI::clickButton(int x, int y, GameData *gameData)
+void ContinueButton::clickEvent(GameData *gameData)
 {
-	SDL_Point mousePos = {x, y};
-	for (auto button: *buttons[gameData->gameStatus])
-		if (SDL_PointInRect(&mousePos, &button->positionAndSize) && button->effective)
-			button->clickEvent(gameData);
+	gameData->gameStatus = GAMING;
 }
 
-void UI::showButton(Window *window, GameData *gameData)
+void UI::refreshUI(Window *window, GameData *gameData)
 {
 	int currentStatus = gameData->gameStatus;
+
+	//激活并显示按钮
 	switch (gameData->gameStatus)
 	{
 		case MAIN_MENU:
@@ -105,7 +104,7 @@ void UI::showButton(Window *window, GameData *gameData)
 			}
 			break;
 		case GAMING:
-			for (auto& button: gamingButtons)
+			for (auto &button: gamingButtons)
 			{
 				button->effective = true;
 				SDL_RenderCopy(window->getRenderer(), button->texture, nullptr, &button->positionAndSize);
@@ -119,14 +118,12 @@ void UI::showButton(Window *window, GameData *gameData)
 			}
 			break;
 	}
+
+	// 游戏状态发生变化时将当前界面的按钮无效化
 	if (currentStatus != gameData->gameStatus)
 	{
 		auto invalidButtons = buttons[currentStatus];
 		for (auto button:*invalidButtons)
 			button->effective = false;
-//		auto activeButtons = buttons[gameData->gameStatus];
-//		for (auto button:*activeButtons)
-//			button->effective = true;
 	}
 }
-

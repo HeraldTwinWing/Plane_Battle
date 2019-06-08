@@ -60,7 +60,7 @@ void Game::OnUpdate()
 		menuUpdate();
 	else if (gameData->gameStatus == PAUSE)
 		pauseUpdate();
-	this->ui->showButton(gameData->mainWindow, gameData);
+	this->ui->refreshUI(gameData->mainWindow, gameData);
 }
 
 void Game::OnRender()

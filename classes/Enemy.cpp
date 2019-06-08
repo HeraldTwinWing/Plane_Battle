@@ -39,7 +39,6 @@ Enemy::Enemy(int max_health, int speed, HitBox *hitbox, int coordinate_x, int co
 	weapon = new Weapon(1, 0.5, false);
 }
 
-
 Enemy::~Enemy() = default;
 
 void Enemy::move()
@@ -59,8 +58,10 @@ void Enemy::refresh()
 {
 	move();
 
-	hitbox->center_x = position.x;
-	hitbox->center_y = position.y;
+	hitbox->set_x(position.x + position.w / 2);
+	hitbox->set_y(position.y + position.h / 2);
+	fireOriginPosition.x = position.x + 100;
+	fireOriginPosition.y = position.y + 86;
 
 	//std::cout << "x:" << position.x << "  y: " << position.y << std::endl;
 	//std::cout << "x:" << hitbox->center_x << "  y: " << hitbox->center_y  << std::endl;
@@ -138,4 +139,10 @@ void Enemy::MoveAsCircle()
 void Enemy::showImage()
 {
 	SDL_RenderCopy(window->getRenderer(), texture, nullptr, &position);
+}
+
+void Enemy::fire(std::deque<Bullet> &enemyBullets)
+{
+	lastFire = SDL_GetTicks();
+	enemyBullets.push_back(weapon->fire(window, window->loadPicture("enemyBullet.png"), &fireOriginPosition));
 }

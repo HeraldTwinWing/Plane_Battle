@@ -30,8 +30,6 @@ struct PauseButton : Button
 {
 	explicit PauseButton(Window *window);
 
-	explicit PauseButton(SDL_Rect);
-
 	void clickEvent(GameData *gameData) override;
 
 	~PauseButton() override = default;
@@ -42,8 +40,6 @@ struct StartButton : Button
 {
 	explicit StartButton(Window *window);
 
-	explicit StartButton(SDL_Rect positionAndSize);
-
 	void clickEvent(GameData *gameData) override;
 
 	~StartButton() override = default;
@@ -53,11 +49,18 @@ struct ExitButton : Button
 {
 	explicit ExitButton(Window *window);
 
-	explicit ExitButton(SDL_Rect positionAndSize);
-
 	void clickEvent(GameData *gameData) override;
 
 	~ExitButton() override = default;
+};
+
+struct ContinueButton : Button
+{
+	explicit ContinueButton(Window *window);
+
+	void clickEvent(GameData *gameData) override;
+
+	~ContinueButton() override = default;
 };
 
 struct UI
@@ -73,7 +76,7 @@ struct UI
 	//在GameEvent中调用
 	void clickButton(int x, int y, GameData *gameData);
 
-	void showButton(Window *window, GameData *gameData);
+	void refreshUI(Window *window, GameData *gameData);
 };
 
 

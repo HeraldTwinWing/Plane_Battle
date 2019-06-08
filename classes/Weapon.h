@@ -12,7 +12,7 @@ enum WeaponCategoryEnum
 
 class Weapon
 {
-private:
+public:
 	double fire_interval;
 
 	//开火时瞄准玩家
@@ -21,7 +21,7 @@ private:
 	std::vector<int> directions;
 	int direction;
 	WeaponCategoryEnum category;
-public:
+
     Weapon(std::vector<int> directions, double fire_interval, bool aim);
 	Weapon(int direction, double fire_interval, bool aim);
     explicit Weapon(WeaponCategoryEnum weapon_category);

@@ -43,6 +43,8 @@ public:
 
 	void move() override;
 
+	void fire(std::deque<Bullet> &enemyBullets) override ;
+
 	//Ë¢ĞÂ×´Ì¬¼°ÌùÍ¼
 	void refresh() override;
 
