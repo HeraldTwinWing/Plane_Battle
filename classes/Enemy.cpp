@@ -16,7 +16,7 @@ Enemy::Enemy(HitBox *hitbox, Window *window,
 	this->parabolaMoveB = save.planeInfo["parabolaMoveB"];
 	this->parabolaMoveC = save.planeInfo["parabolaMoveC"];
 	this->circleMoveCenter.x = save.planeInfo["circleMoveCenter_x"];
-	this->circleMoveCenter. = save.planeInfo["circleMoveCenter_y"];
+	this->circleMoveCenter.y = save.planeInfo["circleMoveCenter_y"];
 	this->circleMoveRadius = save.planeInfo["circleMoveRadius"];
 	this->moveMode = new std::array<bool,4>(save.movemode);
 

@@ -19,7 +19,7 @@ struct Button
 
 	bool effective;
 
-	Button();
+	Button() = default;
 
 	virtual void clickEvent(GameData *gameData) = 0;
 
