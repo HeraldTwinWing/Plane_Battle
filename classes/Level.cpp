@@ -44,104 +44,112 @@ void Level::levelExecute()
             }
             break;
         case 1:
-            if (deltaGaminTime >= 2)
+            if (deltaGaminTime >= 4)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 2:
-            if (deltaGaminTime >= 2)
+            if (deltaGaminTime >= 4)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 3:
-            if (deltaGaminTime >= 4)
+            if (deltaGaminTime >= 8)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 4:
-            if (deltaGaminTime >= 4)
+            if (deltaGaminTime >= 8)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 5:
-            if (deltaGaminTime >= 6)
+            if (deltaGaminTime >= 12)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 6:
-            if (deltaGaminTime >= 6)
+            if (deltaGaminTime >= 12)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 7:
-            if (deltaGaminTime >= 6)
+            if (deltaGaminTime >= 12)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 8:
-            if (deltaGaminTime >= 6)
+            if (deltaGaminTime >= 12)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 9:
-            if (deltaGaminTime >= 8)
+            if (deltaGaminTime >= 16)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 10:
-            if (deltaGaminTime >= 8)
+            if (deltaGaminTime >= 16)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 11:
-            if (deltaGaminTime >= 10)
+            if (deltaGaminTime >= 20)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 12:
-            if (deltaGaminTime >= 10)
+            if (deltaGaminTime >= 20)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 13:
-            if (deltaGaminTime >= 10)
+            if (deltaGaminTime >= 20)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         case 14:
-            if (deltaGaminTime >= 10)
+            if (deltaGaminTime >= 20)
+            {
+                spawnEntity("enemy", levelNum, count);
+                ++count;
+            }
+            break;
+        case 15:
+            if (deltaGaminTime >= 25)
             {
                 spawnEntity("enemy", levelNum, count);
                 ++count;
             }
             break;
         default:
+            /*
             count = 0;
             gameData->startTime = SDL_GetTicks();
             ++loopNum;
@@ -149,6 +157,7 @@ void Level::levelExecute()
             {
                 gameData->gameStatus = PAUSE;
             }
+             */
             break;
     }
 
